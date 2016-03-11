@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "react": "^0.14.7",
+    "react-router": "^2.0.1",
+    "webpack": "^1.12.14"
+  },
+  "devDependencies": {
+    "eslint": "^2.3.0",
+    "eslint-config-airbnb": "^6.1.0",
+    "eslint-plugin-react": "^4.2.1"
+  }
+}
