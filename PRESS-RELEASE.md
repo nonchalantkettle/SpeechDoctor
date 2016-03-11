@@ -32,7 +32,7 @@ Once the project moves into development, the press release can be used as a touc
   > "Everyone could use a little practice speaking articulately, and Speech Doctor makes this practice easy" - Alexxis Johnson, Speech Doctor team
 
 ## How to Get Started ##
-  > Simply visit [our domain], create your account, and analyze your text and writing!
+  > Simply visit [our website](https://github.com/nonchalantkettle/SpeechDoctor), create your account, and analyze your text and writing!
 
 
   > "I used to say 'like' all the time, and Speech Doctor helped me fix this issue!" - a Speech Doctor customer
