@@ -1,6 +1,6 @@
 # Speech Doctor
 
-> Analyze and improve your speech and writing
+> Analyzer for text and speech
 
 ## Team
 
@@ -20,15 +20,12 @@
 
 ## Usage
 
-> Some usage instructions
+> To use Speech Doctor, please visit our website at [a domain]
 
 ## Requirements
 
 - Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- MongoDB 3.2.x
 
 ## Development
 
@@ -44,7 +41,7 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/nonchalantkettle/SpeechDoctor/issues)
 
 
 ## Contributing
