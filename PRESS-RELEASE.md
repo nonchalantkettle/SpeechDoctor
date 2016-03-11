@@ -1,4 +1,4 @@
- ## Speech Doctor ##
+ # Speech Doctor #
 
 <!--
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -17,8 +17,7 @@ Once the project moves into development, the press release can be used as a touc
  -->
 
 
-## Writing and Speech Analytics ##
-  > Improve your speech and writing with personalized analytics and suggestions for improvement.
+  > Writing and Speech Analytics
 
 ## The Concept ##
   > Become more eloquent - easily - with Speech Doctor. Record yourself speaking or upload some text, and Speech Doctor will provide custom analytics detailing your habits and provide ways to improve your speech habits, vocabulary and grammar. Observe your progress over time, and collaborate with others to give and receive feedback.
