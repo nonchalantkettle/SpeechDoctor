@@ -1,4 +1,4 @@
-# Speech Doctor #
+ # Speech Doctor #
 
 <!--
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -20,23 +20,23 @@ Once the project moves into development, the press release can be used as a touc
 ## Writing and Speech Analytics ##
   > Improve your speech and writing with personalized analytics and suggestions for improvement.
 
-## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+## The Concept ##
+  > Become more eloquent - easily - with Speech Doctor. Record yourself speaking or upload some text, and Speech Doctor will provide custom analytics detailing your habits and provide ways to improve your speech habits, vocabulary and grammar. Observe your progress over time, and collaborate with others to give and receive feedback.
 
-## Problem ##
-  > Describe the problem your product solves.
+## The Problem ##
+  > No simple and fast way to become more eloquent and receive feedback on speech and writing habits
 
-## Solution ##
-  > Describe how your product elegantly solves the problem.
+## The Solution ##
+  > Speech Doctor provides an easy-to-use and fast-acting environment to practice speaking and writing eloquently and to give feedback and suggestions immediately
 
-## Quote from You ##
-  > A quote from a spokesperson in your company.
+
+  > "Everyone could use a little practice speaking articulately, and Speech Doctor makes this practice easy" - Alexxis Johnson, Speech Doctor team
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Simply visit [our domain], create your account, and analyze your text and writing!
 
-## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
 
-## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > "I used to say 'like' all the time, and Speech Doctor helped me fix this issue!" - a Speech Doctor customer
+
+## What Next? ##
+  > To get started using Speech Doctor, please visit our website. To contribute to the open source repository, please follow the guidelines outlined [here].
