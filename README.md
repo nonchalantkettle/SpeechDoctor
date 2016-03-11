@@ -20,7 +20,7 @@
 
 ## Usage
 
-> To use Speech Doctor, please visit our website at [a domain]
+> To use Speech Doctor, please visit our website [here](https://github.com/nonchalantkettle/SpeechDoctor). For more information on the application, please click [here](PRESS-RELEASE.md).
 
 ## Requirements
 
