@@ -25,12 +25,15 @@
     "eslint": "^2.4.0",
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-react": "^4.2.1",
+    "nodemon": "^1.9.1",
     "precommit-hook": "^3.0.0",
+    "precommit-hook-eslint": "^3.0.0",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.10.0"
   },
   "dependencies": {
+    "eslint-plugin-react": "^4.2.1",
     "express": "^4.13.4",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
@@ -38,12 +41,15 @@
     "require-lint": "^1.1.1"
   },
   "scripts": {
-    "lint": "./node_modules/.bin/eslint .",
+    "lint-client": "./node_modules/.bin/eslint ./client/**/*",
+    "lint-server": "./node_modules/.bin/eslint ./server/**/*",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "validate": "npm ls"
+    "start": "nodemon server/server.js",
+    "validate": "npm ls",
+    "lint": "eslint ."
   },
   "pre-commit": [
-    "lint"
+    "lint-client",
+    "lint-server"
   ]
 }
