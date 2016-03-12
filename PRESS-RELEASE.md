@@ -1,4 +1,4 @@
- # Speech Doctor #
+# Speech Doctor #
 
 <!--
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -17,11 +17,10 @@ Once the project moves into development, the press release can be used as a touc
  -->
 
 
-## Writing and Speech Analytics ##
-  > Improve your speech and writing with personalized analytics and suggestions for improvement.
+  > Writing and Speech Analytics
 
 ## The Concept ##
-  > Become more eloquent - easily - with Speech Doctor. Record yourself speaking or upload some text, and Speech Doctor will provide custom analytics detailing your habits and provide ways to improve your speech habits, vocabulary and grammar. Observe your progress over time, and collaborate with others to give and receive feedback.
+  > Become more eloquent - easily - with Speech Doctor. Record yourself talking or upload some text, and Speech Doctor will provide custom analytics detailing your habits and will suggest ways to improve your speaking, vocabulary and grammar. Observe your progress over time, and collaborate with others to give and receive feedback.
 
 ## The Problem ##
   > No simple and fast way to become more eloquent and receive feedback on speech and writing habits
@@ -33,10 +32,10 @@ Once the project moves into development, the press release can be used as a touc
   > "Everyone could use a little practice speaking articulately, and Speech Doctor makes this practice easy" - Alexxis Johnson, Speech Doctor team
 
 ## How to Get Started ##
-  > Simply visit [our domain], create your account, and analyze your text and writing!
+  > Simply visit [our website](https://github.com/nonchalantkettle/SpeechDoctor), create your account, and analyze your text and writing!
 
 
   > "I used to say 'like' all the time, and Speech Doctor helped me fix this issue!" - a Speech Doctor customer
 
 ## What Next? ##
-  > To get started using Speech Doctor, please visit our website. To contribute to the open source repository, please follow the guidelines outlined [here].
+  > To get started using Speech Doctor, please visit our website. To contribute to the open source repository, please follow the guidelines outlined [here](CONTRIBUTING.md).
