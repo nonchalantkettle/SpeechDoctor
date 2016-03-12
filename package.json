@@ -25,6 +25,7 @@
     "eslint": "^2.4.0",
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-react": "^4.2.1",
+    "nodemon": "^1.9.1",
     "precommit-hook": "^3.0.0",
     "precommit-hook-eslint": "^3.0.0",
     "webpack": "^1.12.14",
@@ -43,7 +44,7 @@
     "lint-client": "./node_modules/.bin/eslint ./client/**/*",
     "lint-server": "./node_modules/.bin/eslint ./server/**/*",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "nodemon server/server.js",
     "validate": "npm ls",
     "lint": "eslint ."
   },
