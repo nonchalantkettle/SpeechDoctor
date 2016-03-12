@@ -25,6 +25,7 @@
     "eslint": "^2.4.0",
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-react": "^4.2.1",
+    "precommit-hook": "^3.0.0",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.10.0"
@@ -39,6 +40,10 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  }
+    "start": "node server.js",
+    "validate": "npm ls"
+  },
+  "pre-commit": [
+    "lint"
+  ]
 }
