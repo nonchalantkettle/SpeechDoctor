@@ -8,7 +8,6 @@ function countEachWord(textInput) {
   // split up input string into arrays by spaces and newline chars
   const whiteSpaceChars = /\s/;
   const allWords = textInput.split(whiteSpaceChars);
-
   const wordCountObject = {};
 
   allWords.forEach((currentWord) => {
@@ -26,7 +25,6 @@ function countEachWord(textInput) {
 
   return wordCountObject;
 }
-
 
 // find the top three most-used words, excluding 'the', 'a', 'an', and 'and'
 function topThreeWords(wordCountObject) {
@@ -56,7 +54,6 @@ function topThreeWords(wordCountObject) {
     delete copiedObj[mostUsed];
   }
 
-
   while (i < 3) {
     if (Object.keys(copiedObj).length) {
       findCurrentLargest(copiedObj);
@@ -67,7 +64,20 @@ function topThreeWords(wordCountObject) {
   return mostCommonWords;
 }
 
+// checks to see if any 'avoid' words (words the user wants to avoid) were used
+function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
+  const wordsUsed = {};
+  wordsToAvoidArr.forEach((word) => {
+    if (allWordsUsedObj[word]) {
+      wordsUsed[word] = allWordsUsedObj[word];
+    }
+  });
+  return wordsUsed;
+}
+
 /* for the linter: */
 const someWordObj = countEachWord('hi i am a owrkdwejlkjf oujfijlk  lkjh ihihihi hi hi hi');
-const topThree = topThreeWords(someWordObj);
+const avoid = ['i'];
+checkWordsToAvoid(avoid, someWordObj);
+const topThree = topThreeWords(someWordObj); // apparently modifies original someWordObj
 console.log(topThree);
