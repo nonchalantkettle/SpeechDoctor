@@ -11,7 +11,8 @@ function countEachWord( textInput ) {
   let wordCountObject = {};
 
   for (var i = 0; i < allWords.length; i++) {
-    let currentWord = allWords[i];
+    // get rid of punctuation and make word lowercase
+    let currentWord = allWords[i].replace(/\W/g, '').toLowerCase();
     if (!wordCountObject[currentWord]) {
       wordCountObject[currentWord] = 1;
     } else {
