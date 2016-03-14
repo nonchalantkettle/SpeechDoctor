@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 // import { Router, Route, Link, IndexRoute, browserHistory, hashHistory } from 'react-router';
 
-import Nav from './Nav';
-
+import Nav from './Nav.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -21,7 +20,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <Nav />
+      <div>
+        <Nav />
+        <h1>in App</h1>
+      </div>
     );
   }
 }
