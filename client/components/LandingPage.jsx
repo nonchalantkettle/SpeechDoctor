@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router';
 
-export default class Nav extends React.Component {
+export default class LandingPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,14 +13,9 @@ export default class Nav extends React.Component {
       showText: true,
     });
   }
-
   render() {
     return (
-      <div>
-        <Link to="/">Home</Link>
-        <Link to="text">TextView</Link>
-        <Link to="speech">Speech</Link>
-      </div>
+      <h1>LANDING PAGE!</h1>
     );
   }
 }
