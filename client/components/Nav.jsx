@@ -18,9 +18,15 @@ export default class Nav extends React.Component {
   render() {
     return (
       <div>
-        <Link to="/">Home</Link>
-        <Link to="text">TextView</Link>
-        <Link to="speech">Speech</Link>
+
+        { this.props.onLandingPage ? <Link to="profile">Profile</Link> :
+        <div>
+          <Link to="/">Home</Link>
+          <Link to="text">TextView</Link>
+          <Link to="speech">Speech</Link>
+          <Link to="profile">Profile</Link>
+        </div>
+        }
       </div>
     );
   }
