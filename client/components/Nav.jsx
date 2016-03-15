@@ -11,7 +11,7 @@ export default class Nav extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="navbar">
         {
           this.props.onLandingPage ? <Link to="profile">Profile</Link> :
             <div>
