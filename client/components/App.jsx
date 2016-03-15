@@ -10,7 +10,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showText: false,
+      // showText: false,
+      onLandingPage: false,
     };
   }
 
@@ -36,6 +37,7 @@ ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={LandingPage} />
+      <Route path="/home" component={LandingPage} />
       <Route path="/speech" component={SpeechView} />
       <Route path="/text" component={TextView} />
     </Route>

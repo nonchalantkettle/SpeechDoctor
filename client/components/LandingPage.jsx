@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 export default class LandingPage extends React.Component {
   constructor(props) {
@@ -15,7 +16,11 @@ export default class LandingPage extends React.Component {
   }
   render() {
     return (
-      <h1>LANDING PAGE!</h1>
+      <div>
+        <h1>Landing Page!</h1>
+        <Link to="text"> Analyze Text </Link>
+        <Link to="speech"> Analyze Speech </Link>
+      </div>
     );
   }
 }
