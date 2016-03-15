@@ -13,9 +13,17 @@ h1 {
   margin: 35px;
 }
 
+ul {
+  list-style: none;
+}
+
 #navbar {
   border: 1px solid black;
   padding: 20px;
+}
+
+li .navlink {
+  display: inline;
 }
 
 #landingButton {
