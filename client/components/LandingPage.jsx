@@ -1,4 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router';
+
+import LandingButton from './LandingButton.jsx'
 
 export default class LandingPage extends React.Component {
   constructor(props) {
@@ -8,17 +11,11 @@ export default class LandingPage extends React.Component {
     };
   }
 
-  handleClick() {
-    this.setState({
-      showText: true,
-    });
-  }
   render() {
     return (
       <div>
         <h1>Landing Page!</h1>
-        <Link to="text"> Analyze Text </Link>
-        <Link to="speech"> Analyze Speech </Link>
+        <LandingButton handleLandingBtnClick={this.props.handleLandingBtnClick}/>
       </div>
     );
   }
