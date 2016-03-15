@@ -18,9 +18,9 @@ export default class Nav extends React.Component {
   render() {
     return (
       <div>
-        <Link to="/">Home</Link>
-        <Link to="text">TextView</Link>
-        <Link to="speech">Speech</Link>
+        <Link to="/home"> Home </Link>
+        <Link to="text"> Analyze Text </Link>
+        <Link to="speech"> Analyze Speech </Link>
       </div>
     );
   }
