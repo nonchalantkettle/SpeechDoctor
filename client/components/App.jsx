@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import { Router, Route, Link, IndexRoute, browserHistory, hashHistory } from 'react-router';
-
+import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import TextView from './TextView.jsx';
+import SpeechView from './SpeechView.jsx';
 import Nav from './Nav.jsx';
+import LandingPage from './LandingPage.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -22,13 +24,20 @@ class App extends React.Component {
     return (
       <div>
         <Nav />
-        <h1>in App</h1>
+        {this.props.children}
       </div>
     );
   }
 }
 
+const app = document.getElementById('app');
+
 ReactDOM.render(
-  <App />,
-  document.getElementById('app')
-);
+  <Router history={hashHistory}>
+    <Route path="/" component={App}>
+      <IndexRoute component={LandingPage} />
+      <Route path="/speech" component={SpeechView} />
+      <Route path="/text" component={TextView} />
+    </Route>
+  </Router>,
+  app);
