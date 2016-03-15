@@ -29,7 +29,7 @@ export default class TextView extends React.Component {
   }
 
   render() {
-    let analytics = this.state.visibleAnalytics ? <TextAnalytics /> : "";
+    let analytics = this.state.visibleAnalytics ? <TextAnalytics text={this.state.value}/> : "";
     let enteredText = this.state.value;
     return (
       <div>
@@ -38,7 +38,6 @@ export default class TextView extends React.Component {
            <button onClick={this.analyzeText}>Analyze</button>
            <button onClick={this.resetText}>Reset</button>
            <div>{this.state.value}</div>
-           <div>{analytics}</div>
       </div>
     );
   }

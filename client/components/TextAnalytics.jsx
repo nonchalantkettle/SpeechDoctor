@@ -18,9 +18,8 @@ export default class TextAnalytics extends React.Component {
   render() {
     return (
       <div>
-        Text analytics go here!
+        {this.props.text}
       </div>
     );
   }
 }
-
