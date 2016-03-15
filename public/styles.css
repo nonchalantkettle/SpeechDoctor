@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  width: 100%;
   font-family: 'Raleway', sans-serif;
   font-weight: 400;
   color: #30302f;
@@ -8,13 +9,17 @@ body {
 
 h1 {
   font-weight: 100;
+  font-size: 4em;
+  margin: 35px;
 }
 
 #navbar {
-
+  border: 1px solid black;
+  padding: 20px;
 }
 
 #landingButton {
   font-weight: 300;
   font-style: italic;
+  border: 1px solid black;
 }
