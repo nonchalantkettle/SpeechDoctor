@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 export default class LandingButton extends React.Component {
   constructor(props) {
@@ -10,7 +11,9 @@ export default class LandingButton extends React.Component {
 
   render() {
     return (
-      <button onClick={this.props.handleLandingBtnClick}>LandingButton</button>
+      <div id="landingButton">
+        <Link onClick={this.props.handleLandingBtnClick} to="/text">LandingButton</Link>
+      </div>
     );
   }
 }
