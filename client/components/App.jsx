@@ -10,20 +10,21 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showText: false,
+      // showText: false,
+      onLandingPage: true,
     };
   }
 
   handleClick() {
     this.setState({
-      showText: true,
+      onLandingPage: false,
     });
   }
 
   render() {
     return (
       <div>
-        <Nav />
+        <Nav onLandingPage={this.state.onLandingPage} />
         {this.props.children}
       </div>
     );
