@@ -15,7 +15,16 @@ export default class LandingPage extends React.Component {
     return (
       <div>
         <h1>Landing Page!</h1>
-        <LandingButton handleLandingBtnClick={this.props.handleLandingBtnClick}/>
+        <LandingButton
+          handleLandingBtnClick={this.props.handleLandingBtnClick}
+          directTo={'text'}
+          buttonName={'Click to analyze text'}
+        />
+        <LandingButton
+          handleLandingBtnClick={this.props.handleLandingBtnClick}
+          directTo={'speech'}
+          buttonName={'Click to analyze speech'}
+        />
       </div>
     );
   }
