@@ -15,6 +15,12 @@ class App extends React.Component {
     };
   }
 
+  handleHomeClick = () => {
+    this.setState({
+      onLandingPage: true,
+    });
+  }
+
   handleLandingBtnClick = () => {
     this.setState({
       onLandingPage: !this.state.onLandingPage,
@@ -30,7 +36,7 @@ class App extends React.Component {
     });
     return (
       <div>
-        <Nav onLandingPage={this.state.onLandingPage} />
+        <Nav onLandingPage={this.state.onLandingPage} handleHomeClick={this.handleHomeClick}/>
         {Children}
       </div>
     );
