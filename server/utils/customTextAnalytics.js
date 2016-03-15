@@ -2,7 +2,6 @@
  * Helper functions for custom text analytics
  */
 
-
 // get each word's word count
 function countEachWord(textInput) {
   // split up input string into arrays by spaces and newline chars
@@ -29,8 +28,11 @@ function countEachWord(textInput) {
 // find the top three most-used words, excluding 'the', 'a', 'an', and 'and'
 function topThreeWords(wordCountObject) {
   const wordsToIgnore = /the\b|a\b|an\b|and\b/;
-  const copiedObj = wordCountObject;
+
+  // avoid modifying original wordCountObject
+  const copiedObj = JSON.parse(JSON.stringify(wordCountObject));
   const mostCommonWords = {};
+
   const wordKeys = Object.keys(copiedObj);
   let i = 0;
 
@@ -72,12 +74,39 @@ function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
       wordsUsed[word] = allWordsUsedObj[word];
     }
   });
-  return wordsUsed;
+
+  if (Object.keys(wordsUsed).length) {
+    return wordsUsed;
+  }
+
+  return 'Congrats! You didn\'t use any of the words you were avoiding!';
 }
 
+
+// call helper functions to get analytics
+function analyzeText(userTextInput, wordsToAvoid) {
+  const analytics = {};
+
+  // word totals
+  const totalOfEachWord = countEachWord(userTextInput);
+  analytics.allTotals = totalOfEachWord;
+
+  // words to avoid
+  if (wordsToAvoid) {
+    analytics.wordsNotAvoided = checkWordsToAvoid(wordsToAvoid, totalOfEachWord);
+  } else {
+    analytics.wordsNotAvoided = 'No words to avoid';
+  }
+
+  // top used words
+  const threeMostUsed = topThreeWords(totalOfEachWord);
+  analytics.topThree = threeMostUsed;
+
+  return analytics;
+}
+
+
 /* for the linter: */
-const someWordObj = countEachWord('hi i am a owrkdwejlkjf oujfijlk  lkjh ihihihi hi hi hi');
 const avoid = ['i'];
-checkWordsToAvoid(avoid, someWordObj);
-const topThree = topThreeWords(someWordObj); // apparently modifies original someWordObj
-console.log(topThree);
+const text = 'hi i am a owrkdwejlkjf oujfijlk  lkjh ihihihi hi hi hi';
+analyzeText(text, avoid);
