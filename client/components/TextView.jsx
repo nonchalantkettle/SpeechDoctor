@@ -8,7 +8,7 @@ export default class TextView extends React.Component {
     super(props);
     this.state = {
       visibleAnalytics: false,
-      value: ''
+      value: '',
     };
   }
 
