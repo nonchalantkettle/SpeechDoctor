@@ -64,7 +64,6 @@
     "build": "webpack --progress --colors"
   },
   "pre-commit": [
-    "lint-client",
     "lint-server"
   ]
 }
