@@ -1,21 +1,16 @@
-// import React from 'react';
-//
-// class LandingView extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       showText: false,
-//     };
-//   }
-//
-//   handleClick() {
-//     this.setState({
-//       showText: true,
-//     });
-//   }
-//   render() {
-//     return (
-//       <h1>LandingView</h1>
-//     );
-//   }
-// }
+import React from 'react';
+
+export default class LandingButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showText: false,
+    };
+  }
+
+  render() {
+    return (
+      <button onClick={this.props.handleLandingBtnClick}>LandingButton</button>
+    );
+  }
+}
