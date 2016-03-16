@@ -25,7 +25,7 @@ export default class TextView extends React.Component {
     });
   }
 
-  onChange = (e) => {
+  handleChange = (e) => {
     this.state.value = e.target.value;
   }
 
@@ -36,7 +36,7 @@ export default class TextView extends React.Component {
         <div id='text-input'>
           <h1 id='text-input-title'>Text Analyzer</h1>
           <br/>
-          <InputForm value={this.state.value} onChange={this.onChange}/>
+          <InputForm value={this.state.value} onChange={this.handleChange}/>
             <button onClick={this.analyzeText}>Analyze</button>
             <button onClick={this.resetText}>Reset</button>
             <div>{analytics}</div>
