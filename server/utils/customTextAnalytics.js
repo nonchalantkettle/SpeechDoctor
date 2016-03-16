@@ -42,7 +42,7 @@ export function topThreeWords(wordCountObject) {
     }
   });
 
-  function findCurrentLargest(wordObj) {
+  function findCurrentMostFrequent(wordObj) {
     let largest = 0;
     let mostUsed = '';
     const currentKeys = Object.keys(wordObj);
@@ -58,7 +58,7 @@ export function topThreeWords(wordCountObject) {
 
   while (i < 3) {
     if (Object.keys(copiedObj).length) {
-      findCurrentLargest(copiedObj);
+      findCurrentMostFrequent(copiedObj);
     }
     i++;
   }
