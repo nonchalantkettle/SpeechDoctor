@@ -1,4 +1,5 @@
 import React from 'react';
+import analytics from '../../server/utils/customTextAnalytics.js'
 
 export default class TextAnalytics extends React.Component {
 
