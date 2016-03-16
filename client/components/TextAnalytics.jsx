@@ -10,15 +10,11 @@ export default class TextAnalytics extends React.Component {
     };
   }
 
-  handleClick() {
-    this.setState({
-      dummyState: true,
-    });
-  }
 
   render() {
     return (
       <div>
+        <p>Here are your results!:</p>
         {this.props.text}
       </div>
     );

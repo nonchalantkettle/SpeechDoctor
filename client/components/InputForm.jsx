@@ -9,11 +9,6 @@ export default class InputForm extends React.Component {
     };
   }
 
-  // onChange = (e) => {
-  //   this.state.value = e.target.value;
-  //   console.log(this.state.value);
-  // }
-
   render() {
     var text = this.state.value;
     return (
