@@ -1,4 +1,5 @@
 import React from 'react';
+import analytics from '../../server/utils/customTextAnalytics.js'
 
 export default class TextAnalytics extends React.Component {
 
@@ -9,18 +10,13 @@ export default class TextAnalytics extends React.Component {
     };
   }
 
-  handleClick() {
-    this.setState({
-      dummyState: true,
-    });
-  }
 
   render() {
     return (
       <div>
-        Text analytics go here!
+        <p>Here are your results!:</p>
+        {this.props.text}
       </div>
     );
   }
 }
-

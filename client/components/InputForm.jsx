@@ -5,17 +5,17 @@ export default class InputForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
+      dummyState: false,
     };
   }
 
-  onChange = (e) => {
-    this.state.value = e.target.value;
-    console.log(this.state.value);
+  handleClick = () => {
+    this.setState({
+      dummyState: true,
+    });
   }
 
   render() {
-    var text = this.state.value;
     return (
       <div>
         <textarea
@@ -24,11 +24,10 @@ export default class InputForm extends React.Component {
           type="text"
           rows="30"
           cols="150"
-          onChange={this.onChange}
-          value={text}>
+          onChange={this.props.onChange}
+          value={this.props.inputText}>
         </textarea>
       </div>
     );
   }
 }
-
