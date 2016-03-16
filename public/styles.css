@@ -97,6 +97,14 @@ button:focus {
   display: inline-flex;
 }
 
+#text-input-title {
+  margin: 0;
+}
+
 #text-input {
   margin: 35px;
+}
+
+.inputForm:focus {
+  outline: none;
 }

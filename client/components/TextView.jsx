@@ -33,11 +33,14 @@ export default class TextView extends React.Component {
     let analytics = this.state.visibleAnalytics ? <TextAnalytics text={this.state.value}/> : "";
     return (
       <div>
-        <h1>Text Analyzer</h1>
-         <InputForm value={this.state.value} onChange={this.onChange}/>
-           <button onClick={this.analyzeText}>Analyze</button>
-           <button onClick={this.resetText}>Reset</button>
-           <div>{analytics}</div>
+        <div id='text-input'>
+          <h1 id='text-input-title'>Text Analyzer</h1>
+          <br/>
+          <InputForm value={this.state.value} onChange={this.onChange}/>
+            <button onClick={this.analyzeText}>Analyze</button>
+            <button onClick={this.resetText}>Reset</button>
+            <div>{analytics}</div>
+        </div>
       </div>
     );
   }
