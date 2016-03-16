@@ -29,6 +29,37 @@ h2 {
   margin: 10px 35px;
 }
 
+button {
+  -webkit-border-radius: 6;
+  -moz-border-radius: 6;
+  border-radius: 5px;
+  border: 0;
+  margin: 10px 20px 10px 0;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  font-family: 'Raleway', sans-serif;
+  color: #ffffff;
+  font-size: 15px;
+  background: #aec0c8;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+
+button:hover {
+  background: #c2d6df;
+  background-image: -webkit-linear-gradient(top, #c2d6df, #aec0c8);
+  background-image: -moz-linear-gradient(top, #c2d6df, #aec0c8);
+  background-image: -ms-linear-gradient(top, #c2d6df, #aec0c8);
+  background-image: -o-linear-gradient(top, #c2d6df, #aec0c8);
+  background-image: linear-gradient(to bottom, #c2d6df, #aec0c8);
+  text-decoration: none;
+}
+
+button:focus {
+  outline: none;
+}
+
 #navbar {
   border: 1px solid black;
   display: inline-block;
@@ -64,4 +95,8 @@ h2 {
 #landing-buttons {
   width: 100%;
   display: inline-flex;
+}
+
+#text-input {
+  margin: 35px;
 }
