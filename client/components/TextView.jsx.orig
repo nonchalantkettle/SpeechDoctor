@@ -30,9 +30,10 @@ export default class TextView extends React.Component {
   }
 
   render() {
-    let analytics = this.state.visibleAnalytics ? <TextAnalytics text={this.state.value}/> : '';
+    let analytics = this.state.visibleAnalytics ? <TextAnalytics text={this.state.value}/> : "";
     return (
       <div>
+<<<<<<< ee0fc6ee555322efd231557b6e3c8ee737d59aed
         <div id='text-input'>
           <h1 id='text-input-title'>Text Analyzer</h1>
           <br/>
@@ -41,6 +42,13 @@ export default class TextView extends React.Component {
             <button onClick={this.resetText}>Reset</button>
             <div>{analytics}</div>
         </div>
+=======
+        <h1>Text Analyzer</h1>
+         <InputForm value={this.state.value} onChange={this.handleChange}/>
+           <button onClick={this.analyzeText}>Analyze</button>
+           <button onClick={this.resetText}>Reset</button>
+           <div>{analytics}</div>
+>>>>>>> Fix onChange vs. handleChange method consistency and import customTextAnalytics into TextAnalytics component
       </div>
     );
   }

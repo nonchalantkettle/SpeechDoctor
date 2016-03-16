@@ -3,7 +3,7 @@
  */
 
 // get each word's word count
-function countEachWord(textInput) {
+export function countEachWord(textInput) {
   // split up input string into arrays by spaces and newline chars
   const whiteSpaceChars = /\s/;
   const allWords = textInput.split(whiteSpaceChars);
@@ -26,7 +26,7 @@ function countEachWord(textInput) {
 }
 
 // find the top three most-used words, excluding 'the', 'a', 'an', and 'and'
-function topThreeWords(wordCountObject) {
+export function topThreeWords(wordCountObject) {
   const wordsToIgnore = /the\b|a\b|an\b|and\b/;
 
   // avoid modifying original wordCountObject
@@ -67,7 +67,7 @@ function topThreeWords(wordCountObject) {
 }
 
 // checks to see if any 'avoid' words (words the user wants to avoid) were used
-function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
+export function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
   const wordsUsed = {};
   wordsToAvoidArr.forEach((word) => {
     if (allWordsUsedObj[word]) {
@@ -84,7 +84,7 @@ function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
 
 
 // call helper functions to get analytics
-function analyzeText(userTextInput, wordsToAvoid) {
+export function analyzeText(userTextInput, wordsToAvoid) {
   const analytics = {};
 
   // word totals
