@@ -9,8 +9,13 @@ export default class InputForm extends React.Component {
     };
   }
 
+  handleClick = () => {
+    this.setState({
+      dummyState: true,
+    });
+  }
+
   render() {
-    var text = this.state.value;
     return (
       <div>
         <textarea
@@ -20,7 +25,7 @@ export default class InputForm extends React.Component {
           rows="30"
           cols="150"
           onChange={this.props.onChange}
-          value={text}>
+          value={this.props.inputText}>
         </textarea>
       </div>
     );

@@ -21,7 +21,7 @@ export default class TextView extends React.Component {
   resetText = () => {
     this.setState({
       visibleAnalytics: false,
-      value: ''
+      value: '',
     });
   }
 

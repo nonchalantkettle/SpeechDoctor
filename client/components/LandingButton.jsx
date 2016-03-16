@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router';
 
-export default class LandingButton extends React.Component {
+class LandingButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,15 +8,14 @@ export default class LandingButton extends React.Component {
     };
   }
 
+  handleClick() {
+    this.setState({
+      showText: true,
+    });
+  }
   render() {
     return (
-      <div id="landingButton">
-        <Link
-          onClick={this.props.handleLandingBtnClick}
-          to={this.props.directTo}>
-            {this.props.buttonName}
-        </Link>
-      </div>
+      <h1>LandingView</h1>
     );
   }
 }
