@@ -11,16 +11,12 @@ export default class TextAnalytics extends React.Component {
   }
 
   renderAnalytics = (string) => {
-    console.log("string: ", string);
     let countEachWordResult = countEachWord(string);
-    console.log("countEachWordResult: ", countEachWordResult);
     let topThreeWordsResult = topThreeWords(countEachWordResult);
-    console.log("topThreeWordsResult: ", topThreeWordsResult);
     let results = [];
     for (let key in topThreeWordsResult) {
       results.push([key, ": " + topThreeWordsResult[key] + " times"]);
     }
-    console.log("results: ", results);
     return results;  
   }
 
@@ -37,6 +33,8 @@ export default class TextAnalytics extends React.Component {
 
 
 /*
+
+Text sample for testing:
 
 hey hey hey how how how are you you you
 
