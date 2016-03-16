@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import LandingButton from './LandingButton.jsx'
+import LandingButton from './LandingButton.jsx';
 
 export default class LandingPage extends React.Component {
   constructor(props) {
