@@ -6,14 +6,12 @@ export default class Nav extends React.Component {
     return (
       <div id="navbar">
         {
-          this.props.onLandingPage ? <ul><li id="navlink"><Link to="profile">Profile</Link></li></ul> :
+          this.props.onLandingPage ? <div><div id="navlink"><Link to="profile">Your Profile</Link></div></div> :
             <div>
-              <ul>
-                <li id="navlink"><Link onClick={this.props.handleHomeClick}to="/">Home</Link></li>
-                <li id="navlink"><Link to="text">TextView</Link></li>
-                <li id="navlink"><Link to="speech">Speech</Link></li>
-                <li id="navlink"><Link to="profile">Profile</Link></li>
-              </ul>
+              <div id="navlink"><Link onClick={this.props.handleHomeClick}to="/">Home</Link></div>
+              <div id="navlink"><Link to="text">Upload Text</Link></div>
+              <div id="navlink"><Link to="speech">Record Speech</Link></div>
+              <div id="navlink"><Link to="profile">Your Profile</Link></div>
             </div>
         }
       </div>
