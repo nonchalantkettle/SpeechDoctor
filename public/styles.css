@@ -13,6 +13,13 @@ h1 {
   margin: 35px;
 }
 
+h2 {
+  font-weight: 300;
+  font-style: italic;
+  font-size: 2em;
+  margin: 10px 35px;
+}
+
 #navbar {
   border: 1px solid black;
   display: inline-block;
@@ -29,4 +36,17 @@ h1 {
   font-weight: 300;
   font-style: italic;
   border: 1px solid black;
+  padding: 20px;
+  width: 300px;
+  height: 400px;
+}
+
+#right-landing, #left-landing {
+  margin: auto;
+}
+
+/* Needed for flex styling */
+#landing-buttons {
+  width: 100%;
+  display: inline-flex;
 }
