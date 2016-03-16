@@ -10,19 +10,22 @@ export default class TextAnalytics extends React.Component {
     };
   }
 
-  analyzeText = (string) => {
+  renderAnalytics = (string) => {
+    console.log("string: ", string);
     let countEachWordResult = countEachWord(string);
+    console.log("countEachWordResult: ", countEachWordResult);
     let topThreeWordsResult = topThreeWords(countEachWordResult);
+    console.log("topThreeWordsResult: ", topThreeWordsResult);
     let results = [];
     for (let key in topThreeWordsResult) {
       results.push([key, ": " + topThreeWordsResult[key] + " times"]);
     }
+    console.log("results: ", results);
     return results;  
   }
 
   render() {
-    let ourText = this.props.text;
-    let topThree = this.analyzeText(this.props.text).map(function(word){ return <li>{word}</li>});
+    let topThree = this.renderAnalytics(this.props.text).map(function(word){ return <li>{word}</li>});
     return (
       <div>
         <p>Here are your results:</p>

@@ -31,7 +31,7 @@ class App extends React.Component {
     let pathHash = window.location.hash;
     if (pathHash.includes('text') || pathHash.includes('speech') || pathHash.includes('profile')) {
       this.setState({
-        onLandingPage: false,
+        onLandingPage: this.chooseRenderForm,
       });
     } else {
       this.setState({
