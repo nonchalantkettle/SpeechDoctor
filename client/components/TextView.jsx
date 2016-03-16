@@ -30,7 +30,7 @@ export default class TextView extends React.Component {
   }
 
   render() {
-    let analytics = this.state.visibleAnalytics ? <TextAnalytics text={this.state.value}/> : "";
+    let analytics = this.state.visibleAnalytics ? <TextAnalytics text={this.state.value}/> : '';
     return (
       <div>
         <div id='text-input'>
