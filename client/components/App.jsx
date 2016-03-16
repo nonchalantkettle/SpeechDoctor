@@ -11,7 +11,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      onLandingPage: true,
+      onLandingPage: this.chooseRenderForm(),
     };
   }
 
@@ -24,9 +24,20 @@ class App extends React.Component {
   handleLandingBtnClick = () => {
     this.setState({
       onLandingPage: !this.state.onLandingPage,
-    }, () => {
-      console.log(this.state.onLandingPage);
     });
+  }
+
+  chooseRenderForm = () => {
+    let pathHash = window.location.hash;
+    if (pathHash.includes('text') || pathHash.includes('speech') || pathHash.includes('profile')) {
+      this.setState({
+        onLandingPage: false,
+      });
+    } else {
+      this.setState({
+        onLandingPage: true,
+      });
+    }
   }
 
   render() {
@@ -45,8 +56,7 @@ class App extends React.Component {
 
 class LandingPageHandler extends React.Component {
   render() {
-    console.log('app props handlebuttonclick passed ', this.props.handleLandingBtnClick);
-    return (
+     return (
       <LandingPage handleLandingBtnClick={this.props.handleLandingBtnClick} />
     )
   }

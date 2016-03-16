@@ -14,7 +14,7 @@ export default class TextAnalytics extends React.Component {
   render() {
     return (
       <div>
-        <p>Here are your results!:</p>
+        <p>Here are your results!</p>
         {this.props.text}
       </div>
     );
