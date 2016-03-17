@@ -26,7 +26,9 @@ export default class TextView extends React.Component {
   }
 
   onChange = (e) => {
-    this.setState({ value: e.target.value });
+    this.setState({
+      value: e.target.value,
+    });
   }
 
   render() {
