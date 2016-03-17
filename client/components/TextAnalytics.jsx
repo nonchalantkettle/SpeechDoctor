@@ -1,5 +1,5 @@
 import React from 'react';
-import { countEachWord, topThreeWords, findCurrentLargest, checkWordstoAvoid, analyzeText } from '../../server/utils/customTextAnalytics.js'
+import { analyzeText } from '../../server/utils/customTextAnalytics.js'
 
 
 export default class TextAnalytics extends React.Component {
@@ -12,8 +12,9 @@ export default class TextAnalytics extends React.Component {
   }
 
   renderAnalytics = (string) => {
-    let countEachWordResult = countEachWord(string);
-    let topThreeWordsResult = topThreeWords(countEachWordResult);
+    const analyticsObj = analyzeText(string);
+    let countEachWordResult = analyticsObj.allTotals;
+    let topThreeWordsResult = analyticsObj.topThree;
     let results = [];
     for (let key in topThreeWordsResult) {
       results.push([key, ": " + topThreeWordsResult[key] + " times"]);
