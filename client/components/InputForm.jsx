@@ -25,7 +25,7 @@ export default class InputForm extends React.Component {
           rows="30"
           cols="150"
           onChange={this.props.onChange}
-          value={this.props.inputText}>
+          value={this.props.text}>
         </textarea>
       </div>
     );

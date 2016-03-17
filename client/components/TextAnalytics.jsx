@@ -1,6 +1,7 @@
 import React from 'react';
 import { countEachWord, topThreeWords, findCurrentLargest, checkWordstoAvoid, analyzeText } from '../../server/utils/customTextAnalytics.js'
 
+
 export default class TextAnalytics extends React.Component {
 
   constructor(props) {
@@ -17,7 +18,7 @@ export default class TextAnalytics extends React.Component {
     for (let key in topThreeWordsResult) {
       results.push([key, ": " + topThreeWordsResult[key] + " times"]);
     }
-    return results;  
+    return results;
   }
 
   render() {
