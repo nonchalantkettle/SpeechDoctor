@@ -1,5 +1,5 @@
 import React from 'react';
-import { analyzeText } from '../../server/utils/customTextAnalytics.js'
+import { getSyns, analyzeText } from '../../server/utils/customTextAnalytics.js'
 
 
 export default class TextAnalytics extends React.Component {
@@ -23,7 +23,8 @@ export default class TextAnalytics extends React.Component {
   }
 
   render() {
-    let topThree = this.renderAnalytics(this.props.text).map(function(word){ return <li>{word}</li>});
+    let topThree = this.renderAnalytics(this.props.text).map(function(word){
+      return <li onClick={() => getSyns(word[0])}>{word}</li>});
     return (
       <div>
         <p>Here are your results:</p>
@@ -32,12 +33,3 @@ export default class TextAnalytics extends React.Component {
     );
   }
 }
-
-
-/*
-
-Text sample for testing:
-
-hey hey hey how how how are you you you
-
-*/
