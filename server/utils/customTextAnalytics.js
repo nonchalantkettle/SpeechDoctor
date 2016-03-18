@@ -1,9 +1,10 @@
+import $ from 'jquery';
 /**
  * Helper functions for custom text analytics
  */
 
 // get each word's word count
-export function countEachWord(textInput) {
+function countEachWord(textInput) {
   // split up input string into arrays by spaces and newline chars
   const whiteSpaceChars = /\s/;
   const allWords = textInput.split(whiteSpaceChars);
@@ -26,7 +27,7 @@ export function countEachWord(textInput) {
 }
 
 // find the top three most-used words, excluding 'the', 'a', 'an', and 'and'
-export function topThreeWords(wordCountObject) {
+function topThreeWords(wordCountObject) {
   const wordsToIgnore = /the\b|a\b|an\b|and\b/;
 
   // avoid modifying original wordCountObject
@@ -67,7 +68,7 @@ export function topThreeWords(wordCountObject) {
 }
 
 // checks to see if any 'avoid' words (words the user wants to avoid) were used
-export function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
+function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
   const wordsUsed = {};
   wordsToAvoidArr.forEach((word) => {
     if (allWordsUsedObj[word]) {
@@ -82,6 +83,19 @@ export function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
   return 'Congrats! You didn\'t use any of the words you were avoiding!';
 }
 
+// make call to Words API
+export function getSyns(word) {
+  const thesaurusAPI = `http://words.bighugelabs.com/api/2/d799893fe70fb4c0ee98fdc6a3f48e76/${word}/json`;
+
+  $.ajax({
+    type: 'GET',
+    url: thesaurusAPI,
+    dataType: 'JSONP',
+    success: (data) => {
+      console.log(data);
+    },
+  });
+}
 
 // call helper functions to get analytics
 export function analyzeText(userTextInput, wordsToAvoid) {
@@ -90,6 +104,9 @@ export function analyzeText(userTextInput, wordsToAvoid) {
   // word totals
   const totalOfEachWord = countEachWord(userTextInput);
   analytics.allTotals = totalOfEachWord;
+  // analytics.getSyns = function(word) {
+  //   return getSyns(word);
+  // };
 
   // words to avoid
   if (wordsToAvoid) {
@@ -104,9 +121,3 @@ export function analyzeText(userTextInput, wordsToAvoid) {
 
   return analytics;
 }
-
-
-/* for the linter: */
-const avoid = ['i'];
-const text = 'hi i am a owrkdwejlkjf oujfijlk  lkjh ihihihi hi hi hi';
-analyzeText(text, avoid);

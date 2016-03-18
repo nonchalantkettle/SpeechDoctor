@@ -57,7 +57,7 @@ class App extends React.Component {
 
 class LandingPageHandler extends React.Component {
   render() {
-     return (
+    return (
       <LandingPage handleLandingBtnClick={this.props.handleLandingBtnClick} />
     )
   }
