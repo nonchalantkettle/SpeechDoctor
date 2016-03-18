@@ -34,9 +34,8 @@ export default class RecordingView extends React.Component {
   render() {
     return (
       <div>
-        <h1>Recording View!</h1>
-        <button onClick={this.listener}>Click this button!</button>
-        <div>{this.state.results}</div>
+        <button id='speech-record-button' onClick={this.listener}>Click to Record Speech</button>
+        <div id='rendered-speech'>{this.state.results}</div>
       </div>
     );
   }

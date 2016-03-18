@@ -114,3 +114,11 @@ button:focus {
 .inputForm:focus {
   outline: none;
 }
+
+#speech-record-button {
+  margin: 35px;
+}
+
+#rendered-speech {
+  margin: 35px;
+}
