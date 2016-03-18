@@ -36,12 +36,6 @@ recognition.start();
 
 
   render() {
-    let recognition = new webkitSpeechRecognition();
-
-    recognition.onresult = function(event) {
-        console.log(event);
-      }
-
     let analytics = this.state.visibleAnalytics ? <TextAnalytics text={this.state.value}/> : '';
     return (
       <div>
