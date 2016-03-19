@@ -91,8 +91,12 @@ export function getDefsAndSyns(word) {
   $.ajax({
     url: wordsAPI,
     type: 'GET', // The HTTP Method
-    success: (data) => { console.log('DATA', JSON.stringify(data)); },
-    error: (err) => { console.log(err); },
+    success: (data) => {
+      console.log('DATA', JSON.stringify(data));
+    },
+    error: (err) => {
+      console.log('There was an error making the GET request to the words API!', err);
+    },
     beforeSend: (xhr) => {
       xhr.setRequestHeader('X-Mashape-Key', wordsAPIKey);
       xhr.setRequestHeader('Accept', 'application/json');
