@@ -27,18 +27,18 @@ class App extends React.Component {
     });
   }
 
-   chooseRenderForm = () => {
-     let pathHash = window.location.hash;
-     if (pathHash.includes('text') || pathHash.includes('speech') || pathHash.includes('profile')) {
-       this.setState({
-         onLandingPage: false,
-       });
-     } else {
-       this.setState({
-         onLandingPage: true,
-       });
-     }
-   }
+  chooseRenderForm = () => {
+    let pathHash = window.location.hash;
+    if (pathHash.includes('text') || pathHash.includes('speech') || pathHash.includes('profile')) {
+      this.setState({
+        onLandingPage: false,
+      });
+    } else {
+      this.setState({
+        onLandingPage: true,
+      });
+    }
+  }
 
   render() {
     const Children = React.cloneElement(this.props.children, {
