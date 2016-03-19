@@ -1,16 +1,7 @@
 import React from 'react';
-import { getDefsAndSyns, analyzeText } from '../../server/utils/customTextAnalytics.js'
-import _ from 'underscore';
+import { getDefsAndSyns, analyzeText } from '../../server/utils/customTextAnalytics.js';
 
 export default class TextAnalytics extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      dummyState: false,
-    };
-  }
-
   renderAnalytics = (string) => {
     const analyticsObj = analyzeText(string);
     let countEachWordResult = analyticsObj.allTotals;
@@ -22,14 +13,33 @@ export default class TextAnalytics extends React.Component {
     return results;
   }
 
+  getWordInfo = (word) => {
+    return getDefsAndSyns(word);
+  }
+
   render() {
-    let topThree = this.renderAnalytics(this.props.text).map(function(word){
-      return <li id={word[0]} onClick={() => getDefsAndSyns(word[0])}>{word}</li>
+    // hold reference of 'this'
+    const temp = this;
+
+    let topThree = this.renderAnalytics(this.props.text).map((word) => {
+      return (
+        <div id={word[0]}>{word}
+        {
+          temp.getWordInfo(word[0]).map((syn) => {
+            return (
+              <li>{syn.word}</li>
+            )
+          })
+        }
+        </div>
+      )
     });
+
     return (
       <div>
         <p>Here are your results:</p>
-        <p>Top Three Most Used Words: {topThree}</p>
+        <p>Top Three Most Used Words: </p>
+        {topThree}
       </div>
     );
   }
