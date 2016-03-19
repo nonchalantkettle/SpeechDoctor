@@ -84,13 +84,16 @@ function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
   return 'Congrats! You didn\'t use any of the words you were avoiding!';
 }
 
-// make call to wordsAPI
+
+// make call to Words API
 export function getDefsAndSyns(word) {
+  const datamuseAPI = `https://api.datamuse.com/words?rel_syn=${word}`;
   const wordsAPI = `https://wordsapiv1.p.mashape.com/words/${word}`;
 
+  // get definitions
   $.ajax({
     url: wordsAPI,
-    type: 'GET', // The HTTP Method
+    type: 'GET',
     success: (data) => {
       const response = (data);
       console.log(response);
@@ -106,6 +109,19 @@ export function getDefsAndSyns(word) {
       xhr.setRequestHeader('Accept', 'application/json');
     },
   });
+
+  // get synonyms
+  $.ajax({
+    type: 'GET',
+    url: datamuseAPI,
+    dataType: 'JSON',
+    success: (data) => {
+      console.log('Synonyms - ', data);
+    },
+    error: (err) => {
+      console.log('Error - ', err);
+    },
+  });
 }
 
 // call helper functions to get analytics
@@ -115,9 +131,6 @@ export function analyzeText(userTextInput, wordsToAvoid) {
   // word totals
   const totalOfEachWord = countEachWord(userTextInput);
   analytics.allTotals = totalOfEachWord;
-  // analytics.getSyns = function(word) {
-  //   return getSyns(word);
-  // };
 
   // words to avoid
   if (wordsToAvoid) {
