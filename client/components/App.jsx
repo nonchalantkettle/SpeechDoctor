@@ -41,7 +41,6 @@ class App extends React.Component {
    }
 
   render() {
-    //Question for Benny: what is this doing? Where is this getting children from props?
     const Children = React.cloneElement(this.props.children, {
       state: this.state,
       handleLandingBtnClick: this.handleLandingBtnClick,
