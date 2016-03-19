@@ -122,3 +122,7 @@ button:focus {
 #rendered-speech {
   margin: 35px;
 }
+
+div {
+  white-space: pre;
+}

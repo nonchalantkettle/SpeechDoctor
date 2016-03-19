@@ -9,6 +9,7 @@ export default class RecordingView extends React.Component {
      recording: false,
      results: '',
      showTranscript: false,
+     clearHearing: true,
    };
  }
 
@@ -40,13 +41,23 @@ export default class RecordingView extends React.Component {
    }
 
    recognition.onresult = (event) => {
+     console.log(event.results)
      let returnedTranscript = "";
-     for(let i = 0 ; i < event.results.length ; i ++){
+     let threshold = 0.75;
+     let confidence = true;
+
+     for(let i = 0; i < event.results.length; i++){
+       if(event.results[i][0].confidence  < threshold){
+         confidence = false;
+       } else {
+         confidence = true;
+       }
        returnedTranscript += event.results[i][0].transcript
      }
 
      this.setState({
        results: returnedTranscript,
+       clearHearing: confidence,
      });
    }
 
@@ -55,7 +66,10 @@ export default class RecordingView extends React.Component {
  }
 
  render() {
-   //let transcript = this.state.showTranscript ? <div>{this.state.showTranscript}</div> : <div></div>
+   let hearingClearly = this.state.clearHearing ?  <div></div> :
+   <div>Sorry, we are having trouble understanding you
+   Please speek more clearly</div>
+
    let currentState = this.state.recording ? <div>Recording...</div> : <div>Star recording now</div>
    return (
      <div>
@@ -69,6 +83,7 @@ export default class RecordingView extends React.Component {
          </div>
        </div>
        <span>{currentState}</span>
+       <span>{hearingClearly}</span>
        {/*Make this button toggle between Record and Stop Recording ALSO WHAT IS ALT*/}
        <div>
          <div id='rendered-speech'>{this.state.results}</div>
