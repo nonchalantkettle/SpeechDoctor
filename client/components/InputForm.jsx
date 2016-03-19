@@ -20,7 +20,7 @@ export default class InputForm extends React.Component {
       <div>
         <textarea
           className="inputForm"
-          placeholder="The doctor will see you now!  Type or paste in your text sample here!"
+          placeholder="The doctor will see you now!  Type or paste in your text sample here."
           type="text"
           rows="30"
           cols="150"

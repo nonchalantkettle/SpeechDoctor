@@ -105,6 +105,20 @@ button:focus {
   margin: 35px;
 }
 
+#record-img {
+  margin: 35px;
+  height: 100px;
+  width: 100px;
+}
+
 .inputForm:focus {
   outline: none;
+}
+
+#speech-record-button {
+  margin: 35px;
+}
+
+#rendered-speech {
+  margin: 35px;
 }
