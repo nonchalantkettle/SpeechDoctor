@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { wordsAPIKey } from '../../API_KEYS';
 /**
  * Helper functions for custom text analytics
  */
@@ -83,16 +84,18 @@ function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
   return 'Congrats! You didn\'t use any of the words you were avoiding!';
 }
 
-// make call to Words API
-export function getSyns(word) {
-  const thesaurusAPI = `http://words.bighugelabs.com/api/2/d799893fe70fb4c0ee98fdc6a3f48e76/${word}/json`;
+// make call to wordsAPI
+export function getDefsAndSyns(word) {
+  const wordsAPI = `https://wordsapiv1.p.mashape.com/words/${word}`;
 
   $.ajax({
-    type: 'GET',
-    url: thesaurusAPI,
-    dataType: 'JSONP',
-    success: (data) => {
-      console.log(data);
+    url: wordsAPI,
+    type: 'GET', // The HTTP Method
+    success: (data) => { console.log('DATA', JSON.stringify(data)); },
+    error: (err) => { console.log(err); },
+    beforeSend: (xhr) => {
+      xhr.setRequestHeader('X-Mashape-Key', wordsAPIKey);
+      xhr.setRequestHeader('Accept', 'application/json');
     },
   });
 }

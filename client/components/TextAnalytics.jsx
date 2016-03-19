@@ -1,5 +1,5 @@
 import React from 'react';
-import { getSyns, analyzeText } from '../../server/utils/customTextAnalytics.js'
+import { getDefsAndSyns, analyzeText } from '../../server/utils/customTextAnalytics.js'
 import _ from 'underscore';
 
 export default class TextAnalytics extends React.Component {
@@ -24,7 +24,7 @@ export default class TextAnalytics extends React.Component {
 
   render() {
     let topThree = this.renderAnalytics(this.props.text).map(function(word){
-      return <li onClick={() => getSyns(word[0])}>{word}</li>
+      return <li id={word[0]} onClick={() => getDefsAndSyns(word[0])}>{word}</li>
     });
     return (
       <div>
