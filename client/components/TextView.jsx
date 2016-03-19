@@ -32,9 +32,6 @@ export default class TextView extends React.Component {
   }
 
 
-recognition.start();
-
-
   render() {
     let analytics = this.state.visibleAnalytics ? <TextAnalytics text={this.state.value}/> : '';
     return (
