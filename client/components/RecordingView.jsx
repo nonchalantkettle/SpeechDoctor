@@ -26,25 +26,32 @@ export default class RecordingView extends React.Component {
 
  listener = () => {
    //we might want to remove this, in place for recognition.onstart/onend
-   this.handleClick();
+   //Right now, it will stop recording when the user stops speaking for a few seconds
    const recognition = new webkitSpeechRecognition();
    recognition.continuous = true;
    recognition.interimResults = true;
 
-   recognition.onstart = () =>{
-      recognizing: this.state.recording,
+   recognition.onresume = () => {
+     console.log("continuting")
    }
 
-   recognition.onend = () =>{
-      recognizing: this.state.recording,
+   recognition.onend = () => {
+     recognition.start()
    }
 
    recognition.onresult = (event) => {
+     let returnedTranscript = "";
+     for(let i = 0 ; i < event.results.length ; i ++){
+       returnedTranscript += event.results[i][0].transcript
+     }
+
      this.setState({
-       results: event.results[0][0].transcript,
+       results: returnedTranscript,
      });
    }
-   recognition.start();
+
+   recognition.start()
+
  }
 
  render() {
