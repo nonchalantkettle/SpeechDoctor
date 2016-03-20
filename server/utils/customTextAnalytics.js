@@ -1,5 +1,5 @@
 import $ from 'jquery';
-// import { wordsAPIKey } from '../../API_KEYS';
+import { wordsAPIKey } from '../../API_KEYS';
 /**
  * Helper functions for custom text analytics
  */
@@ -88,44 +88,42 @@ function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
 // make call to Words API
 export function getDefsAndSyns(word) {
   const datamuseAPI = `https://api.datamuse.com/words?max=5&rel_syn=${word}`;
-  // const wordsAPI = `https://wordsapiv1.p.mashape.com/words/${word}`;
+  const wordsAPI = `https://wordsapiv1.p.mashape.com/words/${word}`;
+  const response = {};
 
-  // get definitions
-  // $.ajax({
-  //   url: wordsAPI,
-  //   type: 'GET',
-  //   success: (data) => {
-  //     const response = (data);
-  //     console.log(response);
-  //     for (let i = 0; i < response.results.length; i++) {
-  //       console.log(response.results[i]);
-  //     }
-  //   },
-  //   error: (err) => {
-  //     console.log('There was an error making the GET request to the words API!', err);
-  //   },
-  //   beforeSend: (xhr) => {
-  //     xhr.setRequestHeader('X-Mashape-Key', wordsAPIKey);
-  //     xhr.setRequestHeader('Accept', 'application/json');
-  //   },
-  // });
+  // get definitions and part of speech
+  $.ajax({
+    url: wordsAPI,
+    type: 'GET',
+    async: false,
+    success: (data) => {
+      response.pos = data.results[0].partOfSpeech;
+      response.def = data.results[0].definition;
+    },
+    error: (err) => {
+      throw new Error('There was an error making the GET request to the words API!', err);
+    },
+    beforeSend: (xhr) => {
+      xhr.setRequestHeader('X-Mashape-Key', wordsAPIKey);
+      xhr.setRequestHeader('Accept', 'application/json');
+    },
+  });
 
   // get synonyms
-  let syns;
-
   $.ajax({
     type: 'GET',
     url: datamuseAPI,
     async: false,
     dataType: 'JSON',
     success: (data) => {
-      syns = data;
+      response.syns = data;
     },
     error: (err) => {
       throw new Error('Error - ', err);
     },
   });
-  return syns;
+
+  return response;
 }
 
 // call helper functions to get analytics
