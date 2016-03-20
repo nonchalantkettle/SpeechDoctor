@@ -24,13 +24,16 @@ export default class TextAnalytics extends React.Component {
     let topThree = this.renderAnalytics(this.props.text).map((word) => {
       return (
         <div id={word[0]}>{word}
-        {
-          temp.getWordInfo(word[0]).map((syn) => {
-            return (
-              <li>{syn.word}</li>
-            )
-          })
-        }
+          <div id="partOfSpeech">Part of Speech: {temp.getWordInfo(word[0]).pos}</div>
+          <div id="definition">Definition: {temp.getWordInfo(word[0]).def}</div>
+          {
+            temp.getWordInfo(word[0]).syns.map((syn) => {
+              return (
+                <li>{syn.word}</li>
+              )
+            })
+          }
+          <hr></hr>
         </div>
       )
     });
