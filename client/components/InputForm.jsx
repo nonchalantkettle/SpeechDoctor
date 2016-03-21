@@ -1,22 +1,20 @@
 import React from 'react';
 
-export default class InputForm extends React.Component {
-  render() {
-    return (
-      <div>
-        <textarea
-          className="inputForm"
-          placeholder="The doctor will see you now!  Type or paste in your text sample here."
-          type="text"
-          rows="30"
-          cols="150"
-          onChange={this.props.onChange}
-          value={this.props.text}>
-        </textarea>
-        <br/>
-        <button onClick={this.props.analyzeText}>Analyze</button>
-        <button onClick={this.props.resetText}>Reset</button>
-      </div>
-    );
-  }
+export default function InputForm(prop) {
+  return (
+    <div>
+      <textarea
+        className="inputForm"
+        placeholder="The doctor will see you now!  Type or paste in your text sample here."
+        type="text"
+        rows="30"
+        cols="150"
+        onChange={prop.onChange}
+        value={prop.text}
+      />
+      <br />
+      <button onClick={prop.analyzeText}>Analyze</button>
+      <button onClick={prop.resetText}>Reset</button>
+    </div>
+  );
 }
