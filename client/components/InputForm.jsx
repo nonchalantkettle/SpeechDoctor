@@ -13,6 +13,9 @@ export default class InputForm extends React.Component {
           onChange={this.props.onChange}
           value={this.props.text}>
         </textarea>
+        <br/>
+        <button onClick={this.props.analyzeText}>Analyze</button>
+        <button onClick={this.props.resetText}>Reset</button>
       </div>
     );
   }
