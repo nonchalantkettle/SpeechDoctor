@@ -55,22 +55,22 @@ export default class RecordingView extends React.Component {
         returnedTranscript += event.results[i][0].transcript
       }
 
-     this.setState({
-       results: returnedTranscript,
-       clearHearing: confidence,
-     });
-   }
+      this.setState({
+        results: returnedTranscript,
+        clearHearing: confidence,
+      });
+    }
 
-   recognition.start()
+    recognition.start()
 
- }
+  }
 
   render() {
     let hearingClearly = this.state.clearHearing ?  <div></div> :
     <div>Sorry, we are having trouble understanding you
     Please speek more clearly</div>
 
-    let currentState = this.state.recording ? <div>Recording...</div> : <div>Star recording now</div>
+    let currentState = this.state.recording ? <div>Recording...</div> : <div>Start recording now</div>
     return (
       <div>
         <div id='speech-input'>
