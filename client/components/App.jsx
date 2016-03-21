@@ -8,37 +8,37 @@ import Nav from './Nav.jsx';
 import LandingPage from './LandingPage.jsx';
 
 class App extends React.Component {
- constructor(props) {
-   super(props);
-   this.state = {
-     onLandingPage: this.chooseRenderForm(),
-   };
- }
+  constructor(props) {
+    super(props);
+    this.state = {
+      onLandingPage: this.chooseRenderForm(),
+    };
+  }
 
  handleHomeClick = () => {
-   this.setState({
-     onLandingPage: true,
-   });
- }
+    this.setState({
+      onLandingPage: true,
+    });
+  }
 
  handleLandingBtnClick = () => {
-   this.setState({
-     onLandingPage: this.chooseRenderForm(),
-   });
- }
+    this.setState({
+      onLandingPage: this.chooseRenderForm(),
+    });
+  }
 
  chooseRenderForm = () => {
-   let pathHash = window.location.hash;
-   if (pathHash.includes('text') || pathHash.includes('speech') || pathHash.includes('profile')) {
-     this.setState({
-       onLandingPage: false,
-     });
-   } else {
-     this.setState({
-       onLandingPage: true,
-     });
-   }
- }
+    let pathHash = window.location.hash;
+    if (pathHash.includes('text') || pathHash.includes('speech') || pathHash.includes('profile')) {
+      this.setState({
+        onLandingPage: false,
+      });
+    } else {
+      this.setState({
+        onLandingPage: true,
+      });
+    }
+  }
 
   render() {
     const Children = React.cloneElement(this.props.children, {
@@ -55,21 +55,21 @@ class App extends React.Component {
 }
 
 class LandingPageHandler extends React.Component {
- render() {
-   return (
-     <LandingPage handleLandingBtnClick={this.props.handleLandingBtnClick} />
-   )
- }
+  render() {
+    return (
+      <LandingPage handleLandingBtnClick={this.props.handleLandingBtnClick} />
+    )
+  }
 }
 
 const app = document.getElementById('app');
 
 ReactDOM.render(
- <Router history={hashHistory}>
-   <Route path="/" component={App}>
-     <IndexRoute component={LandingPageHandler} />
-     <Route path="/speech" component={SpeechView} />
-     <Route path="/text" component={TextView} />
-   </Route>
- </Router>,
- app);
+  <Router history={hashHistory}>
+    <Route path="/" component={App}>
+      <IndexRoute component={LandingPageHandler} />
+      <Route path="/speech" component={SpeechView} />
+      <Route path="/text" component={TextView} />
+    </Route>
+  </Router>,
+  app);
