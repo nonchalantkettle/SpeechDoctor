@@ -12,37 +12,42 @@ export default class TextView extends React.Component {
     };
   }
 
-  analyzeText = () => {
+  handleChange(e) {
+    this.setState({
+      value: e.target.value,
+    });
+  }
+
+  analyzeText() {
     this.setState({
       visibleAnalytics: true,
     });
   }
 
-  resetText = () => {
+  resetText() {
     this.setState({
       visibleAnalytics: false,
       value: '',
     });
   }
 
-  onChange = (e) => {
-    this.setState({
-      value: e.target.value,
-    });
-  }
-
   render() {
-    let analytics = this.state.visibleAnalytics ? <TextAnalytics text={this.state.value}/> : '';
-    let fx = {
-      analyzeText: this.analyzeText,
-      resetText: this.resetText,
-    }
+    const analytics = this.state.visibleAnalytics ? <TextAnalytics text={this.state.value} /> : '';
+    const inputFormMethods = {
+      analyzeText: this.analyzeText.bind(this),
+      resetText: this.resetText.bind(this),
+      handleChange: this.handleChange.bind(this),
+    };
+
     return (
       <div>
-        <div id='text-input'>
-          <h1 id='text-input-title'>Text Analyzer</h1>
-          <br/>
-          <InputForm text={this.state.value} {...fx} onChange={this.onChange}/>
+        <div id="text-input">
+          <h1 id="text-input-title">Text Analyzer</h1>
+          <br />
+          <InputForm
+            text={this.state.value}
+            {...inputFormMethods}
+          />
           {analytics}
         </div>
       </div>
