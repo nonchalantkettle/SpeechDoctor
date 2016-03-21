@@ -9,7 +9,7 @@ export default function InputForm(prop) {
         type="text"
         rows="30"
         cols="150"
-        onChange={prop.onChange}
+        onChange={prop.handleChange}
         value={prop.text}
       />
       <br />
