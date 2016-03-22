@@ -36,13 +36,6 @@ export default class SpeechView extends React.Component {
     recognition.continuous = true;
     recognition.interimResults = true;
 
-    recognition.onresume = () => {
-    };
-
-    // recognition.onend = () => {
-    //   recognition.start();
-    // };
-
     recognition.onresult = (event) => {
       let returnedTranscript = '';
       const threshold = 0.75;
@@ -74,6 +67,17 @@ export default class SpeechView extends React.Component {
       this.state.recording ? <div>Recording...</div> : <div>Start recording now</div>;
 
     const handleClick = this.handleClick.bind(this);
+
+    const displayTranscript = this.displayTranscript.bind(this);
+
+    const showDisplayTranscriptButton = !this.state.recording ?
+       <button onClick={displayTranscript}>Display Transcript</button> :
+       <div></div>;
+
+    const transcript =
+      this.state.showTranscript ?
+        <div id="rendered-speech">Here is the transcript: {this.state.results}</div> :
+        <div>No transcript for now</div>
     return (
       <div>
         <div id="speech-input">
@@ -81,6 +85,9 @@ export default class SpeechView extends React.Component {
             <button className="record-button" onClick={handleClick}>
               <img id="record-img" src="assets/record.png" alt="record" />
             </button>
+            <div>
+              {showDisplayTranscriptButton}
+            </div>
             <img id="record-img" src="assets/play.png" alt="play" />
             <img id="record-img" src="assets/pause.png" alt="pause" />
           </div>
@@ -88,7 +95,7 @@ export default class SpeechView extends React.Component {
         <span>{currentState}</span>
         <span>{hearingClearly}</span>
         <div>
-          <div id="rendered-speech">Here is the transcript: {this.state.results}</div>
+          {transcript}
         </div>
         <div>
           <SpeechAnalytics />
