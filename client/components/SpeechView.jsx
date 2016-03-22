@@ -17,10 +17,10 @@ export default class SpeechView extends React.Component {
   }
 
   handleClick() {
+    this.listener();
     this.setState({
       recording: !this.state.recording,
     });
-    this.listener();
   }
 
   displayTranscript() {
@@ -30,9 +30,12 @@ export default class SpeechView extends React.Component {
   }
 
   listener() {
-    // we might want to remove this, in place for recognition.onstart/onend
-    // Right now, it will stop recording when the user stops speaking for a few seconds
     const recognition = new webkitSpeechRecognition();
+    if (this.state.recording) {
+      recognition.abort();
+      recognition.stop();
+      return;
+    }
     recognition.continuous = true;
     recognition.interimResults = true;
 
@@ -77,7 +80,7 @@ export default class SpeechView extends React.Component {
     const transcript =
       this.state.showTranscript ?
         <div id="rendered-speech">Here is the transcript: {this.state.results}</div> :
-        <div>No transcript for now</div>
+        <div>No transcript for now</div>;
     return (
       <div>
         <div id="speech-input">
