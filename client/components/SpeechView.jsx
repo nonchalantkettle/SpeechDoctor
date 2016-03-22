@@ -4,6 +4,10 @@
 import React from 'react';
 import SpeechAnalytics from './SpeechAnalytics.jsx';
 
+const recognition = new webkitSpeechRecognition();
+recognition.continuous = true;
+recognition.interimResults = true;
+
 export default class SpeechView extends React.Component {
 
   constructor(props) {
@@ -30,15 +34,10 @@ export default class SpeechView extends React.Component {
   }
 
   listener() {
-    const recognition = new webkitSpeechRecognition();
     if (this.state.recording) {
-      recognition.abort();
       recognition.stop();
       return;
     }
-    recognition.continuous = true;
-    recognition.interimResults = true;
-
     recognition.onresult = (event) => {
       let returnedTranscript = '';
       const threshold = 0.75;
