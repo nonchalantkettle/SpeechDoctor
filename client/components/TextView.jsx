@@ -12,15 +12,10 @@ export default class TextView extends React.Component {
     };
   }
 
-  handleChange(e) {
-    this.setState({
-      value: e.target.value,
-    });
-  }
-
-  analyzeText() {
+  analyzeText(input) {
     this.setState({
       visibleAnalytics: true,
+      value: input,
     });
   }
 
@@ -36,18 +31,13 @@ export default class TextView extends React.Component {
     const inputFormMethods = {
       analyzeText: this.analyzeText.bind(this),
       resetText: this.resetText.bind(this),
-      handleChange: this.handleChange.bind(this),
     };
 
     return (
       <div>
         <div id="text-input">
           <h1 id="text-input-title">Text Analyzer</h1>
-          <br />
-          <InputForm
-            text={this.state.value}
-            {...inputFormMethods}
-          />
+          <InputForm {...inputFormMethods} />
           {analytics}
         </div>
       </div>
