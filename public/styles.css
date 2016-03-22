@@ -99,6 +99,7 @@ button:focus {
 
 #text-input-title {
   margin: 0;
+  padding-bottom: 15px;
 }
 
 #text-input {
