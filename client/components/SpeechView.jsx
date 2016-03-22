@@ -20,6 +20,7 @@ export default class SpeechView extends React.Component {
     this.setState({
       recording: !this.state.recording,
     });
+    this.listener();
   }
 
   displayTranscript() {
@@ -36,15 +37,13 @@ export default class SpeechView extends React.Component {
     recognition.interimResults = true;
 
     recognition.onresume = () => {
-      console.log('continuing');
     };
 
-    recognition.onend = () => {
-      recognition.start();
-    };
+    // recognition.onend = () => {
+    //   recognition.start();
+    // };
 
     recognition.onresult = (event) => {
-      console.log(event.results);
       let returnedTranscript = '';
       const threshold = 0.75;
       let confidence = true;
@@ -74,12 +73,12 @@ export default class SpeechView extends React.Component {
     const currentState =
       this.state.recording ? <div>Recording...</div> : <div>Start recording now</div>;
 
-    const listener = this.listener.bind(this);
+    const handleClick = this.handleClick.bind(this);
     return (
       <div>
         <div id="speech-input">
           <div id="recording-view">
-            <button className="record-button" onClick={listener}>
+            <button className="record-button" onClick={handleClick}>
               <img id="record-img" src="assets/record.png" alt="record" />
             </button>
             <img id="record-img" src="assets/play.png" alt="play" />
