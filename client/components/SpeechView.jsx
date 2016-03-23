@@ -9,14 +9,13 @@ recognition.continuous = true;
 recognition.interimResults = true;
 
 export default class SpeechView extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       recording: false,
       results: '',
       showTranscript: false,
-      clearHearing: true,
+      passedTest: false,
     };
   }
 
@@ -40,10 +39,19 @@ export default class SpeechView extends React.Component {
     }
     recognition.onresult = (event) => {
       let returnedTranscript = '';
-      const threshold = 0.75;
+      const threshold = 0.85;
       let confidence = true;
 
       for (let i = 0; i < event.results.length; i++) {
+        if (event.results[i][0].transcript.split(" ").length === 20) {
+          if (event.results[i][0].confidence > threshold) {
+            this.setState({
+              passedTest: true,
+            });
+          }
+        }
+
+        console.log("20 tests : ", event.results[i][0]);
         if (event.results[i][0].confidence < threshold) {
           confidence = false;
         } else {
@@ -61,9 +69,9 @@ export default class SpeechView extends React.Component {
   }
 
   render() {
-    const hearingClearly =
-      this.state.clearHearing ? <div></div> :
-      <div>Sorry, we are having trouble understanding you{'\n'}Please speak more clearly</div>;
+  const testingView = this.state.passedTest ?
+      <div></div> :
+      <div>Before we get started, we want to make sure we can hear you</div>;
 
     const currentState =
       this.state.recording ? <div>Recording...</div> : <div>Start recording now</div>;
@@ -83,6 +91,7 @@ export default class SpeechView extends React.Component {
     return (
       <div>
         <div id="speech-input">
+          {testingView}
           <div id="recording-view">
             <button className="record-button" onClick={handleClick}>
               <img id="record-img" src="assets/record.png" alt="record" />
@@ -95,7 +104,6 @@ export default class SpeechView extends React.Component {
           </div>
         </div>
         <span>{currentState}</span>
-        <span>{hearingClearly}</span>
         <div>
           {transcript}
         </div>
