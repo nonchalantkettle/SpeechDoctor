@@ -16,6 +16,7 @@ export default class SpeechView extends React.Component {
       results: '',
       showTranscript: false,
       passedTest: false,
+      testMessage: 'Before we get started, we want to make sure we can hear you properly',
     };
   }
 
@@ -48,18 +49,25 @@ export default class SpeechView extends React.Component {
       let confidence = true;
 
       for (let i = 0; i < event.results.length; i++) {
-        if (event.results[i][0].transcript.split(' ').length === 20) {
-          if (event.results[i][0].confidence > threshold) {
-            this.setState({
-              passedTest: true,
-            });
+        if (!this.state.passedTest) {
+          if (event.results[i][0].transcript.split(' ').length === 20) {
+            if (event.results[i][0].confidence > threshold) {
+              this.returnedTranscript = '';
+              this.setState({
+                passedTest: true,
+                testMessage: 'Great! You speak clearly. The doctor will see you now',
+                recording: false,
+                results: '',
+              });
+              recognition.stop();
+              return;
+            } else {
+              this.setState({
+                testMessage: 'Sorry, the doctor is a bit hard of hearing. You will need to speak more clearly.',
+                results: '',
+              });
+            }
           }
-        }
-
-        if (event.results[i][0].confidence < threshold) {
-          confidence = false;
-        } else {
-          confidence = true;
         }
         returnedTranscript += event.results[i][0].transcript;
       }
@@ -73,9 +81,6 @@ export default class SpeechView extends React.Component {
   }
 
   render() {
-    const testingView = this.state.passedTest ?
-      <div></div> :
-      <div><h3>Before we get started, we want to make sure we can hear you</h3></div>;
 
     const currentState =
       this.state.recording ? <div>Recording...</div> : <div>Start recording now</div>;
@@ -89,16 +94,16 @@ export default class SpeechView extends React.Component {
       <button onClick={displayTranscript}>Hide Transcript</button>;
 
     const transciptButtonBeforeTest = this.state.passedTest ?
-      showDisplayTranscriptButton : <div></div>
+      showDisplayTranscriptButton : <div></div>;
 
     const transcript = this.state.showTranscript || (!this.state.passedTest) ?
       <div id="rendered-speech">Here is the transcript: {this.state.results}</div> :
-      <div>No transcript for now</div>;
+      <div></div>;
 
     return (
       <div>
         <div id="speech-input">
-          {testingView}
+          <h4>{this.state.testMessage}</h4>
           <div id="recording-view">
             <button className="record-button" onClick={handleClick}>
               <img id="record-img" src="assets/record.png" alt="record" />
