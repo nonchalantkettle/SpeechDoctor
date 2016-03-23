@@ -151,3 +151,89 @@ export function analyzeText(userTextInput, wordsToAvoid) {
 
   return analytics;
 }
+
+export function getTextStats(textInput) {
+  const counts = {};
+
+  counts.charsWithSpace = textInput.length;
+  counts.charsNoSpace = textInput.match(/\S+/g).length;
+  counts.charsJustLetters = textInput.match(/[A-Z]/gi).length;
+  counts.words = textInput.match(/\S+/g).length;
+  counts.sentences = textInput.match(/\w[.?!](\s|$)/g).length;
+  counts.paragraphs = textInput.match(/\n/g).length;
+
+  counts.charactersPerWord = Math.floor(counts.charsJustLetters / counts.words);
+  counts.wordsPerSentence = Math.floor(counts.words / counts.sentences);
+
+  return counts;
+}
+
+export function automatedReadabilityIndex(textInput) {
+  const conversionTable = {
+    1: {
+      age: '5-6',
+      grade: 'Kindergarten',
+    },
+    2: {
+      age: '6-7',
+      grade: 'First Grade',
+    },
+    3: {
+      age: '7-8',
+      grade: 'Second Grade',
+    },
+    4: {
+      age: '8-9',
+      grade: 'Third Grade',
+    },
+    5: {
+      age: '9-10',
+      grade: 'Fourth Grade',
+    },
+    6: {
+      age: '10-11',
+      grade: 'Fifth Grade',
+    },
+    7: {
+      age: '11-12',
+      grade: 'Sixth Grade',
+    },
+    8: {
+      age: '12-13',
+      grade: 'Seventh Grade',
+    },
+    9: {
+      age: '13-14',
+      grade: 'Eighth Grade',
+    },
+    10: {
+      age: '14-15',
+      grade: 'Ninth Grade',
+    },
+    11: {
+      age: '15-16',
+      grade: 'Tenth Grade',
+    },
+    12: {
+      age: '16-17',
+      grade: 'Eleventh Grade',
+    },
+    13: {
+      age: '17-18',
+      grade: 'Twelfth Grade',
+    },
+    14: {
+      age: '18+',
+      grade: 'College',
+    },
+  };
+
+  const textStats = getTextStats(textInput);
+
+  const ARI = Math.ceil(
+    4.71 * (textStats.charsJustLetters / textStats.words) +
+    0.5 * (textStats.words / textStats.sentences) - 21.43
+  );
+
+  return conversionTable[ARI];
+}

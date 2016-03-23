@@ -34,6 +34,3 @@ bower_components/
 # Webpack Bundle + Map
 public/bundle.js
 public/bundle.js.map
-
-#Watson information
-server/watson.js
