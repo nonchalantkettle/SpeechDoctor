@@ -20,6 +20,11 @@ export default class SpeechView extends React.Component {
   }
 
   handleClick() {
+    if(!this.state.recording){
+      this.setState({
+        results: '',
+      });
+    }
     this.listener();
     this.setState({
       recording: !this.state.recording,
@@ -43,7 +48,7 @@ export default class SpeechView extends React.Component {
       let confidence = true;
 
       for (let i = 0; i < event.results.length; i++) {
-        if (event.results[i][0].transcript.split(" ").length === 20) {
+        if (event.results[i][0].transcript.split(' ').length === 20) {
           if (event.results[i][0].confidence > threshold) {
             this.setState({
               passedTest: true,
@@ -51,7 +56,6 @@ export default class SpeechView extends React.Component {
           }
         }
 
-        console.log("20 tests : ", event.results[i][0]);
         if (event.results[i][0].confidence < threshold) {
           confidence = false;
         } else {
@@ -69,9 +73,9 @@ export default class SpeechView extends React.Component {
   }
 
   render() {
-  const testingView = this.state.passedTest ?
-      <div></div> :
-      <div>Before we get started, we want to make sure we can hear you</div>;
+    const testingView = this.state.passedTest ?
+    <div></div> :
+    <div>Before we get started, we want to make sure we can hear you</div>;
 
     const currentState =
       this.state.recording ? <div>Recording...</div> : <div>Start recording now</div>;
@@ -80,9 +84,9 @@ export default class SpeechView extends React.Component {
 
     const displayTranscript = this.displayTranscript.bind(this);
 
-    const showDisplayTranscriptButton = !this.state.recording ?
+    const showDisplayTranscriptButton = !this.state.showTranscript ?
        <button onClick={displayTranscript}>Display Transcript</button> :
-       <div></div>;
+         <button onClick={displayTranscript}>Hide Transcript</button>;
 
     const transcript =
       this.state.showTranscript ?
@@ -96,14 +100,14 @@ export default class SpeechView extends React.Component {
             <button className="record-button" onClick={handleClick}>
               <img id="record-img" src="assets/record.png" alt="record" />
             </button>
-            <div>
-              {showDisplayTranscriptButton}
-            </div>
             <img id="record-img" src="assets/play.png" alt="play" />
             <img id="record-img" src="assets/pause.png" alt="pause" />
           </div>
         </div>
-        <span>{currentState}</span>
+        <div>
+          <span>{currentState}</span>
+          {showDisplayTranscriptButton}
+        </div>
         <div>
           {transcript}
         </div>
