@@ -1,5 +1,6 @@
 import React from 'react';
-import { getDefsAndSyns, analyzeText } from '../../server/utils/customTextAnalytics.js';
+import $ from 'jquery';
+import { getDefs, getSyns, analyzeText } from '../../server/utils/customTextAnalytics.js';
 
 function renderAnalytics(speech) {
   const analyticsObj = analyzeText(speech);
@@ -16,23 +17,34 @@ function renderAnalytics(speech) {
 
 export default function SpeechAnalytics(prop) {
   if (prop.speech) {
-    const topThree = renderAnalytics(prop.speech).map((word) =>
-      <div id={word[0]}>{word}
-        <div id="partOfSpeech">Part of Speech: {getDefsAndSyns(word[0]).pos}</div>
-        <div id="definition">Definition: {getDefsAndSyns(word[0]).def}</div>
-        { getDefsAndSyns(word[0]).syns.map((syn) => <li>{syn.word}</li>) }
-      <hr />
-      </div>
+    renderAnalytics(prop.speech).map((word) =>
+      getDefs(word[0], (defErr, defData) => {
+        if (defErr) {
+          return defErr;
+        }
+        const defintionAndPos = defData;
+        return getSyns(word[0], (synErr, synData) => {
+          if (synErr) {
+            return synErr;
+          }
+          const synonyms = synData.syns;
+          $('#topThreeMostUsed').append(`<div id=${word[0]}>${word}
+            <div id="partOfSpeech">Part of Speech: ${defintionAndPos.pos}</div>
+            <div id="definition">Definition: ${defintionAndPos.def}</div>
+          </div>`);
+          synonyms.map((syn) => $('#topThreeMostUsed').append(`<li>${syn.word}</li>`));
+          return $('#topThreeMostUsed').append('<hr />');
+        });
+      })
     );
     return (
       <div>
         <p>Here are your results:</p>
-        <p>Top Three Most Used Words: </p>
-        {topThree}
+        <p id="topThreeMostUsed">Top Three Most Used Words: </p>
       </div>
     );
   }
   return (
-    <div>Enter some text to analyze</div>
+    <div>Record some speech to analyze</div>
   );
 }
