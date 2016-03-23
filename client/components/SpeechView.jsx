@@ -108,6 +108,10 @@ export default class SpeechView extends React.Component {
 
     const analytics = this.displayAnalytics.bind(this);
 
+    const finishedSpeech = this.state.passedTest && this.state.recording ?
+      <SpeechAnalytics speech={this.state.results.bind(this)}/> :
+      <div></div>;
+
     return (
       <div>
         <div id="speech-input">
@@ -129,7 +133,7 @@ export default class SpeechView extends React.Component {
         </div>
         <div>
           <button onClick={analytics}>Display Analytics</button>
-          <SpeechAnalytics />
+          {finishedSpeech}
         </div>
       </div>
     );
