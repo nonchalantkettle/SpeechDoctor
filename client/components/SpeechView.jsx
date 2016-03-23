@@ -15,6 +15,7 @@ export default class SpeechView extends React.Component {
       recording: false,
       results: '',
       showTranscript: false,
+      showAnalytics: false,
       passedTest: false,
       testMessage: 'Before we get started, we want to make sure we can hear you properly',
     };
@@ -35,6 +36,12 @@ export default class SpeechView extends React.Component {
   displayTranscript() {
     this.setState({
       showTranscript: !this.state.showTranscript,
+    });
+  }
+
+  displayAnalytics() {
+    this.setState({
+      showAnalytics: !this.state.showAnalytics,
     });
   }
 
@@ -94,10 +101,12 @@ export default class SpeechView extends React.Component {
       showDisplayTranscriptButton : <div></div>;
 
 
-//Will probably have to modify this to get diplay transctipt to reset after test is passed.
+    // Will probably have to modify this to get diplay transctipt to reset after test is passed.
     const transcript = this.state.showTranscript || (!this.state.passedTest) ?
       <div id="rendered-speech">Here is the transcript: {this.state.results}</div> :
       <div></div>;
+
+    const analytics = this.displayAnalytics.bind(this);
 
     return (
       <div>
@@ -119,6 +128,7 @@ export default class SpeechView extends React.Component {
           {transcript}
         </div>
         <div>
+          <button onClick={analytics}>Display Analytics</button>
           <SpeechAnalytics />
         </div>
       </div>
