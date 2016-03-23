@@ -46,13 +46,12 @@ export default class SpeechView extends React.Component {
     recognition.onresult = (event) => {
       let returnedTranscript = '';
       const threshold = 0.85;
-      let confidence = true;
 
       for (let i = 0; i < event.results.length; i++) {
         if (!this.state.passedTest) {
-          if (event.results[i][0].transcript.split(' ').length === 20) {
+          if (event.results[i][0].transcript.split(' ').length >= 10) {
             if (event.results[i][0].confidence > threshold) {
-              this.returnedTranscript = '';
+              returnedTranscript = '';
               this.setState({
                 passedTest: true,
                 testMessage: 'Great! You speak clearly. The doctor will see you now',
@@ -60,10 +59,9 @@ export default class SpeechView extends React.Component {
                 results: '',
               });
               recognition.stop();
-              return;
             } else {
               this.setState({
-                testMessage: 'Sorry, the doctor is a bit hard of hearing. You will need to speak more clearly.',
+                testMessage: 'Sorry, the doctor is a bit hard of hearing.',
                 results: '',
               });
             }
@@ -74,16 +72,15 @@ export default class SpeechView extends React.Component {
 
       this.setState({
         results: returnedTranscript,
-        clearHearing: confidence,
       });
     };
     recognition.start();
   }
 
   render() {
-
-    const currentState =
-      this.state.recording ? <div>Recording...</div> : <div>Start recording now</div>;
+    const currentState = this.state.recording ?
+      <div>Recording...</div> :
+      <div>Start recording now</div>;
 
     const handleClick = this.handleClick.bind(this);
 
@@ -96,6 +93,8 @@ export default class SpeechView extends React.Component {
     const transciptButtonBeforeTest = this.state.passedTest ?
       showDisplayTranscriptButton : <div></div>;
 
+
+//Will probably have to modify this to get diplay transctipt to reset after test is passed.
     const transcript = this.state.showTranscript || (!this.state.passedTest) ?
       <div id="rendered-speech">Here is the transcript: {this.state.results}</div> :
       <div></div>;
