@@ -18,10 +18,26 @@ export default class SpeechView extends React.Component {
       showAnalytics: false,
       passedTest: false,
       testMessage: 'Before we get started, we want to make sure we can hear you properly',
+      secondsElapsed: 0,
     };
   }
 
+  getMinutes() {
+    return Math.floor(this.state.secondsElapsed / 60);
+  }
+
+  getSeconds() {
+    return Math.floor('0' + this.state.secondsElapsed % 60).slice(-2);
+  }
+
   handleClick() {
+    let _this = this;
+
+    this.incrementer = setInterval(()=>{
+      _this.setState({
+        secondsElapsed: (_this.state.secondsElapsed + 1)
+      })
+    },1000)
     if (!this.state.recording) {
       this.setState({
         results: '',
@@ -85,6 +101,7 @@ export default class SpeechView extends React.Component {
   }
 
   render() {
+
     const currentState = this.state.recording ?
       <div>Recording...</div> :
       <div>Start recording now</div>;
@@ -130,6 +147,7 @@ export default class SpeechView extends React.Component {
           </div>
         </div>
         <div>
+          <h3 id="timer"><time>00:00:00</time></h3>
           <span>{currentState}</span>
           {transciptButtonBeforeTest}
         </div>
