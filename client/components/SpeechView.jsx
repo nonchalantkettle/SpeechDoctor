@@ -20,7 +20,7 @@ export default class SpeechView extends React.Component {
   }
 
   handleClick() {
-    if(!this.state.recording){
+    if (!this.state.recording) {
       this.setState({
         results: '',
       });
@@ -75,7 +75,7 @@ export default class SpeechView extends React.Component {
   render() {
     const testingView = this.state.passedTest ?
     <div></div> :
-    <div>Before we get started, we want to make sure we can hear you</div>;
+      <div><h3>Before we get started, we want to make sure we can hear you</h3></div>;
 
     const currentState =
       this.state.recording ? <div>Recording...</div> : <div>Start recording now</div>;
@@ -85,13 +85,14 @@ export default class SpeechView extends React.Component {
     const displayTranscript = this.displayTranscript.bind(this);
 
     const showDisplayTranscriptButton = !this.state.showTranscript ?
-       <button onClick={displayTranscript}>Display Transcript</button> :
-         <button onClick={displayTranscript}>Hide Transcript</button>;
+      <button onClick={displayTranscript}>Display Transcript</button> :
+      <button onClick={displayTranscript}>Hide Transcript</button>;
 
     const transcript =
-      this.state.showTranscript ?
+      this.state.showTranscript || (!this.state.passedTest) ?
         <div id="rendered-speech">Here is the transcript: {this.state.results}</div> :
         <div>No transcript for now</div>;
+          
     return (
       <div>
         <div id="speech-input">
