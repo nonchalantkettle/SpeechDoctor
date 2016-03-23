@@ -74,7 +74,7 @@ export default class SpeechView extends React.Component {
 
   render() {
     const testingView = this.state.passedTest ?
-    <div></div> :
+      <div></div> :
       <div><h3>Before we get started, we want to make sure we can hear you</h3></div>;
 
     const currentState =
@@ -88,11 +88,13 @@ export default class SpeechView extends React.Component {
       <button onClick={displayTranscript}>Display Transcript</button> :
       <button onClick={displayTranscript}>Hide Transcript</button>;
 
-    const transcript =
-      this.state.showTranscript || (!this.state.passedTest) ?
-        <div id="rendered-speech">Here is the transcript: {this.state.results}</div> :
-        <div>No transcript for now</div>;
-          
+    const transciptButtonBeforeTest = this.state.passedTest ?
+      showDisplayTranscriptButton : <div></div>
+
+    const transcript = this.state.showTranscript || (!this.state.passedTest) ?
+      <div id="rendered-speech">Here is the transcript: {this.state.results}</div> :
+      <div>No transcript for now</div>;
+
     return (
       <div>
         <div id="speech-input">
@@ -107,7 +109,7 @@ export default class SpeechView extends React.Component {
         </div>
         <div>
           <span>{currentState}</span>
-          {showDisplayTranscriptButton}
+          {transciptButtonBeforeTest}
         </div>
         <div>
           {transcript}
