@@ -151,3 +151,29 @@ export function analyzeText(userTextInput, wordsToAvoid) {
 
   return analytics;
 }
+
+export function countChars(textInput) {
+  const charCounts = {};
+
+  charCounts.withSpace = textInput.length;
+  charCounts.noSpace = textInput.match(/\S+/g).length;
+  charCounts.letters = textInput.match(/[A-Z]/gi).length;
+
+  return charCounts;
+}
+
+export function sentenceCount(textInput) {
+  const sentences = {};
+
+  sentences.count = textInput.match(/\w[.?!](\s|$)/g).length;
+
+  return sentences;
+}
+
+export function wordCount(textInput) {
+  const words = {};
+
+  words.count = textInput.match(/\S+/g).length;
+
+  return words;
+}
