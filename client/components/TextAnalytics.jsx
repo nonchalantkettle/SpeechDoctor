@@ -17,29 +17,26 @@ function renderAnalytics(string) {
 
 export default function TextAnalytics(prop) {
   if (prop.text) {
-    renderAnalytics(prop.text).map((word) => {
+    renderAnalytics(prop.text).map((word) =>
       getDefs(word[0], (defErr, defData) => {
         if (defErr) {
           return defErr;
         }
         const defintionAndPos = defData;
-        getSyns(word[0], (synErr, synData) => {
+        return getSyns(word[0], (synErr, synData) => {
           if (synErr) {
             return synErr;
           }
           const synonyms = synData.syns;
-          $('#text-input').append(`<div id=${word[0]}>${word}
+          $('#topThreeMostUsed').append(`<div id=${word[0]}>${word}
             <div id="partOfSpeech">Part of Speech: ${defintionAndPos.pos}</div>
             <div id="definition">Definition: ${defintionAndPos.def}</div>
           </div>`);
-          synonyms.map((syn) => $('#text-input').append(`<li>${syn.word}</li>`));
-          $('#text-input').append('<hr />');
-          return 'rendered synonyms';
+          synonyms.map((syn) => $('#topThreeMostUsed').append(`<li>${syn.word}</li>`));
+          return $('#topThreeMostUsed').append('<hr />');
         });
-        return 'rendered definitions';
-      });
-      return 'rendered analytics';
-    });
+      })
+    );
     return (
       <div>
         <p>Here are your results:</p>
