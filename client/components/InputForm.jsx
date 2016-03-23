@@ -18,9 +18,18 @@ export default class InputForm extends React.Component {
     this.props.analyzeText(this.state.inputValue);
   }
 
+  clearTextForm() {
+    console.log('reset text got called with this value of ', this);
+    this.setState({
+      inputValue: '',
+    });
+    this.props.resetText();
+  }
+
   render() {
     const handleInputChange = this.handleInputChange.bind(this);
     const handleClick = this.handleClick.bind(this);
+    const clearTextForm = this.clearTextForm.bind(this);
 
     return (
       <div>
@@ -35,7 +44,7 @@ export default class InputForm extends React.Component {
         />
         <div>
           <button onClick={handleClick}>Analyze</button>
-          <button onClick={this.props.resetText}>Reset</button>
+          <button onClick={clearTextForm}>Reset</button>
         </div>
       </div>
     );
@@ -43,6 +52,6 @@ export default class InputForm extends React.Component {
 }
 
 InputForm.propTypes = {
-  analyzeText: React.PropTypes.node,
-  resetText: React.PropTypes.node,
+  analyzeText: React.PropTypes.func,
+  resetText: React.PropTypes.func,
 };

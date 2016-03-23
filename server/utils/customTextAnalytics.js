@@ -86,21 +86,21 @@ function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
 
 
 // make call to Words API
-export function getDefsAndSyns(word) {
-  const datamuseAPI = `https://api.datamuse.com/words?max=5&rel_syn=${word}`;
+export function getDefs(word, callback) {
   const wordsAPI = `https://wordsapiv1.p.mashape.com/words/${word}`;
   const response = {};
-
   // get definitions and part of speech
   $.ajax({
     url: wordsAPI,
     type: 'GET',
-    async: false,
+    async: true,
     success: (data) => {
       response.pos = data.results[0].partOfSpeech;
       response.def = data.results[0].definition;
+      callback(null, response);
     },
     error: (err) => {
+      callback(err, null);
       throw new Error('There was an error making the GET request to the words API!', err);
     },
     beforeSend: (xhr) => {
@@ -108,22 +108,26 @@ export function getDefsAndSyns(word) {
       xhr.setRequestHeader('Accept', 'application/json');
     },
   });
+}
 
+export function getSyns(word, callback) {
+  const datamuseAPI = `https://api.datamuse.com/words?max=5&rel_syn=${word}`;
+  const response = {};
   // get synonyms
   $.ajax({
     type: 'GET',
     url: datamuseAPI,
-    async: false,
+    async: true,
     dataType: 'JSON',
     success: (data) => {
       response.syns = data;
+      callback(null, response);
     },
     error: (err) => {
+      callback(err, null);
       throw new Error('Error - ', err);
     },
   });
-
-  return response;
 }
 
 // call helper functions to get analytics
