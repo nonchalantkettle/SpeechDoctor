@@ -52,7 +52,7 @@ export default class SpeechView extends React.Component {
     }
     recognition.onresult = (event) => {
       let returnedTranscript = '';
-      const threshold = 0.85;
+      const threshold = 0.75;
 
       for (let i = 0; i < event.results.length; i++) {
         if (!this.state.passedTest) {
@@ -108,8 +108,8 @@ export default class SpeechView extends React.Component {
 
     const analytics = this.displayAnalytics.bind(this);
 
-    const finishedSpeech = this.state.passedTest && this.state.recording ?
-      <SpeechAnalytics speech={this.state.results.bind(this)}/> :
+    const finishedSpeech = this.state.passedTest && !this.state.recording ?
+      <SpeechAnalytics speech={this.state.results} /> :
       <div></div>;
 
     return (

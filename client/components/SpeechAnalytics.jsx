@@ -32,4 +32,7 @@ export default function SpeechAnalytics(prop) {
       </div>
     );
   }
+  return (
+    <div>Enter some text to analyze</div>
+  );
 }
