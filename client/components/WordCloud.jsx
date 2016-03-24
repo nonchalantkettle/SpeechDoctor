@@ -2,7 +2,7 @@ import React from 'react';
 import d3 from 'd3';
 import cloud from 'd3.layout.cloud';
 
-export default function cloudMaker() {
+export default function cloudMaker(prop) {
   const fill = d3.scale.category20();
 
   function draw(words) {
@@ -24,8 +24,7 @@ export default function cloudMaker() {
 
   const layout = cloud()
     .size([300, 300])
-    .words([
-      '.NET', 'Silverlight', 'jQuery', 'CSS3', 'HTML5', 'JavaScript', 'SQL', 'C#'].map((d) => (
+    .words(prop.text.split(' ').map((d) => (
         { text: d, size: 10 + Math.random() * 50 }
       )))
     .padding(5)
@@ -40,7 +39,7 @@ export default function cloudMaker() {
     <div>
       <div>
         <div>Word Cloud:</div>
-        <div id="cloud">{cloudMaker} word cloud</div>
+        <div id="cloud">{cloudMaker}</div>
         <div>End</div>
       </div>
     </div>

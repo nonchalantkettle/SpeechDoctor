@@ -28,8 +28,11 @@ export default class TextView extends React.Component {
   }
 
   render() {
-    const analytics = this.state.visibleAnalytics ? <TextAnalytics text={this.state.value} /> : '';
-    const cloud = <WordCloud />;
+    const analytics = this.state.visibleAnalytics ?
+      <div>
+        <TextAnalytics text={this.state.value} />
+        <WordCloud text={this.state.value} />
+      </div> : '';
     const inputFormMethods = {
       analyzeText: this.analyzeText.bind(this),
       resetText: this.resetText.bind(this),
@@ -41,7 +44,6 @@ export default class TextView extends React.Component {
           <h1 id="text-input-title">Text Analyzer</h1>
           <InputForm {...inputFormMethods} />
           {analytics}
-          {cloud}
         </div>
       </div>
     );
