@@ -3,6 +3,7 @@
 
 import React from 'react';
 import SpeechAnalytics from './SpeechAnalytics.jsx';
+import Timer from './Timer.jsx';
 
 const recognition = new webkitSpeechRecognition();
 
@@ -169,6 +170,12 @@ export default class SpeechView extends React.Component {
       <button className="timer-button" onClick={timerButton}>Show Timer</button> :
       <div></div>;
 
+    const timerMethods = {
+      getSeconds: this.getSeconds.bind(this),
+      getMinutes: this.getMinutes.bind(this),
+      secondsElapsed: this.state.secondsElapsed,
+    };
+
     return (
       <div>
         <div id="speech-input">
@@ -186,6 +193,7 @@ export default class SpeechView extends React.Component {
           {transciptButtonBeforeTest}
           {showTimerButton}
           {visibleTimer}
+          <Timer {...timerMethods} />
         </div>
         <div>
           <div>{transcript}</div>
