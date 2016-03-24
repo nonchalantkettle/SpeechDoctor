@@ -95,8 +95,16 @@ export function getDefs(word, callback) {
     type: 'GET',
     async: true,
     success: (data) => {
-      response.pos = data.results[0].partOfSpeech;
-      response.def = data.results[0].definition;
+      if (data.results[1]) {
+        response.pos = data.results[1].partOfSpeech;
+        response.def = data.results[1].definition;
+      } else if (data.results[0]) {
+        response.pos = data.results[0].partOfSpeech;
+        response.def = data.results[0].definition;
+      } else {
+        response.pos = '-';
+        response.def = '-';
+      }
       callback(null, response);
     },
     error: (err) => {
