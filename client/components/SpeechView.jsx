@@ -83,6 +83,13 @@ export default class SpeechView extends React.Component {
     });
   }
 
+  calculateWPM () {
+    const numberOfWords = this.state.results.split(" ").length;
+    const time = this.state.secondsElapsed;
+    const wordsPerSecond = numberOfWords/time;
+    return Math.floor(wordsPerSecond % 60);
+  }
+
   listener() {
     if (this.state.recording) {
       recognition.stop();
@@ -155,10 +162,6 @@ export default class SpeechView extends React.Component {
       this.state.showAnalytics ?
       <SpeechAnalytics speech={this.state.results} /> :
       <div></div>;
-
-    const secondsLessThan10 = (this.getSeconds() < 10) ?
-      <h3 id="timer">{this.getMinutes()}:0{this.getSeconds()}</h3> :
-      <h3 id="timer">{this.getMinutes()}:{this.getSeconds()}</h3>;
 
     const timerButton = this.showTimer.bind(this);
 
