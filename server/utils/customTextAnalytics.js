@@ -29,7 +29,7 @@ function countEachWord(textInput) {
 
 // find the top three most-used words, excluding 'the', 'a', 'an', and 'and'
 function topThreeWords(wordCountObject) {
-  const wordsToIgnore = /the\b|a\b|an\b|and\b|is\b/;
+  const wordsToIgnore = /the\b|a\b|an\b|and\b|is\b|that\b|to\b|i\b/;
 
   // avoid modifying original wordCountObject
   const copiedObj = JSON.parse(JSON.stringify(wordCountObject));
@@ -155,12 +155,36 @@ export function analyzeText(userTextInput, wordsToAvoid) {
 export function getTextStats(textInput) {
   const counts = {};
 
-  counts.charsWithSpace = textInput.length;
-  counts.charsNoSpace = textInput.match(/\S+/g).length;
-  counts.charsJustLetters = textInput.match(/[A-Z]/gi).length;
-  counts.words = textInput.match(/\S+/g).length;
-  counts.sentences = textInput.match(/\w[.?!](\s|$)/g).length;
-  counts.paragraphs = textInput.match(/\n/g).length;
+  if (textInput.length) {
+    counts.charsWithSpace = textInput.length;
+  } else {
+    counts.charsWithSpace = 0;
+  }
+  if (textInput.match(/\S+/g)) {
+    counts.charsNoSpace = textInput.match(/\S+/g).length;
+  } else {
+    counts.charsNoSpace = 0;
+  }
+  if (textInput.match(/[A-Z]/gi)) {
+    counts.charsJustLetters = textInput.match(/[A-Z]/gi).length;
+  } else {
+    counts.charsJustLetters = 0;
+  }
+  if (textInput.match(/\S+/g)) {
+    counts.words = textInput.match(/\S+/g).length;
+  } else {
+    counts.words = 0;
+  }
+  if (textInput.match(/\w[.?!](\s|$)/g)) {
+    counts.sentences = textInput.match(/\w[.?!](\s|$)/g).length;
+  } else {
+    counts.sentences = 0;
+  }
+  if (textInput.match(/\n/g)) {
+    counts.paragraphs = textInput.match(/\n/g).length;
+  } else {
+    counts.paragraphs = 0;
+  }
 
   counts.charactersPerWord = Math.floor(counts.charsJustLetters / counts.words);
   counts.wordsPerSentence = Math.floor(counts.words / counts.sentences);
@@ -168,7 +192,7 @@ export function getTextStats(textInput) {
   return counts;
 }
 
-export function automatedReadabilityIndex(textInput) {
+export function getAutomatedReadabilityIndex(textInput) {
   const conversionTable = {
     1: {
       age: '5-6',
