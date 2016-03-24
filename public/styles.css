@@ -7,6 +7,10 @@ body {
   color: #30302f;
 }
 
+p {
+  font-size: 18px;
+}
+
 a {
   color: #517398;
   text-decoration: none;
@@ -26,7 +30,12 @@ h2 {
   font-weight: 300;
   font-style: italic;
   font-size: 2em;
-  margin: 10px 35px;
+  /*margin: 10px 35px;*/
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 1.5em;
 }
 
 button {
@@ -122,4 +131,12 @@ button:focus {
 
 #rendered-speech {
   margin: 35px;
+}
+
+#topThreeMostUsed > p {
+  font-weight: 400;
+}
+
+p#bold-word, span#bold-word{
+  font-weight: 600;
 }

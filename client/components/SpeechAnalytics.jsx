@@ -37,10 +37,9 @@ export default function SpeechAnalytics(prop) {
           }
           const synonyms = synData.syns;
 
-          $('#topThreeMostUsed').append(`<div id=${word[0]}><p>${word[0]}${word[1]}</p>
+          $('#topThreeMostUsed').append(`<p id=${word[0]}>${word[0]}${word[1]}</p>
             <p id="partOfSpeech">Part of Speech: ${defintionAndPos.pos}</div>
-            <p id="definition">Definition: ${defintionAndPos.def}</div>
-          </div>`);
+            <p id="definition">Definition: ${defintionAndPos.def}</div>`);
 
           if (synonyms.length) {
             let synString = synonyms.reduce((acc, syn) => {
