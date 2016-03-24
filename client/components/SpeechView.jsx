@@ -24,19 +24,18 @@ export default class SpeechView extends React.Component {
     };
   }
 
-  showTimer(){
-    this.setState({
-      timerVisible: !this.state.timerVisible,
-    });
-    console.log("timerVisible :", this.state.timerVisible);
-  }
-
   getMinutes() {
     return Math.floor(this.state.secondsElapsed / 60);
   }
 
   getSeconds() {
     return Math.floor(this.state.secondsElapsed % 60);
+  }
+
+  showTimer() {
+    this.setState({
+      timerVisible: !this.state.timerVisible,
+    });
   }
 
   handleClick() {
