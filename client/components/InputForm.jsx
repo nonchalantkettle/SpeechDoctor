@@ -19,7 +19,6 @@ export default class InputForm extends React.Component {
   }
 
   clearTextForm() {
-    console.log('reset text got called with this value of ', this);
     this.setState({
       inputValue: '',
     });

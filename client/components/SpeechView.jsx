@@ -5,6 +5,7 @@ import React from 'react';
 import SpeechAnalytics from './SpeechAnalytics.jsx';
 
 const recognition = new webkitSpeechRecognition();
+
 recognition.continuous = true;
 recognition.interimResults = true;
 
@@ -18,10 +19,46 @@ export default class SpeechView extends React.Component {
       showAnalytics: false,
       passedTest: false,
       testMessage: 'Before we get started, we want to make sure we can hear you properly',
+      secondsElapsed: 0,
+      timerVisible: false,
     };
   }
 
+  getMinutes() {
+    return Math.floor(this.state.secondsElapsed / 60);
+  }
+
+  getSeconds() {
+    return Math.floor(this.state.secondsElapsed % 60);
+  }
+
+  showTimer() {
+    this.setState({
+      timerVisible: !this.state.timerVisible,
+    });
+  }
+
   handleClick() {
+    if (this.state.secondsElapsed === 0 && !this.state.recording) {
+      this.incrementer = setInterval(() => {
+        this.setState({
+          secondsElapsed: (this.state.secondsElapsed + 1),
+        });
+      }, 1000);
+    } else if (this.state.secondsElapsed > 0 && this.state.recording) {
+      clearInterval(this.incrementer);
+    } else if (this.state.secondsElapsed > 0 && !this.state.recording) {
+      clearInterval(this.incrementer);
+      this.setState({
+        secondsElapsed: 0,
+      });
+      this.incrementer = setInterval(() => {
+        this.setState({
+          secondsElapsed: (this.state.secondsElapsed + 1),
+        });
+      }, 1000);
+    }
+
     if (!this.state.recording) {
       this.setState({
         results: '',
@@ -59,11 +96,13 @@ export default class SpeechView extends React.Component {
           if (event.results[i][0].transcript.split(' ').length === 10) {
             if (event.results[i][0].confidence > threshold) {
               returnedTranscript = '';
+              clearInterval(this.incrementer);
               this.setState({
                 passedTest: true,
                 testMessage: 'Great! You speak clearly. The doctor will see you now',
                 recording: false,
                 results: '',
+                secondsElapsed: 0,
               });
               recognition.stop();
             } else {
@@ -111,10 +150,23 @@ export default class SpeechView extends React.Component {
       <button onClick={analytics}>Display Analytics</button> :
       <div></div>;
 
-
     const finishedSpeech = this.state.passedTest && !this.state.recording &&
       this.state.showAnalytics ?
       <SpeechAnalytics speech={this.state.results} /> :
+      <div></div>;
+
+    const secondsLessThan10 = (this.getSeconds() < 10) ?
+      <h3 id="timer">{this.getMinutes()}:0{this.getSeconds()}</h3> :
+      <h3 id="timer">{this.getMinutes()}:{this.getSeconds()}</h3>;
+
+    const visibleTimer = this.state.passedTest && this.state.timerVisible ?
+      secondsLessThan10 :
+      <div></div>;
+
+    const timerButton = this.showTimer.bind(this);
+
+    const showTimerButton = this.state.passedTest ?
+      <button className="timer-button" onClick={timerButton}>Show Timer</button> :
       <div></div>;
 
     return (
@@ -132,6 +184,8 @@ export default class SpeechView extends React.Component {
         <div>
           <span>{currentState}</span>
           {transciptButtonBeforeTest}
+          {showTimerButton}
+          {visibleTimer}
         </div>
         <div>
           <div>{transcript}</div>
