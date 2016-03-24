@@ -56,7 +56,7 @@ export default class SpeechView extends React.Component {
 
       for (let i = 0; i < event.results.length; i++) {
         if (!this.state.passedTest) {
-          if (event.results[i][0].transcript.split(' ').length >= 10) {
+          if (event.results[i][0].transcript.split(' ').length === 10) {
             if (event.results[i][0].confidence > threshold) {
               returnedTranscript = '';
               this.setState({
@@ -99,7 +99,6 @@ export default class SpeechView extends React.Component {
 
     const transciptButtonBeforeTest = this.state.passedTest ?
       showDisplayTranscriptButton : <div></div>;
-
 
     // Will probably have to modify this to get diplay transctipt to reset after test is passed.
     const transcript = this.state.showTranscript || (!this.state.passedTest) ?
