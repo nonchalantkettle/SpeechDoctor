@@ -32,7 +32,7 @@ export default class SpeechView extends React.Component {
   }
 
   handleClick() {
-    if (this.state.secondsElapsed === 0 && !this.state.recording){
+    if (this.state.secondsElapsed === 0 && !this.state.recording) {
       this.incrementer = setInterval(() => {
         this.setState({
           secondsElapsed: (this.state.secondsElapsed + 1),
