@@ -160,10 +160,6 @@ export default class SpeechView extends React.Component {
       <h3 id="timer">{this.getMinutes()}:0{this.getSeconds()}</h3> :
       <h3 id="timer">{this.getMinutes()}:{this.getSeconds()}</h3>;
 
-    const visibleTimer = this.state.passedTest && this.state.timerVisible ?
-      secondsLessThan10 :
-      <div></div>;
-
     const timerButton = this.showTimer.bind(this);
 
     const showTimerButton = this.state.passedTest ?
@@ -175,6 +171,10 @@ export default class SpeechView extends React.Component {
       getMinutes: this.getMinutes.bind(this),
       secondsElapsed: this.state.secondsElapsed,
     };
+
+    const visibleTimer = this.state.passedTest && this.state.timerVisible ?
+      <Timer {...timerMethods} /> :
+      <div></div>;
 
     return (
       <div>
@@ -193,7 +193,6 @@ export default class SpeechView extends React.Component {
           {transciptButtonBeforeTest}
           {showTimerButton}
           {visibleTimer}
-          <Timer {...timerMethods} />
         </div>
         <div>
           <div>{transcript}</div>
