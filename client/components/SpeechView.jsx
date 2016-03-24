@@ -89,11 +89,13 @@ export default class SpeechView extends React.Component {
           if (event.results[i][0].transcript.split(' ').length === 10) {
             if (event.results[i][0].confidence > threshold) {
               returnedTranscript = '';
+              clearInterval(this.incrementer);
               this.setState({
                 passedTest: true,
                 testMessage: 'Great! You speak clearly. The doctor will see you now',
                 recording: false,
                 results: '',
+                secondsElapsed: 0,
               });
               recognition.stop();
             } else {
