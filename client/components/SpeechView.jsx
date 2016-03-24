@@ -20,7 +20,15 @@ export default class SpeechView extends React.Component {
       passedTest: false,
       testMessage: 'Before we get started, we want to make sure we can hear you properly',
       secondsElapsed: 0,
+      timerVisible: false,
     };
+  }
+
+  showTimer(){
+    this.setState({
+      timerVisible: !this.state.timerVisible,
+    });
+    console.log("timerVisible :", this.state.timerVisible);
   }
 
   getMinutes() {
@@ -143,7 +151,6 @@ export default class SpeechView extends React.Component {
       <button onClick={analytics}>Display Analytics</button> :
       <div></div>;
 
-
     const finishedSpeech = this.state.passedTest && !this.state.recording &&
       this.state.showAnalytics ?
       <SpeechAnalytics speech={this.state.results} /> :
@@ -152,6 +159,16 @@ export default class SpeechView extends React.Component {
     const secondsLessThan10 = (this.getSeconds() < 10) ?
       <h3 id="timer">{this.getMinutes()}:0{this.getSeconds()}</h3> :
       <h3 id="timer">{this.getMinutes()}:{this.getSeconds()}</h3>;
+
+    const visibleTimer = this.state.passedTest && this.state.timerVisible ?
+      secondsLessThan10 :
+      <div></div>;
+
+    const timerButton = this.showTimer.bind(this);
+
+    const showTimerButton = this.state.passedTest ?
+      <button className="timer-button" onClick={timerButton}>Show Timer</button> :
+      <div></div>;
 
     return (
       <div>
@@ -166,9 +183,10 @@ export default class SpeechView extends React.Component {
           </div>
         </div>
         <div>
-          {secondsLessThan10}
           <span>{currentState}</span>
           {transciptButtonBeforeTest}
+          {showTimerButton}
+          {visibleTimer}
         </div>
         <div>
           <div>{transcript}</div>
