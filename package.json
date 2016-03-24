@@ -50,6 +50,7 @@
     "express": "^4.13.4",
     "jquery": "^2.2.2",
     "json-loader": "^0.5.4",
+    "mongoose": "^4.4.10",
     "morgan": "^1.7.0",
     "path": "^0.12.7",
     "react": "^0.14.7",
