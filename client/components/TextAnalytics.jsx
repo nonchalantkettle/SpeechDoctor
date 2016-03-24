@@ -62,13 +62,13 @@ export default function TextAnalytics(prop) {
           <p>Total Characters (all): <span id="bold-word">{counts.charsWithSpace}</span></p>
           <p>Total Characters (no spaces): <span id="bold-word">{counts.charsNoSpace}</span></p>
           <p>Total Characters (no punctuation or spaces):
-            <span id="bold-word">{counts.charsJustLetters}</span>
+            <span id="bold-word"> {counts.charsJustLetters}</span>
           </p>
           <p>Total Words: <span id="bold-word">{counts.words}</span></p>
           <p>Total Sentences: <span id="bold-word">{counts.sentences}</span></p>
           <p>Total Paragraphs: <span id="bold-word">{counts.paragraphs}</span></p>
           <p>Average Characters Per Word:
-            <span id="bold-word">{counts.charactersPerWord}</span>
+            <span id="bold-word"> {counts.charactersPerWord}</span>
           </p>
           <p>Average Words Per Sentence: <span id="bold-word">{counts.wordsPerSentence}</span></p>
           <p>Automated Readability Index, Minimum Target Age for Audience:

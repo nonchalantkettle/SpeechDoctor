@@ -160,8 +160,8 @@ export function getTextStats(textInput) {
   } else {
     counts.charsWithSpace = 0;
   }
-  if (textInput.match(/\S+/g)) {
-    counts.charsNoSpace = textInput.match(/\S+/g).length;
+  if (textInput.match(/[^\s]/g)) {
+    counts.charsNoSpace = textInput.match(/[^\s]/g).length;
   } else {
     counts.charsNoSpace = 0;
   }
@@ -178,7 +178,7 @@ export function getTextStats(textInput) {
   if (textInput.match(/\w[.?!](\s|$)/g)) {
     counts.sentences = textInput.match(/\w[.?!](\s|$)/g).length;
   } else {
-    counts.sentences = 0;
+    counts.sentences = 1;
   }
   if (textInput.match(/\n/g)) {
     counts.paragraphs = textInput.match(/\n/g).length;
