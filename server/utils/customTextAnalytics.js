@@ -5,7 +5,7 @@ import { wordsAPIKey } from '../../API_KEYS';
  */
 
 // get each word's word count
-function countEachWord(textInput) {
+export function countEachWord(textInput) {
   // split up input string into arrays by spaces and newline chars
   const whiteSpaceChars = /\s/;
   const allWords = textInput.split(whiteSpaceChars);

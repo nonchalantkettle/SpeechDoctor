@@ -1,6 +1,7 @@
 import React from 'react';
 import InputForm from './InputForm.jsx';
 import TextAnalytics from './TextAnalytics.jsx';
+import WordCloud from './WordCloud.jsx';
 
 export default class TextView extends React.Component {
 
@@ -14,7 +15,7 @@ export default class TextView extends React.Component {
 
   analyzeText(input) {
     this.setState({
-      visibleAnalytics: true,
+      visibleAnalytics: !this.state.visibleAnalytics,
       value: input,
     });
   }
@@ -27,7 +28,11 @@ export default class TextView extends React.Component {
   }
 
   render() {
-    const analytics = this.state.visibleAnalytics ? <TextAnalytics text={this.state.value} /> : '';
+    const analytics = this.state.visibleAnalytics ?
+      <div>
+        <TextAnalytics text={this.state.value} />
+        <WordCloud text={this.state.value} />
+      </div> : '';
     const inputFormMethods = {
       analyzeText: this.analyzeText.bind(this),
       resetText: this.resetText.bind(this),
