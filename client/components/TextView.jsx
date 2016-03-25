@@ -5,8 +5,6 @@ import TextAnalytics from './TextAnalytics.jsx';
 import WordCloud from './WordCloud.jsx';
 import Timer from './Timer.jsx';
 
-let WPM = 0;
-
 export default class TextView extends React.Component {
 
   constructor(props) {
@@ -42,7 +40,7 @@ export default class TextView extends React.Component {
   }
 
   startTimer() {
-    if(!this.state.timer){
+    if (!this.state.timer) {
       this.setState({
         secondsElapsed: 0,
       });
@@ -57,7 +55,7 @@ export default class TextView extends React.Component {
 
   stopTimer() {
     clearInterval(this.incrementer);
-    if(!this.state.timer){
+    if (!this.state.timer) {
       this.setState({
         secondsElapsed: 0,
       });
