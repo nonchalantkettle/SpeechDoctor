@@ -29,7 +29,8 @@ export function countEachWord(textInput) {
 
 // find the top three most-used words, excluding 'the', 'a', 'an', and 'and'
 function topThreeWords(wordCountObject) {
-  const wordsToIgnore = /the\b|a\b|an\b|and\b|is\b|that\b|to\b|i\b/;
+  // const wordsToIgnore = /the\b|a\b|an\b|and\b|is\b|that\b|to\b|i\b/;
+  const wordsToIgnore = /\b[a-z]{1,2}\b|the\b|and\b|that\b|are\b/gi;
 
   // avoid modifying original wordCountObject
   const copiedObj = JSON.parse(JSON.stringify(wordCountObject));
@@ -95,15 +96,15 @@ export function getDefs(word, callback) {
     type: 'GET',
     async: true,
     success: (data) => {
-      if (data.results[1]) {
-        response.pos = data.results[1].partOfSpeech;
-        response.def = data.results[1].definition;
-      } else if (data.results[0]) {
-        response.pos = data.results[0].partOfSpeech;
-        response.def = data.results[0].definition;
-      } else {
+      if (data.results === undefined) {
         response.pos = '-';
         response.def = '-';
+      } else if (data.results[1]) {
+        response.pos = data.results[1].partOfSpeech || '-';
+        response.def = data.results[1].definition || '-';
+      } else if (data.results[0]) {
+        response.pos = data.results[1].partOfSpeech || '-';
+        response.def = data.results[1].definition || '-';
       }
       callback(null, response);
     },
@@ -262,10 +263,16 @@ export function getAutomatedReadabilityIndex(textInput) {
 
   const textStats = getTextStats(textInput);
 
-  const ARI = Math.ceil(
+  let ARI = Math.ceil(
     4.71 * (textStats.charsJustLetters / textStats.words) +
     0.5 * (textStats.words / textStats.sentences) - 21.43
   );
+
+  if (ARI > 14) {
+    ARI = 14;
+  } else if (ARI < 1) {
+    ARI = 1;
+  }
 
   return conversionTable[ARI];
 }

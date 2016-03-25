@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 import InputForm from './InputForm.jsx';
 import TextAnalytics from './TextAnalytics.jsx';
 import WordCloud from './WordCloud.jsx';
@@ -28,11 +29,19 @@ export default class TextView extends React.Component {
   }
 
   render() {
+    const removeWordCloud = () => {
+      if (document.getElementById('word-cloud')) {
+        $('#text-input').find('#word-cloud').remove();
+      }
+    };
+
     const analytics = this.state.visibleAnalytics ?
       <div>
         <TextAnalytics text={this.state.value} />
         <WordCloud text={this.state.value} />
-      </div> : '';
+      </div>
+      : removeWordCloud();
+
     const inputFormMethods = {
       analyzeText: this.analyzeText.bind(this),
       resetText: this.resetText.bind(this),

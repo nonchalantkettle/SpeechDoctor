@@ -10,7 +10,6 @@ import { getDefs,
 
 function renderTopThree(string) {
   const analyticsObj = analyzeText(string);
-  // const countEachWordResult = analyticsObj.allTotals;
   const topThreeWordsResult = analyticsObj.topThree;
   const results = [];
   for (const key in topThreeWordsResult) {
