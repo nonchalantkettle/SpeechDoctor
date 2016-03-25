@@ -15,6 +15,7 @@ export default class TextView extends React.Component {
       visibleAnalytics: false,
       value: '',
       secondsElapsed: 0,
+      timer: false,
     };
   }
 
@@ -41,27 +42,40 @@ export default class TextView extends React.Component {
   }
 
   startTimer() {
+    if(!this.state.timer){
+      this.setState({
+        secondsElapsed: 0,
+      });
+    }
     this.incrementer = setInterval(() => {
       this.setState({
         secondsElapsed: (this.state.secondsElapsed + 1),
+        timer: true,
       });
     }, 1000);
   }
 
   stopTimer() {
     clearInterval(this.incrementer);
+    if(!this.state.timer){
+      this.setState({
+        secondsElapsed: 0,
+      });
+    }
     this.setState({
-      secondsElapsed: 0,
+      timer: false,
     });
   }
 
-  calculateWPM() {
-    const numberOfWords = this.state.results.split(' ').length;
-    const time = this.state.secondsElapsed;
-    const wordsPerSecond = (numberOfWords / time);
-    WPM = Math.floor(wordsPerSecond * 60);
-  }
-
+  // calculateWPM() {
+  //   const numberChars = this.state.value.split('').length;
+  //   console.log("this.state.value : ", this.state.value);
+  //   const fiveCharsPerWord = (numberChars / 5);
+  //   console.log("fiveCharsPerWord :", fiveCharsPerWord);
+  //   const time = this.state.secondsElapsed;
+  //   const wordsPerSecond = (fiveCharsPerWord / time);
+  //   WPM = Math.floor(wordsPerSecond * 60);
+  // }
 
   render() {
     const removeWordCloud = () => {
@@ -70,9 +84,13 @@ export default class TextView extends React.Component {
       }
     };
 
+    // const typedWPM = this.state.visibleAnalytics && !this.state.timer ?
+    //   <div>You type at {WPM} words per minute </div> :
+    //   <div></div>;
+
+
     const analytics = this.state.visibleAnalytics ?
       <div>
-        You write at {WPM} words per minute.
         <TextAnalytics text={this.state.value} />
         <WordCloud text={this.state.value} />
       </div>
@@ -89,11 +107,20 @@ export default class TextView extends React.Component {
       secondsElapsed: this.state.secondsElapsed,
     };
 
+    const start = this.startTimer.bind(this);
+
+    const stop = this.stopTimer.bind(this);
+
+    const timerButton = !this.state.timer ?
+      <button onClick={start}>Start Timer</button> :
+      <button onClick={stop}>Stop Timer</button>;
+
     return (
       <div>
         <div id="text-input">
           <h1 id="text-input-title">Text Analyzer</h1>
           <InputForm {...inputFormMethods} />
+          <div>{timerButton}</div>
           <Timer {...timerMethods} />
           {analytics}
         </div>
