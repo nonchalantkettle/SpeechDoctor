@@ -83,10 +83,10 @@ export default class SpeechView extends React.Component {
     });
   }
 
-  calculateWPM () {
-    const numberOfWords = this.state.results.split(" ").length;
+  calculateWPM() {
+    const numberOfWords = this.state.results.split('').length;
     const time = this.state.secondsElapsed;
-    const wordsPerSecond = numberOfWords/time;
+    const wordsPerSecond = (numberOfWords / time);
     return Math.floor(wordsPerSecond % 60);
   }
 
