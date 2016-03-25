@@ -6,6 +6,8 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 
 import TextView from './TextView.jsx';
 import SpeechView from './SpeechView.jsx';
+import SignUp from './SignUp.jsx';
+import LogIn from './LogIn.jsx';
 import Nav from './Nav.jsx';
 import LandingPage from './LandingPage.jsx';
 
@@ -30,6 +32,8 @@ ReactDOM.render(
       <IndexRoute component={LandingPage} />
       <Route path="/speech" component={SpeechView} />
       <Route path="/text" component={TextView} />
+      <Route path="/signup" component={SignUp} />
+      <Route path="/login" component={LogIn} />
     </Route>
   </Router>,
   document.getElementById('app')
