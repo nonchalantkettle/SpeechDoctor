@@ -3,8 +3,10 @@
 
 import React from 'react';
 import SpeechAnalytics from './SpeechAnalytics.jsx';
+import Timer from './Timer.jsx';
 
 const recognition = new webkitSpeechRecognition();
+let WPM = 0;
 
 recognition.continuous = true;
 recognition.interimResults = true;
@@ -76,6 +78,13 @@ export default class SpeechView extends React.Component {
     });
   }
 
+  calculateWPM() {
+    const numberOfWords = this.state.results.split(' ').length;
+    const time = this.state.secondsElapsed;
+    const wordsPerSecond = (numberOfWords / time);
+    WPM = Math.floor(wordsPerSecond * 60);
+  }
+
   displayAnalytics() {
     this.setState({
       showAnalytics: !this.state.showAnalytics,
@@ -84,6 +93,7 @@ export default class SpeechView extends React.Component {
 
   listener() {
     if (this.state.recording) {
+      this.calculateWPM();
       recognition.stop();
       return;
     }
@@ -152,21 +162,26 @@ export default class SpeechView extends React.Component {
 
     const finishedSpeech = this.state.passedTest && !this.state.recording &&
       this.state.showAnalytics ?
-      <SpeechAnalytics speech={this.state.results} /> :
-      <div></div>;
-
-    const secondsLessThan10 = (this.getSeconds() < 10) ?
-      <h3 id="timer">{this.getMinutes()}:0{this.getSeconds()}</h3> :
-      <h3 id="timer">{this.getMinutes()}:{this.getSeconds()}</h3>;
-
-    const visibleTimer = this.state.passedTest && this.state.timerVisible ?
-      secondsLessThan10 :
+      <div>
+        You speak at {WPM} words per minute.
+        <SpeechAnalytics speech={this.state.results} />
+      </div> :
       <div></div>;
 
     const timerButton = this.showTimer.bind(this);
 
     const showTimerButton = this.state.passedTest ?
       <button className="timer-button" onClick={timerButton}>Show Timer</button> :
+      <div></div>;
+
+    const timerMethods = {
+      getSeconds: this.getSeconds.bind(this),
+      getMinutes: this.getMinutes.bind(this),
+      secondsElapsed: this.state.secondsElapsed,
+    };
+
+    const visibleTimer = this.state.passedTest && this.state.timerVisible ?
+      <Timer {...timerMethods} /> :
       <div></div>;
 
     return (
