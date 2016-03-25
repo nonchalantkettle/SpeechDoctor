@@ -163,7 +163,7 @@ export default class SpeechView extends React.Component {
       <div>
         Your WPS: {this.calculateWPM.bind(this)()}
         <SpeechAnalytics speech={this.state.results} />
-      </div>:
+      </div> :
       <div></div>;
 
     const timerButton = this.showTimer.bind(this);
