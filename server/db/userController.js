@@ -8,6 +8,7 @@ const createUser = Q.nbind(User.create, User);
 
 module.exports = {
   login: (req, res, next) => {
+    console.log(" REQ DOT BODY - ", req.body);
     const user = req.body;
     const username = user.username;
     const password = user.password;
@@ -19,10 +20,8 @@ module.exports = {
         } else {
           return user.comparePasswords(password)
             .then((foundUser) => {
-              console.log("FOUND USER!", foundUser)
               if (foundUser) {
-                const token = jwt.sign({ username: username, userId: user._id },
-                    'HiImAJWTTokenSecret');
+                const token = jwt.sign({ username: username, userId: user._id },'HiImAJWTTokenSecret');
                 return res.json({ userId: user._id, token: token });
               } else {
                 return next(new Error('Incorrect username or password'));
@@ -45,15 +44,14 @@ module.exports = {
         if (user) {
           return next(new Error('User already exists'));
         } else {
-          return createUser({
+          createUser({
             username: username,
             password: password
           }).then((user) => {
             console.log('Created user', user);
               // Generate JWT for user here
               // params: payload, secret key, encryption, callback
-            const token = jwt.sign({ username: user.username, userId: user._id },
-                'HiImAJWTTokenSecret');
+            const token = jwt.sign({ username: user.username, userId: user._id }, 'HiImAJWTTokenSecret');
             console.log('token created', token);
             res.json({ token: token, userId: user._id, username: user.username });
             return next();

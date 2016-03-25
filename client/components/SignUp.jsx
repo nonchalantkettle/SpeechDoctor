@@ -50,7 +50,8 @@ export default class SignUp extends React.Component {
             });
             // redirect to main landing page
           }
-        }).catch((err) => {
+        })
+        .catch((err) => {
           this.setState({
             error: 'User already exists' + err,
           });

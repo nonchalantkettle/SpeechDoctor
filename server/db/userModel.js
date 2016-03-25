@@ -18,20 +18,22 @@ const UserSchema = new mongoose.Schema({
   salt: String,
 });
 
-UserSchema.methods.comparePasswords = (candidatePassword) => {
+UserSchema.methods.comparePasswords = function (candidatePassword) {
   const savedPassword = this.password;
   return Q.Promise((resolve, reject) => {
     bcrypt.compare(candidatePassword, savedPassword, (err, matched) => {
       if (err) {
+        console.log(" REJECTED PASSWORD ");
         reject(err);
       } else {
+        console.log(" MATCHED PASSWORD ");
         resolve(matched);
       }
     });
   });
 };
 
-UserSchema.pre('save', (next) => {
+UserSchema.pre('save', function presaveCallback(next) {
   const user = this;
   // if (!user.isModified('password')) {
   //   return next();

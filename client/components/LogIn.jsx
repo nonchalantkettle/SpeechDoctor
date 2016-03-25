@@ -30,6 +30,7 @@ export default class LogIn extends React.Component {
   handleSubmit() {
     api.login(this.state.username, this.state.password)
       .then((res) => {
+        console.log("RES IN LOGIN --- ", res);
         if (res.status === 500) {
           this.setState({
             error: 'Username or password is incorrect',
