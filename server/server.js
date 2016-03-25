@@ -6,6 +6,7 @@ const app = express();
 mongoose.connect('mongodb://localhost/speechdoctor');
 
 require('./config/middleware')(app, express);
+require('./config/routes.js')(app);
 
 const port = 8080;
 
