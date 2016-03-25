@@ -6,7 +6,7 @@ import SpeechAnalytics from './SpeechAnalytics.jsx';
 import Timer from './Timer.jsx';
 
 const recognition = new webkitSpeechRecognition();
-let WPM  = 0;
+let WPM = 0;
 
 recognition.continuous = true;
 recognition.interimResults = true;
@@ -79,10 +79,11 @@ export default class SpeechView extends React.Component {
   }
 
   calculateWPM() {
-    const numberOfWords = this.state.results.split('').length;
+    const numberOfWords = this.state.results.split(' ').length;
     const time = this.state.secondsElapsed;
     const wordsPerSecond = (numberOfWords / time);
-    WPM = Math.floor(wordsPerSecond % 60);
+    console.log("There is this many words : ", numberOfWords);
+    WPM = Math.floor(wordsPerSecond * 60);
   }
 
   displayAnalytics() {
@@ -91,8 +92,6 @@ export default class SpeechView extends React.Component {
       showAnalytics: !this.state.showAnalytics,
     });
   }
-
-
 
   listener() {
     if (this.state.recording) {
