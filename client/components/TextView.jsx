@@ -15,7 +15,7 @@ export default class TextView extends React.Component {
 
   analyzeText(input) {
     this.setState({
-      visibleAnalytics: true,
+      visibleAnalytics: !this.state.visibleAnalytics,
       value: input,
     });
   }

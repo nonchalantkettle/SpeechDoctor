@@ -1,16 +1,35 @@
 import React from 'react';
 import d3 from 'd3';
 import cloud from 'd3.layout.cloud';
+import { countEachWord } from '../../server/utils/customTextAnalytics.js';
 
 export default function cloudMaker(prop) {
-  const fill = d3.scale.category20();
+  const wordFrequencyObject = countEachWord(prop.text);
+  const wordArrayWithFrequency = [];
+  const wordArrayNoFrequency = [];
+  for (const word in wordFrequencyObject) {
+    if (wordFrequencyObject.hasOwnProperty(word)) {
+      wordArrayWithFrequency.push([word, wordFrequencyObject[word]]);
+      wordArrayWithFrequency.sort((a, b) => b[1] - a[1]);
+    }
+  }
+
+  for (let i = 0; i < wordArrayWithFrequency.length; i++) {
+    wordArrayNoFrequency.push(wordArrayWithFrequency[i][0]);
+  }
+
+  const numberOfWordsInCloud =
+    wordArrayWithFrequency[0][1] >= 3 ? 5 * wordArrayWithFrequency[0][1] : 0;
+
+  const fill = d3.scale.category10();
+  let layout;
 
   function draw(words) {
-    d3.select('#cloud').append('svg')
+    d3.select('#text-input').append('svg')
       .attr('width', 300)
       .attr('height', 300)
     .append('g')
-      .attr('transform', 'translate(150,150)')
+      .attr('transform', `translate(${layout.size()[0] / 2}, ${layout.size()[1] / 2})`)
     .selectAll('text')
       .data(words)
     .enter().append('text')
@@ -22,12 +41,11 @@ export default function cloudMaker(prop) {
     .text((d) => d.text);
   }
 
-  const layout = cloud()
+  layout = cloud()
     .size([300, 300])
-    .words(prop.text.split(' ').map((d) => (
-        { text: d, size: 10 + Math.random() * 50 }
+    .words(prop.text.split(' ').splice(0, numberOfWordsInCloud).map((d) => (
+        { text: d, size: 10 + Math.random() * 15 }
       )))
-    .padding(5)
     .rotate(() => ~~(Math.random() * 2) * 90)
     .font('Impact')
     .fontSize((d) => d.size)
@@ -40,7 +58,6 @@ export default function cloudMaker(prop) {
       <div>
         <div>Word Cloud:</div>
         <div id="cloud">{cloudMaker}</div>
-        <div>End</div>
       </div>
     </div>
   );
