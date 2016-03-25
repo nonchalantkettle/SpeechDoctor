@@ -29,7 +29,8 @@ export function countEachWord(textInput) {
 
 // find the top three most-used words, excluding 'the', 'a', 'an', and 'and'
 function topThreeWords(wordCountObject) {
-  const wordsToIgnore = /the\b|a\b|an\b|and\b|is\b|that\b|to\b|i\b/;
+  // const wordsToIgnore = /the\b|a\b|an\b|and\b|is\b|that\b|to\b|i\b/;
+  const wordsToIgnore = /\b[a-z]{1,2}\b|the\b|and\b|that\b|are\b/gi;
 
   // avoid modifying original wordCountObject
   const copiedObj = JSON.parse(JSON.stringify(wordCountObject));
