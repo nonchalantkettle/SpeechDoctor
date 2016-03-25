@@ -4,11 +4,13 @@ import cloud from 'd3.layout.cloud';
 import { countEachWord } from '../../server/utils/customTextAnalytics.js';
 
 export default function cloudMaker(prop) {
+  const wordsToIgnore = /\b[a-z]{1,2}\b|the\b|and\b|that\b|are\b/gi;
   const wordFrequencyObject = countEachWord(prop.text);
   const wordArrayWithFrequency = [];
   const wordArrayNoFrequency = [];
+
   for (const word in wordFrequencyObject) {
-    if (wordFrequencyObject.hasOwnProperty(word)) {
+    if (wordFrequencyObject.hasOwnProperty(word) && !word.match(wordsToIgnore)) {
       wordArrayWithFrequency.push([word, wordFrequencyObject[word]]);
       wordArrayWithFrequency.sort((a, b) => b[1] - a[1]);
     }
@@ -26,6 +28,7 @@ export default function cloudMaker(prop) {
 
   function draw(words) {
     d3.select('#text-input').append('svg')
+      .attr('id', 'word-cloud')
       .attr('width', 300)
       .attr('height', 300)
     .append('g')
@@ -43,7 +46,7 @@ export default function cloudMaker(prop) {
 
   layout = cloud()
     .size([300, 300])
-    .words(prop.text.split(' ').splice(0, numberOfWordsInCloud).map((d) => (
+    .words(wordArrayNoFrequency.splice(0, numberOfWordsInCloud).map((d) => (
         { text: d, size: 10 + Math.random() * 15 }
       )))
     .rotate(() => ~~(Math.random() * 2) * 90)
