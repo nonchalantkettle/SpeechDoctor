@@ -1,7 +1,6 @@
 let should = chai.should();
 let expect = chai.expect;
 
-
 describe('custom text analytics methods', () => {
 
   it('should have an analyzeText method', () => {
