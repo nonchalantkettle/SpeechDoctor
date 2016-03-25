@@ -96,15 +96,15 @@ export function getDefs(word, callback) {
     type: 'GET',
     async: true,
     success: (data) => {
-      if (data.results[1]) {
-        response.pos = data.results[1].partOfSpeech;
-        response.def = data.results[1].definition;
-      } else if (data.results[0]) {
-        response.pos = data.results[0].partOfSpeech;
-        response.def = data.results[0].definition;
-      } else {
+      if (data.results === undefined) {
         response.pos = '-';
         response.def = '-';
+      } else if (data.results[1]) {
+        response.pos = data.results[1].partOfSpeech || '-';
+        response.def = data.results[1].definition || '-';
+      } else if (data.results[0]) {
+        response.pos = data.results[1].partOfSpeech || '-';
+        response.def = data.results[1].definition || '-';
       }
       callback(null, response);
     },
