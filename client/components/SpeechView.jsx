@@ -82,7 +82,6 @@ export default class SpeechView extends React.Component {
     const numberOfWords = this.state.results.split(' ').length;
     const time = this.state.secondsElapsed;
     const wordsPerSecond = (numberOfWords / time);
-    console.log("There is this many words : ", numberOfWords);
     WPM = Math.floor(wordsPerSecond * 60);
   }
 
