@@ -86,7 +86,6 @@ export default class SpeechView extends React.Component {
   }
 
   displayAnalytics() {
-    this.calculateWPM();
     this.setState({
       showAnalytics: !this.state.showAnalytics,
     });
@@ -94,6 +93,7 @@ export default class SpeechView extends React.Component {
 
   listener() {
     if (this.state.recording) {
+      this.calculateWPM();
       recognition.stop();
       return;
     }
