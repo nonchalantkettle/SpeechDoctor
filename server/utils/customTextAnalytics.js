@@ -263,10 +263,16 @@ export function getAutomatedReadabilityIndex(textInput) {
 
   const textStats = getTextStats(textInput);
 
-  const ARI = Math.ceil(
+  let ARI = Math.ceil(
     4.71 * (textStats.charsJustLetters / textStats.words) +
     0.5 * (textStats.words / textStats.sentences) - 21.43
   );
+
+  if (ARI > 14) {
+    ARI = 14;
+  } else if (ARI < 1) {
+    ARI = 1;
+  }
 
   return conversionTable[ARI];
 }
