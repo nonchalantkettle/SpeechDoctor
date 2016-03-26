@@ -11,11 +11,26 @@ import LogIn from './LogIn.jsx';
 import Nav from './Nav.jsx';
 import LandingPage from './LandingPage.jsx';
 
+import api from '../utils/api';
+
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userLoggedIn: false,
+    };
+  }
+
+  setUserLoggedInState() {
+    this.setState({
+      userLoggedIn: !this.state.userLoggedIn,
+    });
+  }
+
   render() {
     return (
       <div>
-        <Nav />
+        <Nav userLoggedIn={this.state.userLoggedIn}/>
         {this.props.children}
       </div>
     );
