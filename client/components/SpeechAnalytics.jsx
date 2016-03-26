@@ -9,6 +9,7 @@ import { getDefs,
          getAutomatedReadabilityIndex }
          from '../../server/utils/customTextAnalytics.js';
 
+
 function renderTopThree(speech) {
   const analyticsObj = analyzeText(speech);
   const topThreeWordsResult = analyticsObj.topThree;
@@ -28,6 +29,7 @@ export default function SpeechAnalytics(prop) {
   if (prop.speech) {
     const counts = getTextStats(prop.speech);
     const ARI = getAutomatedReadabilityIndex(prop.speech);
+
     renderTopThree(prop.speech).map((word) =>
       getDefs(word[0], (defErr, defData) => {
         if (defErr) {
