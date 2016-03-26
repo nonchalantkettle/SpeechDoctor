@@ -17,21 +17,35 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: '',
       userLoggedIn: false,
     };
   }
 
-  setUserLoggedInState() {
+  setUserLoggedIn(username) {
+    console.log(' user??? ', username);
     this.setState({
-      userLoggedIn: !this.state.userLoggedIn,
+      user: username,
+      userLoggedIn: true,
+    });
+  }
+
+  setUserLoggedOut() {
+    this.setState({
+      userLoggedIn: false,
     });
   }
 
   render() {
+    const Children = React.cloneElement(this.props.children,
+      { userLoggedIn: this.state.userLoggedIn,
+        setUserLoggedIn: this.setUserLoggedIn.bind(this),
+        setUserLoggedOut: this.setUserLoggedOut.bind(this),
+      });
     return (
       <div>
-        <Nav userLoggedIn={this.state.userLoggedIn}/>
-        {this.props.children}
+        <Nav userLoggedIn={this.state.userLoggedIn} />
+        {Children}
       </div>
     );
   }

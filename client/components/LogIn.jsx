@@ -12,9 +12,6 @@ export default class LogIn extends React.Component {
     };
   }
 
-  // check for JWT token match
-    // if match, redirect to landing page
-
   handleUsernameChange(e) {
     this.setState({
       username: e.target.value,
@@ -37,17 +34,13 @@ export default class LogIn extends React.Component {
             error: 'Username or password is incorrect',
           });
         } else {
-          // load the JSON Web token into the keychain
-          // var bodyText = JSON.parse(res._bodyText);
-          // Keychain.setGenericPassword(null, bodyText.token)
-          // console.log('Credentials saved successfully!', bodyText.userId, bodyText.token);
-          // redirect
           this.setState({
             isLoading: false,
             error: false,
             username: '',
             password: '',
           });
+          this.props.setUserLoggedIn();
           window.location.href = 'http://localhost:8080/';
         }
       })

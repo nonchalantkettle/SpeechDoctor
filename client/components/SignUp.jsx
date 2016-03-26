@@ -5,6 +5,7 @@ import api from '../utils/api';
 export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
+    console.log('CURRENT PROPS - ', props);
     this.state = {
       username: '',
       password: '',
@@ -44,12 +45,15 @@ export default class SignUp extends React.Component {
               error: 'User already exists',
             });
           } else {
+            this.props.setUserLoggedIn(this.state.username);
             this.setState({
               error: false,
               username: '',
               password: '',
             });
-            window.location.href = 'http://localhost:8080/';
+            console.log('User signed up - logged in??? ', this.props.userLoggedIn);
+            // window.location.href = 'http://localhost:8080/';
+            this.props.history.push('/');
           }
         })
         .catch((err) => {
