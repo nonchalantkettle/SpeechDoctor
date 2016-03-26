@@ -8,6 +8,8 @@ export default function Nav(prop) {
       <div id="navlink"><Link to="text">Upload Text</Link></div>
       <div id="navlink"><Link to="speech">Record Speech</Link></div>
       <div id="navlink"><Link to="profile">Your Profile</Link></div>
+      <div id="navlink"><Link to="signup">Sign Up</Link></div>
+      <div id="navlink"><Link to="login">Log In</Link></div>
     </div>
   );
 }
