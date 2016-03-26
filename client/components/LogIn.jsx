@@ -27,7 +27,8 @@ export default class LogIn extends React.Component {
     });
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     api.login(this.state.username, this.state.password)
       .then((res) => {
         console.log("RES IN LOGIN --- ", res);
@@ -47,6 +48,7 @@ export default class LogIn extends React.Component {
             username: '',
             password: '',
           });
+          window.location.href = 'http://localhost:8080/';
         }
       })
       .catch((err) => {

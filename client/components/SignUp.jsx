@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Navigation, Link } from 'react-router';
 import api from '../utils/api';
 
 export default class SignUp extends React.Component {
@@ -28,7 +28,8 @@ export default class SignUp extends React.Component {
       confirmedPassword: e.target.value,
     });
   }
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     if (this.state.password === this.state.confirmedPassword) {
       this.setState({
         passwordError: false,
@@ -48,7 +49,7 @@ export default class SignUp extends React.Component {
               username: '',
               password: '',
             });
-            // redirect to main landing page
+            window.location.href = 'http://localhost:8080/';
           }
         })
         .catch((err) => {
@@ -85,7 +86,7 @@ export default class SignUp extends React.Component {
             </div>
             <div>Password
               <input
-                type="text"
+                type="password"
                 name="password"
                 value={this.state.password}
                 onChange={this.handlePasswordChange.bind(this)}>
@@ -93,7 +94,7 @@ export default class SignUp extends React.Component {
             </div>
             <div>Confirm Password
               <input
-                type="text"
+                type="password"
                 name="confirmedPassword"
                 value={this.state.confirmedPassword}
                 onChange={this.handleConfirmedPasswordChange.bind(this)}>

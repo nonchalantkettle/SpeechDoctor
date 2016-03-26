@@ -8,7 +8,6 @@ const createUser = Q.nbind(User.create, User);
 
 module.exports = {
   login: (req, res, next) => {
-    console.log(" REQ DOT BODY - ", req.body);
     const user = req.body;
     const username = user.username;
     const password = user.password;
