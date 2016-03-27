@@ -23,7 +23,6 @@ class App extends React.Component {
   }
 
   setUserLoggedIn(username) {
-    console.log(' user??? ', username);
     this.setState({
       user: username,
       userLoggedIn: true,
@@ -44,7 +43,7 @@ class App extends React.Component {
       });
     return (
       <div>
-        <Nav userLoggedIn={this.state.userLoggedIn} />
+        <Nav userLoggedIn={this.state.userLoggedIn} logout={this.setUserLoggedOut.bind(this)} />
         {Children}
       </div>
     );

@@ -28,7 +28,6 @@ export default class LogIn extends React.Component {
     e.preventDefault();
     api.login(this.state.username, this.state.password)
       .then((res) => {
-        console.log("RES IN LOGIN --- ", res);
         if (res.status === 500) {
           this.setState({
             error: 'Username or password is incorrect',
@@ -41,7 +40,7 @@ export default class LogIn extends React.Component {
             password: '',
           });
           this.props.setUserLoggedIn();
-          window.location.href = 'http://localhost:8080/';
+          this.props.history.push('/');
         }
       })
       .catch((err) => {
