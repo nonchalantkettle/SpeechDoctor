@@ -23,10 +23,8 @@ UserSchema.methods.comparePasswords = function (candidatePassword) {
   return Q.Promise((resolve, reject) => {
     bcrypt.compare(candidatePassword, savedPassword, (err, matched) => {
       if (err) {
-        console.log(" REJECTED PASSWORD ");
         reject(err);
       } else {
-        console.log(" MATCHED PASSWORD ");
         resolve(matched);
       }
     });
@@ -35,9 +33,6 @@ UserSchema.methods.comparePasswords = function (candidatePassword) {
 
 UserSchema.pre('save', function presaveCallback(next) {
   const user = this;
-  // if (!user.isModified('password')) {
-  //   return next();
-  // }
   return bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
     if (err) {
       return next(err);
