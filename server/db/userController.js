@@ -1,7 +1,7 @@
+/* eslint no-param-reassign: 0 */
 const Q = require('q');
 const User = require('./userModel');
 const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
 
 const findUser = Q.nbind(User.findOne, User);
 const createUser = Q.nbind(User.create, User);
@@ -12,25 +12,24 @@ module.exports = {
     const username = user.username;
     const password = user.password;
 
-    findUser({ username: username })
-      .then((user) => {
-        if (!user) {
+    findUser({ username })
+      .then((foundUser) => {
+        if (!foundUser) {
           return next(new Error('User does not exist'));
-        } else {
-          return user.comparePasswords(password)
-            .then((foundUser) => {
-              if (foundUser) {
-                const token = jwt.sign({ username: username, userId: user._id },'HiImAJWTTokenSecret');
-                return res.json({ userId: user._id, token: token });
-              } else {
-                return next(new Error('Incorrect username or password'));
-              }
-            });
         }
+        return foundUser.comparePasswords(password)
+          .then((confirmedUser) => {
+            if (confirmedUser) {
+              const token = jwt.sign({ username, userId: user._id },
+                'HiImAJWTTokenSecret');
+              return res.json({ userId: user._id, token });
+            }
+            return next(new Error('Incorrect username or password'));
+          });
       })
-      .fail((error) => {
-        return next(error);
-      });
+      .fail((error) =>
+        next(error)
+      );
   },
 
   signup: (req, res, next) => {
@@ -38,42 +37,40 @@ module.exports = {
     const username = user.username;
     const password = user.password;
 
-    findUser({ username: username })
-      .then((user) => {
-        if (user) {
+    findUser({ username })
+      .then((foundUser) => {
+        if (foundUser) {
           return next(new Error('User already exists'));
-        } else {
-          createUser({
-            username: username,
-            password: password
-          }).then((user) => {
-            console.log('Created user', user);
-              // Generate JWT for user here
-              // params: payload, secret key, encryption, callback
-            const token = jwt.sign({ username: user.username, userId: user._id }, 'HiImAJWTTokenSecret');
-            console.log('token created', token);
-            res.json({ token: token, userId: user._id, username: user.username });
-            return next();
-          }).catch((err) => {
-            console.error('problem creating user', err);
-          });
         }
+        return createUser({
+          username,
+          password,
+        })
+        .then((createdUser) => {
+          console.log('Created user', createdUser);
+          const token = jwt.sign({ username: createdUser.username, userId: createdUser._id },
+            'HiImAJWTTokenSecret');
+          console.log('token created', token);
+          res.json({ token, userId: createdUser._id, username: createdUser.username });
+          return next();
+        })
+        .catch((err) => {
+          console.error('problem creating user', err);
+        });
       })
-      .fail((error) => {
-        return next(error);
-      });
+      .fail((error) =>
+        next(error)
+      );
   },
 
   checkJWT: (req, res, next) => {
-    console.log('Looking for JWT', req.params.JWT);
-    const decoded = jwt.verify(req.params.JWT, 'HiImAJWTTokenSecret', (err, decoded) => {
+    jwt.verify(req.params.JWT, 'HiImAJWTTokenSecret', (err, decoded) => {
       if (err) {
-        console.log('Error decoded JWT', err);
-      } else {
-        // send back decoded.userId and decoded.username
-        res.json({ username: decoded.username, userId: decoded.userId });
-        return next();
+        console.log('Error decoding JWT', err);
+        return err;
       }
+      res.json({ username: decoded.username, userId: decoded.userId });
+      return next();
     });
   },
 
@@ -83,29 +80,27 @@ module.exports = {
     const password = user.password;
     const newPassword = user.newPassword;
 
-    findUser({ username: username })
-      .then((user) => {
-        if (!user) {
+    findUser({ username })
+      .then((foundUser) => {
+        if (!foundUser) {
           return next(new Error('User does not exist'));
-        } else {
-          return user.comparePasswords(password)
-            .then((foundUser) => {
-              user.password = newPassword;
-              user.save((err, savedUser) => {
-                if (err) {
-                  return next(err);
-                }
-                return res.json();
-              });
-            }).catch((err) => {
-              console.error('Problem changing password', err);
-              return err;
-            });
         }
+        return foundUser.comparePasswords(password)
+          .then(() => {
+            foundUser.password = newPassword;
+            foundUser.save((err) => {
+              if (err) {
+                return next(err);
+              }
+              return res.json();
+            });
+          })
+          .catch((err) => {
+            console.error('Problem changing password', err);
+            return err;
+          });
       })
-      .fail((error) => {
-        return next(error);
-      });
+     .fail((error) => next(error));
   },
 
   changeUsername: (req, res, next) => {
@@ -113,22 +108,19 @@ module.exports = {
     const username = user.username;
     const newUsername = user.newUsername;
 
-    findUser({ username: username })
-      .then((user) => {
-        if (!user) {
+    findUser({ username })
+      .then((foundUser) => {
+        if (!foundUser) {
           return next(new Error('User does not exist'));
-        } else {
-          user.username = newUsername;
-          user.save((err, savedUser) => {
-            if (err) {
-              return next(err);
-            }
-            return res.json({ username: savedUser.username });
-          });
         }
+        foundUser.username = newUsername;
+        return foundUser.save((err, savedUser) => {
+          if (err) {
+            return next(err);
+          }
+          return res.json({ username: savedUser.username });
+        });
       })
-      .fail((error) => {
-        return next(error);
-      });
+      .fail((error) => next(error));
   },
 };

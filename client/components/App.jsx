@@ -11,8 +11,6 @@ import LogIn from './LogIn.jsx';
 import Nav from './Nav.jsx';
 import LandingPage from './LandingPage.jsx';
 
-import api from '../utils/api';
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -41,9 +39,10 @@ class App extends React.Component {
         setUserLoggedIn: this.setUserLoggedIn.bind(this),
         setUserLoggedOut: this.setUserLoggedOut.bind(this),
       });
+    const logout = this.setUserLoggedOut.bind(this);
     return (
       <div>
-        <Nav userLoggedIn={this.state.userLoggedIn} logout={this.setUserLoggedOut.bind(this)} />
+        <Nav userLoggedIn={this.state.userLoggedIn} logout={logout} />
         {Children}
       </div>
     );
