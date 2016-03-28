@@ -13,24 +13,23 @@ module.exports = {
     const password = user.password;
 
     findUser({ username: username })
-      .then((user) => {
-        if (!user) {
+      .then((foundUser) => {
+        if (!foundUser) {
           return next(new Error('User does not exist'));
-        } else {
-          return user.comparePasswords(password)
-            .then((foundUser) => {
-              if (foundUser) {
-                const token = jwt.sign({ username: username, userId: user._id },'HiImAJWTTokenSecret');
-                return res.json({ userId: user._id, token: token });
-              } else {
-                return next(new Error('Incorrect username or password'));
-              }
-            });
         }
+        return foundUser.comparePasswords(password)
+          .then((confirmedUser) => {
+            if (confirmedUser) {
+              const token = jwt.sign({ username: username, userId: user._id },
+                'HiImAJWTTokenSecret');
+              return res.json({ userId: user._id, token: token });
+            }
+            return next(new Error('Incorrect username or password'));
+          });
       })
-      .fail((error) => {
-        return next(error);
-      });
+      .fail((error) =>
+        next(error)
+      );
   },
 
   signup: (req, res, next) => {
@@ -39,29 +38,29 @@ module.exports = {
     const password = user.password;
 
     findUser({ username: username })
-      .then((user) => {
-        if (user) {
+      .then((foundUser) => {
+        if (foundUser) {
           return next(new Error('User already exists'));
-        } else {
-          createUser({
-            username: username,
-            password: password
-          }).then((user) => {
-            console.log('Created user', user);
-              // Generate JWT for user here
-              // params: payload, secret key, encryption, callback
-            const token = jwt.sign({ username: user.username, userId: user._id }, 'HiImAJWTTokenSecret');
-            console.log('token created', token);
-            res.json({ token: token, userId: user._id, username: user.username });
-            return next();
-          }).catch((err) => {
-            console.error('problem creating user', err);
-          });
         }
+        createUser({
+          username: username,
+          password: password,
+        })
+        .then((createdUser) => {
+          console.log('Created user', createdUser);
+          const token = jwt.sign({ username: createdUser.username, userId: createdUser._id },
+            'HiImAJWTTokenSecret');
+          console.log('token created', token);
+          res.json({ token: token, userId: createdUser._id, username: createdUser.username });
+          return next();
+        })
+        .catch((err) => {
+          console.error('problem creating user', err);
+        });
       })
-      .fail((error) => {
-        return next(error);
-      });
+      .fail((error) =>
+        next(error)
+      );
   },
 
   checkJWT: (req, res, next) => {
