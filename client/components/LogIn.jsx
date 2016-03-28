@@ -77,6 +77,7 @@ export default class LogIn extends React.Component {
               <input
                 type="text"
                 name="password"
+                type="password"
                 value={this.state.password}
                 onChange={methods.handlePasswordChange}
               >
