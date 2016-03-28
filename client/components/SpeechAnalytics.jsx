@@ -1,5 +1,6 @@
 /* eslint no-param-reassign: 0*/
 import React from 'react';
+import { Link } from 'react-router';
 import $ from 'jquery';
 import { getDefs,
          getSyns,
@@ -10,7 +11,6 @@ import { getDefs,
 
 function renderTopThree(speech) {
   const analyticsObj = analyzeText(speech);
-  // const countEachWordResult = analyticsObj.allTotals;
   const topThreeWordsResult = analyticsObj.topThree;
   const results = [];
   for (const key in topThreeWordsResult) {
@@ -22,6 +22,9 @@ function renderTopThree(speech) {
 }
 
 export default function SpeechAnalytics(prop) {
+  const askToSave = !prop.userLoggedIn ?
+    <p><Link to="signup">Sign up </Link>or <Link to="login">log in </Link>to save your results</p>
+    : <div></div>;
   if (prop.speech) {
     const counts = getTextStats(prop.speech);
     const ARI = getAutomatedReadabilityIndex(prop.speech);
@@ -57,6 +60,7 @@ export default function SpeechAnalytics(prop) {
     return (
       <div>
         <h2>Results</h2>
+        {askToSave}
         <h3>General Speech Stats</h3>
         <div>
           <p>Total Characters (all): <span id="bold-word">{counts.charsWithSpace}</span></p>

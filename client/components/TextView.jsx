@@ -65,16 +65,6 @@ export default class TextView extends React.Component {
     });
   }
 
-  // calculateWPM() {
-  //   const numberChars = this.state.value.split('').length;
-  //   console.log("this.state.value : ", this.state.value);
-  //   const fiveCharsPerWord = (numberChars / 5);
-  //   console.log("fiveCharsPerWord :", fiveCharsPerWord);
-  //   const time = this.state.secondsElapsed;
-  //   const wordsPerSecond = (fiveCharsPerWord / time);
-  //   WPM = Math.floor(wordsPerSecond * 60);
-  // }
-
   render() {
     const removeWordCloud = () => {
       if (document.getElementById('word-cloud')) {
@@ -82,14 +72,9 @@ export default class TextView extends React.Component {
       }
     };
 
-    // const typedWPM = this.state.visibleAnalytics && !this.state.timer ?
-    //   <div>You type at {WPM} words per minute </div> :
-    //   <div></div>;
-
-
     const analytics = this.state.visibleAnalytics ?
       <div>
-        <TextAnalytics text={this.state.value} />
+        <TextAnalytics text={this.state.value} userLoggedIn={this.props.userLoggedIn} />
         <WordCloud text={this.state.value} />
       </div>
       : removeWordCloud();
@@ -126,3 +111,7 @@ export default class TextView extends React.Component {
     );
   }
 }
+
+TextView.propTypes = {
+  userLoggedIn: React.PropTypes.boolean,
+};

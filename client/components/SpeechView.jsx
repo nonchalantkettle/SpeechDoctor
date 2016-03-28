@@ -178,7 +178,7 @@ export default class SpeechView extends React.Component {
       this.state.showAnalytics ?
       <div>
         You speak at {WPM} words per minute.
-        <SpeechAnalytics speech={this.state.results} />
+        <SpeechAnalytics speech={this.state.results} userLoggedIn={this.props.userLoggedIn} />
       </div> :
       <div></div>;
 
@@ -227,3 +227,7 @@ export default class SpeechView extends React.Component {
     );
   }
 }
+
+SpeechView.propTypes = {
+  userLoggedIn: React.PropTypes.boolean,
+};
