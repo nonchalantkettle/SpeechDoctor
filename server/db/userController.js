@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const findUser = Q.nbind(User.findOne, User);
 const createUser = Q.nbind(User.create, User);
+const updateUser = Q.bind(User.findOneAndUpdate, User);
 
 module.exports = {
   login: (req, res, next) => {
@@ -123,4 +124,21 @@ module.exports = {
       })
       .fail((error) => next(error));
   },
+
+  storeText: (req, res, next) => {
+    console.log('storeText req.body...........,', req.body);
+    const text = req.body;
+    // const update = original text + text
+
+    updateUser({ username: username }, update, { new: true })
+      .then((user) => {
+        if (!user.textViewText) {
+
+        }
+      })
+  },
+
+  // storeSpeech: (req, res, next) => {
+  // }
+
 };

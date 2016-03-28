@@ -7,6 +7,7 @@ import $ from 'jquery';
 
 import TextView from './TextView.jsx';
 import SpeechView from './SpeechView.jsx';
+import UserProfile from './UserProfile.jsx';
 import SignUp from './SignUp.jsx';
 import LogIn from './LogIn.jsx';
 import UserVisualAnalytics from './UserVisualAnalytics.jsx';
@@ -62,6 +63,7 @@ ReactDOM.render(
       <IndexRoute component={LandingPage} />
       <Route path="/speech" component={SpeechView} />
       <Route path="/text" component={TextView} />
+      <Route path="/profile" component={UserProfile} />
       <Route path="/signup" component={SignUp} />
       <Route path="/login" component={LogIn} />
       <Route path="/profile" component={UserVisualAnalytics} />
