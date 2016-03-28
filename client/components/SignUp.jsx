@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigation, Link } from 'react-router';
+import { Link } from 'react-router';
 import api from '../utils/api';
 
 export default class SignUp extends React.Component {
@@ -10,7 +10,7 @@ export default class SignUp extends React.Component {
       password: '',
       confirmedPassword: '',
       error: false,
-      passwordError: false
+      passwordError: false,
     };
   }
   handleUsernameChange(e) {
@@ -55,7 +55,7 @@ export default class SignUp extends React.Component {
         })
         .catch((err) => {
           this.setState({
-            error: 'User already exists' + err,
+            error: 'User already exists', err,
           });
         });
     } else {
@@ -72,17 +72,24 @@ export default class SignUp extends React.Component {
     const showPasswordErr = (
       this.state.passwordError ? <p>{this.state.passwordError}</p> : <div></div>
     );
+    const methods = {
+      handleSubmit: this.handleSubmit.bind(this),
+      handleUsernameChange: this.handleUsernameChange.bind(this),
+      handlePasswordChange: this.handlePasswordChange.bind(this),
+      handleConfirmedPasswordChange: this.handleConfirmedPasswordChange.bind(this),
+    };
     return (
       <div>
         <h1>Create an Account</h1>
         <div id="createAccount">
-          <form id="signup" onSubmit={this.handleSubmit.bind(this)}>
+          <form id="signup" onSubmit={methods.handleSubmit}>
             <div>Username
               <input
                 type="text"
                 name="username"
                 value={this.state.username}
-                onChange={this.handleUsernameChange.bind(this)}>
+                onChange={methods.handleUsernameChange}
+              >
               </input>
             </div>
             <div>Password
@@ -90,7 +97,8 @@ export default class SignUp extends React.Component {
                 type="password"
                 name="password"
                 value={this.state.password}
-                onChange={this.handlePasswordChange.bind(this)}>
+                onChange={methods.handlePasswordChange}
+              >
               </input>
             </div>
             <div>Confirm Password
@@ -98,7 +106,8 @@ export default class SignUp extends React.Component {
                 type="password"
                 name="confirmedPassword"
                 value={this.state.confirmedPassword}
-                onChange={this.handleConfirmedPasswordChange.bind(this)}>
+                onChange={methods.handleConfirmedPasswordChange}
+              >
               </input>
             </div>
             <div>
@@ -115,3 +124,9 @@ export default class SignUp extends React.Component {
     );
   }
 }
+
+SignUp.propTypes = {
+  setUserLoggedIn: React.PropTypes.func,
+  history: React.PropTypes.object,
+  'history.push': React.PropTypes.func,
+};
