@@ -106,12 +106,12 @@ button:focus {
   display: inline-flex;
 }
 
-#text-input-title {
+#text-input-title, #speech-input-title {
   margin: 0;
   padding-bottom: 15px;
 }
 
-#text-input {
+#text-input, #speech-input {
   margin: 35px;
 }
 
@@ -147,4 +147,8 @@ p#bold-word, span#bold-word{
 
 #inputField, #loginInput {
   width: 150px;
+}
+
+#speechInteraction {
+  margin: 35px;
 }
