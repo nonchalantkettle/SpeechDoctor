@@ -1,10 +1,11 @@
 import React from 'react';
 import d3 from 'd3';
 import cloud from 'd3.layout.cloud';
-import { countEachWord } from '../../server/utils/customTextAnalytics.js';
+import { countEachWord, getTextStats } from '../../server/utils/customTextAnalytics.js';
 
 export default function cloudMaker(prop) {
-  const wordsToIgnore = /\b[a-z]{1,2}\b|the\b|and\b|that\b|are\b/gi;
+  const numWords = getTextStats(prop.text).words;
+  const wordsToIgnore = /\b[a-z0-9]{1,2}\b|the\b|and\b|that\b|are\b/gi;
   const wordFrequencyObject = countEachWord(prop.text);
   const wordArrayWithFrequency = [];
   const wordArrayNoFrequency = [];
@@ -20,8 +21,7 @@ export default function cloudMaker(prop) {
     wordArrayNoFrequency.push(wordArrayWithFrequency[i][0]);
   }
 
-  const numberOfWordsInCloud =
-    wordArrayWithFrequency[0][1] >= 3 ? 5 * wordArrayWithFrequency[0][1] : 0;
+  const numberOfWordsInCloud = numWords / 25;
 
   const fill = d3.scale.category10();
   let layout;
@@ -29,15 +29,15 @@ export default function cloudMaker(prop) {
   function draw(words) {
     d3.select('#text-input').append('svg')
       .attr('id', 'word-cloud')
-      .attr('width', 300)
-      .attr('height', 300)
+      .attr('width', 1000)
+      .attr('height', 500)
     .append('g')
       .attr('transform', `translate(${layout.size()[0] / 2}, ${layout.size()[1] / 2})`)
     .selectAll('text')
       .data(words)
     .enter().append('text')
-      .style('font-size', (d) => `${d.size} px`)
-      .style('font-family', 'Impact')
+      .style('font-size', (d) => `${d.size}px`)
+      .style('font-family', (d) => d.font)
       .style('fill', (d, i) => fill(i))
       .attr('text-anchor', 'middle')
       .attr('transform', (d) => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
@@ -45,12 +45,12 @@ export default function cloudMaker(prop) {
   }
 
   layout = cloud()
-    .size([300, 300])
-    .words(wordArrayNoFrequency.splice(0, numberOfWordsInCloud).map((d) => (
-        { text: d, size: 10 + Math.random() * 15 }
+    .size([1000, 500])
+    .words(wordArrayWithFrequency.slice(0, 100).map((d) => (
+        { text: d[0], size: d[1] * (200 / numberOfWordsInCloud) }
       )))
     .rotate(() => ~~(Math.random() * 2) * 90)
-    .font('Impact')
+    .font('Arial')
     .fontSize((d) => d.size)
     .on('end', draw);
 
