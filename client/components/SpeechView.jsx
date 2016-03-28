@@ -187,13 +187,12 @@ export default class SpeechView extends React.Component {
     return (
       <div>
         <div id="speech-input">
+          <h1>Speech Analyzer</h1>
           <h4>{this.state.testMessage}</h4>
           <div id="recording-view">
             <button className="record-button" onClick={handleClick}>
               <img id="record-img" src="assets/record.png" alt="record" />
             </button>
-            <img id="record-img" src="assets/play.png" alt="play" />
-            <img id="record-img" src="assets/pause.png" alt="pause" />
           </div>
         </div>
         <div>

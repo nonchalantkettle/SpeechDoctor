@@ -2,7 +2,7 @@ import React from 'react';
 
 import LandingButton from './LandingButton.jsx';
 
-export default function LandingPage() {
+export default function LandingPage(prop) {
   return (
     <div>
       <h1>SpeechDoctor</h1>

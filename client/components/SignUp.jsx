@@ -44,12 +44,13 @@ export default class SignUp extends React.Component {
               error: 'User already exists',
             });
           } else {
+            this.props.setUserLoggedIn(this.state.username);
             this.setState({
               error: false,
               username: '',
               password: '',
             });
-            window.location.href = 'http://localhost:8080/';
+            this.props.history.push('/');
           }
         })
         .catch((err) => {

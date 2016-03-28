@@ -11,12 +11,40 @@ import LogIn from './LogIn.jsx';
 import Nav from './Nav.jsx';
 import LandingPage from './LandingPage.jsx';
 
+import api from '../utils/api';
+
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: '',
+      userLoggedIn: false,
+    };
+  }
+
+  setUserLoggedIn(username) {
+    this.setState({
+      user: username,
+      userLoggedIn: true,
+    });
+  }
+
+  setUserLoggedOut() {
+    this.setState({
+      userLoggedIn: false,
+    });
+  }
+
   render() {
+    const Children = React.cloneElement(this.props.children,
+      { userLoggedIn: this.state.userLoggedIn,
+        setUserLoggedIn: this.setUserLoggedIn.bind(this),
+        setUserLoggedOut: this.setUserLoggedOut.bind(this),
+      });
     return (
       <div>
-        <Nav />
-        {this.props.children}
+        <Nav userLoggedIn={this.state.userLoggedIn} logout={this.setUserLoggedOut.bind(this)} />
+        {Children}
       </div>
     );
   }

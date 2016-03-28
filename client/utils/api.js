@@ -18,7 +18,7 @@ const api = {
     return $.post('http://localhost:8080/changeUsername', user);
   },
   checkJWT(JWT, callback) {
-    const url = 'http://localhost:8080/checkJWT/' + JWT;
+    const url = 'http://localhost:8080/checkJWT:' + JWT;
     return $.get(url, user, 'json')
       .done((data) => callback(data._bodyInit))
       .fail((err) => err);
