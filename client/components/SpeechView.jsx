@@ -4,6 +4,8 @@
 import React from 'react';
 import SpeechAnalytics from './SpeechAnalytics.jsx';
 import Timer from './Timer.jsx';
+import _ from 'underscore';
+import randomPromptGenerator from './../utils/randomPromptGenerator.js';
 
 const recognition = new webkitSpeechRecognition();
 let WPM = 0;
@@ -20,10 +22,21 @@ export default class SpeechView extends React.Component {
       showTranscript: false,
       showAnalytics: false,
       passedTest: false,
-      testMessage: 'Before we get started, we want to make sure we can hear you properly',
+      testMessage:
+        `Before we get started, please read the following
+        prompt to make sure we can hear you properly:`,
       secondsElapsed: 0,
       timerVisible: false,
+      prompt: '',
     };
+  }
+
+  componentWillMount() {
+    const prompt = randomPromptGenerator();
+
+    this.setState({
+      prompt,
+    });
   }
 
   getMinutes() {
@@ -100,10 +113,11 @@ export default class SpeechView extends React.Component {
     recognition.onresult = (event) => {
       let returnedTranscript = '';
       const threshold = 0.75;
+      const promptLowerCase = this.state.prompt.toLowerCase();
 
       for (let i = 0; i < event.results.length; i++) {
         if (!this.state.passedTest) {
-          if (event.results[i][0].transcript.split(' ').length === 10) {
+          if (_.isEqual(event.results[i][0].transcript.toLowerCase(), promptLowerCase)) {
             if (event.results[i][0].confidence > threshold) {
               returnedTranscript = '';
               clearInterval(this.incrementer);
@@ -189,6 +203,7 @@ export default class SpeechView extends React.Component {
         <div id="speech-input">
           <h1>Speech Analyzer</h1>
           <h4>{this.state.testMessage}</h4>
+          <h4>{this.state.prompt}</h4>
           <div id="recording-view">
             <button className="record-button" onClick={handleClick}>
               <img id="record-img" src="assets/record.png" alt="record" />
