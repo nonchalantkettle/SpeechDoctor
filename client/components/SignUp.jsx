@@ -83,8 +83,9 @@ export default class SignUp extends React.Component {
         <h1>Create an Account</h1>
         <div id="createAccount">
           <form id="signup" onSubmit={methods.handleSubmit}>
-            <div>Username
+            <div id="inputField">Username
               <input
+                id="loginInput"
                 type="text"
                 name="username"
                 value={this.state.username}
@@ -92,8 +93,9 @@ export default class SignUp extends React.Component {
               >
               </input>
             </div>
-            <div>Password
+            <div id="inputField">Password
               <input
+                id="loginInput"
                 type="password"
                 name="password"
                 value={this.state.password}
@@ -101,8 +103,9 @@ export default class SignUp extends React.Component {
               >
               </input>
             </div>
-            <div>Confirm Password
+            <div id="inputField">Confirm Password
               <input
+                id="loginInput"
                 type="password"
                 name="confirmedPassword"
                 value={this.state.confirmedPassword}
@@ -117,7 +120,7 @@ export default class SignUp extends React.Component {
         </div>
         {showErr}
         {showPasswordErr}
-        <div>
+        <div id="goToLogin">
           <p>Already have an account? Sign in <Link to={'login'}>here</Link></p>
         </div>
       </div>

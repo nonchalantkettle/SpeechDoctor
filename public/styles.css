@@ -140,3 +140,11 @@ button:focus {
 p#bold-word, span#bold-word{
   font-weight: 600;
 }
+
+#createAccount, #accountLogin, #goToSignup, #goToLogin {
+  margin: 35px;
+}
+
+#inputField, #loginInput {
+  width: 150px;
+}
