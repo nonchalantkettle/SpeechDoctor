@@ -6,7 +6,6 @@ export default class WordsToAvoid extends React.Component {
     super(props);
     this.state = {
       word: '',
-      wordsToAvoid: [],
     };
   }
 
@@ -17,20 +16,27 @@ export default class WordsToAvoid extends React.Component {
   }
 
   addWord() {
-    this.state.wordsToAvoid.push(this.state.word);
-    $('.avoid').append(`<li>${this.state.word}</li>`);
+    this.props.addWordsToAvoid(this.state.word);
+    $('.avoid').append(`<div id='${this.state.word}'>${this.state.word}</div>`);
     this.setState({
       word: '',
     });
   }
 
+  handleClick() {
+    this.props.removeWordsFromAvoid();
+    $('.avoid').children().remove();
+  }
+
   render() {
-    const avoidWord = this.addWord.bind(this);
+    const addWord = this.addWord.bind(this);
+    const handleClear = this.handleClick.bind(this);
     const handleInputChange = this.handleChange.bind(this);
+
     return (
       <div>
         <h3 className="avoid">Words to Avoid</h3>
-        <form onSubmit={avoidWord}>
+        <form onSubmit={addWord}>
           <input
             id="avoidInput"
             className="inputForm"
@@ -38,10 +44,15 @@ export default class WordsToAvoid extends React.Component {
             value={this.state.word}
             onChange={handleInputChange}
           />
-          <button onSubmit={avoidWord}>Add Word</button>
+          <button onSubmit={addWord}>Add Word</button>
+          <button onClick={handleClear}>Clear Words</button>
         </form>
       </div>
     );
   }
-
 }
+
+WordsToAvoid.propTypes = {
+  addWordsToAvoid: React.PropTypes.func,
+  removeWordsFromAvoid: React.PropTypes.func,
+};
