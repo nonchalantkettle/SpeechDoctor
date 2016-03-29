@@ -158,6 +158,13 @@ p#bold-word, span#bold-word{
   width: 50%;
 }
 
+#avoid-input {
+  height: 30px;
+  width: 250px;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
 .avoid-words {
   float:left;
   width: 40%;

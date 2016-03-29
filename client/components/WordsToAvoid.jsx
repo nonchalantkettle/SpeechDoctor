@@ -38,7 +38,7 @@ export default class WordsToAvoid extends React.Component {
         <h3 className="avoid">Words to Avoid</h3>
         <form onSubmit={addWord}>
           <input
-            id="avoidInput"
+            id="avoid-input"
             className="inputForm"
             placeholder="Add words you want to avoid here"
             value={this.state.word}
