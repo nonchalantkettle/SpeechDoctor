@@ -227,9 +227,9 @@ export default class SpeechView extends React.Component {
         </div>
         <div id="speechInteraction">
           <span>{currentState}</span>
-          {conversationalPrompt}
           {transciptButtonBeforeTest}
           {showTimerButton}
+          {conversationalPrompt}
           {visibleTimer}
         </div>
         <div>
