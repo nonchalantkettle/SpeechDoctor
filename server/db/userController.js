@@ -122,7 +122,7 @@ module.exports = {
   },
 
   storeText: (req, res) => {
-    const update = { textViewText: req.body.textViewText };
+    const update = { $push: { textViewText: req.body.textViewText } };
     const user = req.body.user;
     updateUser({ username: user }, update, { new: true, upsert: true })
     .then((found) => {
