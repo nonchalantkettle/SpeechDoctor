@@ -67,26 +67,39 @@ export default function UserVisualAnalytics() {
   ];
 
   return (
-    <div>
-      <BarChart
-        data={barChartData}
-        width={400}
-        height={400}
-        margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
-      />
-      <PieChart
-        data={pieChartData}
-        width={600}
-        height={400}
-        margin={ { top: 10, bottom: 10, left: 100, right: 100 } }
-        sort={sort}
-      />
-      <LineChart
-        data={lineChartData}
-        width={400}
-        height={400}
-        margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
-      />
+    <div id="userAnalytics">
+      <h1 id="text-input-title">Your Personal Analytics</h1>
+      <div id="piechart">
+        <h2>All Time Most-Used Words</h2>
+        <PieChart
+          data={pieChartData}
+          width={600}
+          height={400}
+          margin={ { top: 10, bottom: 10, left: 100, right: 100 } }
+          sort={sort}
+        />
+      </div>
+      <div id="barchart">
+        <h2>All Time Averages</h2>
+        <BarChart
+          data={barChartData}
+          width={500}
+          height={500}
+          margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
+        />
+      </div>
+      <div id="linechart">
+        <h2>Stats Over Time</h2>
+        <h3 id="charsPerWordStat">Characters Per Word</h3>
+        <h3 id="wordsPerSentenceStat">Words Per Sentence</h3>
+        <h3 id="ARIStat">Average Readability Index</h3>
+        <LineChart
+          data={lineChartData}
+          width={500}
+          height={500}
+          margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
+        />
+      </div>
     </div>
   );
 }

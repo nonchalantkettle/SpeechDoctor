@@ -170,3 +170,18 @@ p#bold-word, span#bold-word{
   width: 40%;
 }
 
+#userAnalytics {
+  margin: 35px;
+}
+
+#charsPerWordStat {
+ color: #1f77b4;
+}
+
+#wordsPerSentenceStat {
+ color: #aec7e8;
+}
+
+#ARIStat {
+ color: #ff7f0e;
+}
