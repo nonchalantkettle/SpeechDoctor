@@ -29,33 +29,27 @@ const api = {
     const user = { username, newUsername };
     return $.post('http://localhost:8080/changeUsername', user);
   },
-  checkJWT(JWT, callback) {
-    const url = 'http://localhost:8080/checkJWT/' + JWT;
-    return $.get(url, user, 'json')
-      .done((data) => callback(data._bodyInit))
-      .fail((err) => err);
-  },
   getDefs(word, callback) {
-    const url = 'http://localhost:8080/dictionary/' + word;
+    const url = `http://localhost:8080/dictionary/${word}`;
 
     return $.get(url, 'json')
-      .done((data) => {
-        return callback(null, data);
-      })
-      .fail((err) => {
-        return callback(err);
-      });
+      .done((data) =>
+        callback(null, data)
+      )
+      .fail((err) =>
+        callback(err)
+      );
   },
   getSyns(word, callback) {
-    const url = 'http://localhost:8080/thesaurus/' + word;
+    const url = `http://localhost:8080/thesaurus/${word}`;
 
     return $.get(url, 'json')
-      .done((data) => {
-        return callback(null, data);
-      })
-      .fail((err) => {
-        return callback(err);
-      });
+      .done((data) =>
+        callback(null, data)
+      )
+      .fail((err) =>
+        callback(err)
+      );
   },
 };
 
