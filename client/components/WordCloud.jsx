@@ -59,7 +59,6 @@ export default function cloudMaker(prop) {
   return (
     <div>
       <div>
-        <div>Word Cloud:</div>
         <div id="cloud">{cloudMaker}</div>
       </div>
     </div>
