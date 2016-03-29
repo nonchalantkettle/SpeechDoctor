@@ -149,26 +149,43 @@ function xmlToJson(xml) {
   return obj;
 }
 
+
+// export function getDefsFromWebster(word, callback) {
+//   console.log("I WAS CALLED IN THE XHTTP REQUEST!")
+//   const webster = `http://www.dictionaryapi.com/api/v1/references/collegiate/xml/${word}?key=${websterDictionaryAPI}`;
+//   const xhttp = new XMLHttpRequest();
+//   xhttp.onreadystatechange = function() {
+//     if (xhttp.readyState == 4 && xhttp.status == 200) {
+//       document.getElementById("demo").innerHTML = xhttp.responseText;
+//     }
+//   };
+//   xhttp.open("GET", webster, true);
+//   xhttp.send();
+// }
+
 // make call to Webster Dictionary API
+// Last resort - use this http://cors.io/?u=
 export function getDefsFromWebster(word, callback) {
-  const webster = `http://cors.io/?u=http://www.dictionaryapi.com/api/v1/references/collegiate/xml/${word}?key=${websterDictionaryAPI}`;
+  const webster = `http://www.dictionaryapi.com/api/v1/references/collegiate/xml/${word}?key=${websterDictionaryAPI}`;
   const response = {};
 
   $.ajax({
     url: webster,
     type: 'GET',
-    dataType: 'XML',
+    data: xmlToJson('jsonp'),
     async: true,
     success: (data) => {
-      const jsonData = xmlToJson(data);
+      console.log("IT HAPPENED!")
+      const jsonData = xmlToJson(xml);
       response.def = jsonData.entry_list.entry[1].def.dt[0]['#text'];
       response.pos = jsonData.entry_list.entry[1].fl['#text'];
+      response.entire = jsonData.entry_list;
       // response.def = data.results[1].definition || '-';
       callback(null, response);
     },
     error: (err) => {
       callback(err, null);
-      throw new Error('There was an error making the GET request to the Webster API!', err);
+      throw new Error('There was an error making the GET request to the Webster Dictionary!', err);
     },
   });
 }
@@ -184,12 +201,24 @@ export function getSynFromWebster(word, callback) {
     dataType: 'XML',
     async: true,
     success: (data) => {
+      console.log("success in finding !")
       const jsonData = xmlToJson(data);
-      return jsonData;
+      //We can get def from jsonData.entry_list.entry[0].sens[0].mc
+      const obj = jsonData.entry_list.entry;
+      let syns;
+
+      console.log("jsonData.entry_list.entry : ", jsonData.entry_list.entry);
+
+      if(obj.length > 1){
+        syns = obj[0].syn
+      } else{
+        syns = obj.syn['#text']
+      }
+      callback(null, syns);
     },
     error: (err) => {
       callback(err, null);
-      throw new Error('There was an error making the GET request to the Webster API!', err);
+      throw new Error('There was an error making the GET request to the Webster Thesaurus!', err);
     },
   });
 }
