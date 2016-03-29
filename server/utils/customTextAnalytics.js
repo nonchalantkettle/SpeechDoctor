@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import { websterDictionaryAPI, websterThesaurusAPI } from '../../API_KEYS';
 
 /**
  * Helper functions for custom text analytics
@@ -80,150 +79,23 @@ function topThreeWords(wordCountObject) {
   return mostCommonWords;
 }
 
-// make call to Words API
-// export function getDefs(word, callback) {
-//   const wordsAPI = `https://wordsapiv1.p.mashape.com/words/${word}`;
-//   const response = {};
-//   // get definitions and part of speech
-//   $.ajax({
-//     url: wordsAPI,
-//     type: 'GET',
-//     async: true,
-//     success: (data) => {
-//       if (data.results === undefined) {
-//         response.pos = '-';
-//         response.def = '-';
-//       } else if (data.results[1]) {
-//         response.pos = data.results[1].partOfSpeech || '-';
-//         response.def = data.results[1].definition || '-';
-//       } else if (data.results[0]) {
-//         response.pos = data.results[1].partOfSpeech || '-';
-//         response.def = data.results[1].definition || '-';
-//       }
-//       callback(null, response);
-//     },
-//     error: (err) => {
-//       callback(err, null);
-//       throw new Error('There was an error making the GET request to the words API!', err);
-//     },
-//     beforeSend: (xhr) => {
-//       xhr.setRequestHeader('X-Mashape-Key', wordsAPIKey);
-//       xhr.setRequestHeader('Accept', 'application/json');
-//     },
-//   });
-// }
-
-
-function xmlToJson(xml) {
-  // Create the return object
-  let obj = {};
-  if (xml.nodeType === 1) { // element
-    // do attributes
-    if (xml.attributes.length > 0) {
-      obj['@attributes'] = {};
-      for (let j = 0; j < xml.attributes.length; j++) {
-        const attribute = xml.attributes.item(j);
-        obj['@attributes'][attribute.nodeName] = attribute.nodeValue;
-      }
+// checks to see if any 'avoid' words (words the user wants to avoid) were used
+function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
+  const wordsUsed = {};
+  wordsToAvoidArr.forEach((word) => {
+    if (allWordsUsedObj[word]) {
+      wordsUsed[word] = allWordsUsedObj[word];
     }
-  } else if (xml.nodeType === 3) {
-    obj = xml.nodeValue;
-  }
-  // do children
-  if (xml.hasChildNodes()) {
-    for (let i = 0; i < xml.childNodes.length; i++) {
-      const item = xml.childNodes.item(i);
-      const nodeName = item.nodeName;
-      if (typeof(obj[nodeName]) === 'undefined') {
-        obj[nodeName] = xmlToJson(item);
-      } else {
-        if (typeof(obj[nodeName].push) === 'undefined') {
-          const old = obj[nodeName];
-          obj[nodeName] = [];
-          obj[nodeName].push(old);
-        }
-        obj[nodeName].push(xmlToJson(item));
-      }
-    }
-  }
-  return obj;
-}
-
-
-// export function getDefsFromWebster(word, callback) {
-//   console.log("I WAS CALLED IN THE XHTTP REQUEST!")
-//   const webster = `http://www.dictionaryapi.com/api/v1/references/collegiate/xml/${word}?key=${websterDictionaryAPI}`;
-//   const xhttp = new XMLHttpRequest();
-//   xhttp.onreadystatechange = function() {
-//     if (xhttp.readyState == 4 && xhttp.status == 200) {
-//       document.getElementById("demo").innerHTML = xhttp.responseText;
-//     }
-//   };
-//   xhttp.open("GET", webster, true);
-//   xhttp.send();
-// }
-
-// make call to Webster Dictionary API
-// Last resort - use this http://cors.io/?u=
-export function getDefsFromWebster(word, callback) {
-  const webster = `http://www.dictionaryapi.com/api/v1/references/collegiate/xml/${word}?key=${websterDictionaryAPI}`;
-  const response = {};
-
-  $.ajax({
-    url: webster,
-    type: 'GET',
-    data: xmlToJson('jsonp'),
-    async: true,
-    success: (data) => {
-      console.log("IT HAPPENED!")
-      const jsonData = xmlToJson(xml);
-      response.def = jsonData.entry_list.entry[1].def.dt[0]['#text'];
-      response.pos = jsonData.entry_list.entry[1].fl['#text'];
-      response.entire = jsonData.entry_list;
-      // response.def = data.results[1].definition || '-';
-      callback(null, response);
-    },
-    error: (err) => {
-      callback(err, null);
-      throw new Error('There was an error making the GET request to the Webster Dictionary!', err);
-    },
   });
+
+  if (Object.keys(wordsUsed).length) {
+    return wordsUsed;
+  }
+
+  return 'Congrats! You didn\'t use any of the words you were avoiding!';
 }
 
-// make call to Webster Thesaurus API
-export function getSynFromWebster(word, callback) {
-  const webster = `http://cors.io/?u=http://www.dictionaryapi.com/api/v1/references/thesaurus/xml/${word}?key=${websterThesaurusAPI}`;
-  // const response = {};
-
-  $.ajax({
-    url: webster,
-    type: 'GET',
-    dataType: 'XML',
-    async: true,
-    success: (data) => {
-      console.log("success in finding !")
-      const jsonData = xmlToJson(data);
-      //We can get def from jsonData.entry_list.entry[0].sens[0].mc
-      const obj = jsonData.entry_list.entry;
-      let syns;
-
-      console.log("jsonData.entry_list.entry : ", jsonData.entry_list.entry);
-
-      if(obj.length > 1){
-        syns = obj[0].syn
-      } else{
-        syns = obj.syn['#text']
-      }
-      callback(null, syns);
-    },
-    error: (err) => {
-      callback(err, null);
-      throw new Error('There was an error making the GET request to the Webster Thesaurus!', err);
-    },
-  });
-}
-
-
+>>>>>>> Deal with api bug on the front-end
 export function getSyns(word, callback) {
   const datamuseAPI = `https://api.datamuse.com/words?max=5&rel_syn=${word}`;
   const response = {};
