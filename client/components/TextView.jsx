@@ -108,9 +108,10 @@ export default class TextView extends React.Component {
       </div>
       : removeWordCloud();
 
-    const inputFormMethods = {
+    const inputFormProps = {
       analyzeText: this.analyzeText.bind(this),
       resetText: this.resetText.bind(this),
+      user: this.props.user,
     };
 
     const timerMethods = {
@@ -136,7 +137,7 @@ export default class TextView extends React.Component {
       <div>
         <div id="text-input">
           <h1 id="text-input-title">Text Analyzer</h1>
-          <InputForm {...inputFormMethods} />
+          <InputForm {...inputFormProps} />
           <button onClick={this.getWritingPrompt}>Generate a Writing Prompt</button>
           <div>{timerButton}</div>
           <Timer {...timerMethods} />
@@ -150,4 +151,5 @@ export default class TextView extends React.Component {
 
 TextView.propTypes = {
   userLoggedIn: React.PropTypes.bool,
+  user: React.PropTypes.string,
 };

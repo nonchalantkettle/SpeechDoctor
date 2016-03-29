@@ -7,6 +7,7 @@ import $ from 'jquery';
 
 import TextView from './TextView.jsx';
 import SpeechView from './SpeechView.jsx';
+import UserProfile from './UserProfile.jsx';
 import SignUp from './SignUp.jsx';
 import LogIn from './LogIn.jsx';
 import UserVisualAnalytics from './UserVisualAnalytics.jsx';
@@ -37,11 +38,12 @@ class App extends React.Component {
   }
 
   render() {
-    const Children = React.cloneElement(this.props.children,
-      { userLoggedIn: this.state.userLoggedIn,
-        setUserLoggedIn: this.setUserLoggedIn.bind(this),
-        setUserLoggedOut: this.setUserLoggedOut.bind(this),
-      });
+    const Children = React.cloneElement(this.props.children, {
+      user: this.state.user,
+      userLoggedIn: this.state.userLoggedIn,
+      setUserLoggedIn: this.setUserLoggedIn.bind(this),
+      setUserLoggedOut: this.setUserLoggedOut.bind(this),
+    });
     const logout = this.setUserLoggedOut.bind(this);
     return (
       <div>
@@ -62,6 +64,7 @@ ReactDOM.render(
       <IndexRoute component={LandingPage} />
       <Route path="/speech" component={SpeechView} />
       <Route path="/text" component={TextView} />
+      <Route path="/profile" component={UserProfile} />
       <Route path="/signup" component={SignUp} />
       <Route path="/login" component={LogIn} />
       <Route path="/profile" component={UserVisualAnalytics} />

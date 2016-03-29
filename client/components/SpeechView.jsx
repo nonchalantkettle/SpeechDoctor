@@ -155,6 +155,23 @@ export default class SpeechView extends React.Component {
     recognition.start();
   }
 
+  saveSpeech() {
+    const request = {
+      speechViewText: this.state.results,
+      user: this.props.user,
+    };
+    $.ajax({
+      url: '/speech',
+      type: 'PUT',
+      dataType: 'json',
+      data: request,
+      success: (data) => data,
+      error: (err) => {
+        throw new Error('Error: ', err);
+      },
+    });
+  }
+
   render() {
     const currentState = this.state.recording ?
       <div>Recording...</div> :
@@ -203,6 +220,12 @@ export default class SpeechView extends React.Component {
       <button className="timer-button" onClick={timerButton}>Show Timer</button> :
       <div></div>;
 
+    const saveSpeechButton = this.saveSpeech.bind(this);
+
+    const showSaveSpeechButton = (this.state.passedTest && !this.state.recording) ?
+      <button className="save-speech-button" onClick={saveSpeechButton}>Save Speech</button> :
+      <div></div>;
+
     const timerMethods = {
       getSeconds: this.getSeconds.bind(this),
       getMinutes: this.getMinutes.bind(this),
@@ -238,6 +261,7 @@ export default class SpeechView extends React.Component {
         <div id="speechInteraction">
           {analyticsButton}
           {finishedSpeech}
+          {showSaveSpeechButton}
         </div>
       </div>
     );
@@ -245,5 +269,6 @@ export default class SpeechView extends React.Component {
 }
 
 SpeechView.propTypes = {
+  user: React.PropTypes.string,
   userLoggedIn: React.PropTypes.bool,
 };

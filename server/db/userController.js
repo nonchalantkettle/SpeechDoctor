@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const findUser = Q.nbind(User.findOne, User);
 const createUser = Q.nbind(User.create, User);
+const updateUser = Q.nbind(User.findOneAndUpdate, User);
 
 module.exports = {
   login: (req, res, next) => {
@@ -47,15 +48,13 @@ module.exports = {
           password,
         })
         .then((createdUser) => {
-          console.log('Created user', createdUser);
           const token = jwt.sign({ username: createdUser.username, userId: createdUser._id },
             'HiImAJWTTokenSecret');
-          console.log('token created', token);
           res.json({ token, userId: createdUser._id, username: createdUser.username });
           return next();
         })
         .catch((err) => {
-          console.error('problem creating user', err);
+          throw new Error('There was an error signing up', err);
         });
       })
       .fail((error) =>
@@ -66,8 +65,7 @@ module.exports = {
   checkJWT: (req, res, next) => {
     jwt.verify(req.params.JWT, 'HiImAJWTTokenSecret', (err, decoded) => {
       if (err) {
-        console.log('Error decoding JWT', err);
-        return err;
+        throw new Error('Error decoding JWT', err);
       }
       res.json({ username: decoded.username, userId: decoded.userId });
       return next();
@@ -96,8 +94,7 @@ module.exports = {
             });
           })
           .catch((err) => {
-            console.error('Problem changing password', err);
-            return err;
+            throw new Error('Problem changing password', err);
           });
       })
      .fail((error) => next(error));
@@ -123,4 +120,51 @@ module.exports = {
       })
       .fail((error) => next(error));
   },
+
+  storeText: (req, res) => {
+    const update = { $push: { textViewText: req.body.textViewText } };
+    const user = req.body.user;
+    updateUser({ username: user }, update, { new: true, upsert: true })
+    .then((found) => {
+      if (found) {
+        res.status(200).json(found);
+      } else {
+        res.status(404).send('Could not update text');
+      }
+    });
+  },
+
+  getText: (req, res) => {
+    const username = req.query.username;
+    findUser({ username })
+    .then((foundUser) => {
+      if (foundUser) {
+        res.status(200).json(foundUser.textViewText);
+      }
+    });
+  },
+
+  storeSpeech: (req, res) => {
+    const update = { $push: { speechViewText: req.body.speechViewText } };
+    const user = req.body.user;
+    updateUser({ username: user }, update, { new: true, upsert: true })
+    .then((found) => {
+      if (found) {
+        res.status(200).json(found);
+      } else {
+        res.status(404).send('Could not update text');
+      }
+    });
+  },
+
+  getSpeech: (req, res) => {
+    const username = req.query.username;
+    findUser({ username })
+    .then((foundUser) => {
+      if (foundUser) {
+        res.status(200).json(foundUser.speechViewText);
+      }
+    });
+  },
+
 };

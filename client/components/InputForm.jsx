@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 
 export default class InputForm extends React.Component {
   constructor(props) {
@@ -25,10 +26,28 @@ export default class InputForm extends React.Component {
     this.props.resetText();
   }
 
+  saveText() {
+    const request = {
+      textViewText: this.state.inputValue,
+      user: this.props.user,
+    };
+    $.ajax({
+      url: '/text',
+      type: 'PUT',
+      dataType: 'json',
+      data: request,
+      success: (data) => data,
+      error: (err) => {
+        throw new Error('Error: ', err);
+      },
+    });
+  }
+
   render() {
     const handleInputChange = this.handleInputChange.bind(this);
     const handleClick = this.handleClick.bind(this);
     const clearTextForm = this.clearTextForm.bind(this);
+    const saveText = this.saveText.bind(this);
 
     return (
       <div>
@@ -44,6 +63,7 @@ export default class InputForm extends React.Component {
         <div>
           <button onClick={handleClick}>Analyze</button>
           <button onClick={clearTextForm}>Reset</button>
+          <button onClick={saveText}>Save Text</button>
         </div>
       </div>
     );
@@ -53,4 +73,5 @@ export default class InputForm extends React.Component {
 InputForm.propTypes = {
   analyzeText: React.PropTypes.func,
   resetText: React.PropTypes.func,
+  user: React.PropTypes.string,
 };
