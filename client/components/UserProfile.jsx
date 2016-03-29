@@ -7,15 +7,21 @@ export default class UserProfile extends React.Component {
     super(props);
     this.state = {
       showTextAnalytics: true,
+      textData: [],
     };
   }
 
   handleTextClick() {
     $.get('/text', { username: this.props.user })
-      .done((data) => data);
-    this.setState({
-      showTextAnalytics: true,
-    });
+      .done((data) => {
+        this.setState({
+          showTextAnalytics: true,
+          textData: data,
+        });
+      })
+      .fail((err) => {
+        throw new Error('Could not retrieve text information', err);
+      });
   }
 
   handleSpeechClick() {
@@ -31,7 +37,7 @@ export default class UserProfile extends React.Component {
       <div>
         <button onClick={onTextClick}>Text Analytics</button>
         <button onClick={onSpeechClick}>Speech Analytics</button>
-        <UserAnalytics />
+        <UserAnalytics textData={this.state.textData} />
       </div>
     );
   }
