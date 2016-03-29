@@ -5,7 +5,8 @@ import React from 'react';
 import SpeechAnalytics from './SpeechAnalytics.jsx';
 import Timer from './Timer.jsx';
 import _ from 'underscore';
-import randomPromptGenerator from './../utils/randomPromptGenerator.js';
+import promptGenerator from './../utils/randomPromptGenerator.js';
+import $ from 'jquery';
 
 const recognition = new webkitSpeechRecognition();
 let WPM = 0;
@@ -32,8 +33,7 @@ export default class SpeechView extends React.Component {
   }
 
   componentWillMount() {
-    const prompt = randomPromptGenerator();
-
+    const prompt = promptGenerator.randomPromptGenerator();
     this.setState({
       prompt,
     });
@@ -45,6 +45,11 @@ export default class SpeechView extends React.Component {
 
   getSeconds() {
     return Math.floor(this.state.secondsElapsed % 60);
+  }
+
+  getSpeakingPrompt() {
+    const speakingPrompt = promptGenerator.speakingPromptGenerator();
+    $('#recording-view').append(`<p>Prompt: ${speakingPrompt}</p>`);
   }
 
   showTimer() {
@@ -182,6 +187,13 @@ export default class SpeechView extends React.Component {
       </div> :
       <div></div>;
 
+    const conversationalPrompt = this.state.passedTest ?
+      <button onClick={this.getSpeakingPrompt}>Generate a Speaking Prompt</button> :
+      <div></div>;
+
+    const testPrompt = !this.state.passedTest ? <p>{this.state.prompt}</p> :
+      <div></div>;
+
     const timerButton = this.showTimer.bind(this);
 
     const showTimerButton = this.state.passedTest ?
@@ -203,7 +215,7 @@ export default class SpeechView extends React.Component {
         <div id="speech-input">
           <h1 id="speech-input-title">Speech Analyzer</h1>
           <h4>{this.state.testMessage}</h4>
-          <h4>{this.state.prompt}</h4>
+          {testPrompt}
           <div id="recording-view">
             <button className="record-button" onClick={handleClick}>
               <img id="record-img" src="assets/record.png" alt="record" />
@@ -212,6 +224,7 @@ export default class SpeechView extends React.Component {
         </div>
         <div id="speechInteraction">
           <span>{currentState}</span>
+          {conversationalPrompt}
           {transciptButtonBeforeTest}
           {showTimerButton}
           {visibleTimer}
@@ -229,5 +242,5 @@ export default class SpeechView extends React.Component {
 }
 
 SpeechView.propTypes = {
-  userLoggedIn: React.PropTypes.boolean,
+  userLoggedIn: React.PropTypes.bool,
 };

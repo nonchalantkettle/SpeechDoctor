@@ -86,6 +86,7 @@ export default class SignUp extends React.Component {
             <div id="inputField">Username
               <input
                 id="loginInput"
+                className="inputForm"
                 type="text"
                 name="username"
                 value={this.state.username}
@@ -96,6 +97,7 @@ export default class SignUp extends React.Component {
             <div id="inputField">Password
               <input
                 id="loginInput"
+                className="inputForm"
                 type="password"
                 name="password"
                 value={this.state.password}
@@ -106,6 +108,7 @@ export default class SignUp extends React.Component {
             <div id="inputField">Confirm Password
               <input
                 id="loginInput"
+                className="inputForm"
                 type="password"
                 name="confirmedPassword"
                 value={this.state.confirmedPassword}
