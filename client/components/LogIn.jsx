@@ -67,6 +67,7 @@ export default class LogIn extends React.Component {
             <div id="inputField">Username
               <input
                 id="loginInput"
+                className="inputForm"
                 type="text"
                 name="username"
                 value={this.state.username}
@@ -77,6 +78,7 @@ export default class LogIn extends React.Component {
             <div id="inputField">Password
               <input
                 id="loginInput"
+                className="inputForm"
                 type="text"
                 name="password"
                 type="password"

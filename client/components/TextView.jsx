@@ -5,6 +5,7 @@ import TextAnalytics from './TextAnalytics.jsx';
 import WordCloud from './WordCloud.jsx';
 import Timer from './Timer.jsx';
 import WordsToAvoid from './WordsToAvoid.jsx';
+import promptGenerator from '../utils/randomPromptGenerator';
 
 export default class TextView extends React.Component {
 
@@ -16,6 +17,7 @@ export default class TextView extends React.Component {
       wordsToAvoid: [],
       secondsElapsed: 0,
       timer: false,
+      writingPrompt: false,
     };
   }
 
@@ -25,6 +27,14 @@ export default class TextView extends React.Component {
 
   getSeconds() {
     return Math.floor(this.state.secondsElapsed % 60);
+  }
+
+  getWritingPrompt() {
+    const writingPrompt = promptGenerator.writingPromptGenerator();
+    if ($('#writingPrompt').length) {
+      $('#writingPrompt').remove();
+    }
+    $('h1').append(`<p id="writingPrompt">Prompt: ${writingPrompt}</p>`);
   }
 
   resetText() {
@@ -127,6 +137,7 @@ export default class TextView extends React.Component {
         <div id="text-input">
           <h1 id="text-input-title">Text Analyzer</h1>
           <InputForm {...inputFormMethods} />
+          <button onClick={this.getWritingPrompt}>Generate a Writing Prompt</button>
           <div>{timerButton}</div>
           <Timer {...timerMethods} />
           <div className="words-to-avoid"><WordsToAvoid {...wordsToAvoidMethods} /></div>
@@ -138,5 +149,5 @@ export default class TextView extends React.Component {
 }
 
 TextView.propTypes = {
-  userLoggedIn: React.PropTypes.boolean,
+  userLoggedIn: React.PropTypes.bool,
 };
