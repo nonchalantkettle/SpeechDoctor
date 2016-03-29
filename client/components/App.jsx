@@ -1,15 +1,19 @@
+/* eslint-disable no-use-before-define, react/prefer-stateless-function, react/jsx-boolean-value */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import $ from 'jquery';
+import { Grid, Row } from 'react-bootstrap';
 
-import TextView from './Text/TextView.jsx';
-import SpeechView from './Speech/SpeechView.jsx';
-import UserProfile from './Profile/UserProfile.jsx';
-import SignUp from './Auth/SignUp.jsx';
-import LogIn from './Auth/LogIn.jsx';
+import TextView from './TextView.jsx';
+import SpeechView from './SpeechView.jsx';
+import UserProfile from './UserProfile.jsx';
+import SignUp from './SignUp.jsx';
+import LogIn from './LogIn.jsx';
+import UserVisualAnalytics from './UserVisualAnalytics.jsx';
 import Nav from './Nav.jsx';
-import LandingPage from './Home/LandingPage.jsx';
+import LandingPage from './LandingPage.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -42,11 +46,14 @@ class App extends React.Component {
       setUserLoggedOut: this.setUserLoggedOut.bind(this),
     });
     const logout = this.setUserLoggedOut.bind(this);
-
     return (
       <div>
-        <Nav userLoggedIn={this.state.userLoggedIn} logout={logout} />
-        {Children}
+        <Grid fluid={true}>
+          <Row>
+            <Nav userLoggedIn={this.state.userLoggedIn} logout={logout} />
+          </Row>
+          {Children}
+        </Grid>
       </div>
     );
   }
