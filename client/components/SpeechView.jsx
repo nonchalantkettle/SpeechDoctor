@@ -123,7 +123,7 @@ export default class SpeechView extends React.Component {
               clearInterval(this.incrementer);
               this.setState({
                 passedTest: true,
-                testMessage: 'Great! You speak clearly. The doctor will see you now',
+                testMessage: 'Great! You speak clearly. The doctor will see you now.',
                 recording: false,
                 results: '',
                 secondsElapsed: 0,
@@ -131,7 +131,7 @@ export default class SpeechView extends React.Component {
               recognition.stop();
             } else {
               this.setState({
-                testMessage: 'Sorry, the doctor is a bit hard of hearing.',
+                testMessage: 'Sorry, the doctor is a bit hard of hearing. Please try again.',
                 results: '',
               });
             }
@@ -178,7 +178,7 @@ export default class SpeechView extends React.Component {
       this.state.showAnalytics ?
       <div>
         You speak at {WPM} words per minute.
-        <SpeechAnalytics speech={this.state.results} />
+        <SpeechAnalytics speech={this.state.results} userLoggedIn={this.props.userLoggedIn} />
       </div> :
       <div></div>;
 
@@ -201,7 +201,7 @@ export default class SpeechView extends React.Component {
     return (
       <div>
         <div id="speech-input">
-          <h1>Speech Analyzer</h1>
+          <h1 id="speech-input-title">Speech Analyzer</h1>
           <h4>{this.state.testMessage}</h4>
           <h4>{this.state.prompt}</h4>
           <div id="recording-view">
@@ -210,7 +210,7 @@ export default class SpeechView extends React.Component {
             </button>
           </div>
         </div>
-        <div>
+        <div id="speechInteraction">
           <span>{currentState}</span>
           {transciptButtonBeforeTest}
           {showTimerButton}
@@ -219,7 +219,7 @@ export default class SpeechView extends React.Component {
         <div>
           <div>{transcript}</div>
         </div>
-        <div>
+        <div id="speechInteraction">
           {analyticsButton}
           {finishedSpeech}
         </div>
@@ -227,3 +227,7 @@ export default class SpeechView extends React.Component {
     );
   }
 }
+
+SpeechView.propTypes = {
+  userLoggedIn: React.PropTypes.boolean,
+};

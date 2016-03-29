@@ -1,5 +1,6 @@
 /* eslint no-param-reassign: 0*/
 import React from 'react';
+import { Link } from 'react-router';
 import $ from 'jquery';
 import { getDefs,
          getSyns,
@@ -21,6 +22,9 @@ function renderTopThree(string) {
 }
 
 export default function TextAnalytics(prop) {
+  const askToSave = !prop.userLoggedIn ?
+    <p><Link to="signup">Sign up </Link>or <Link to="login">log in </Link>to save your results</p>
+    : <div></div>;
   if (prop.text) {
     const counts = getTextStats(prop.text);
     const ARI = getAutomatedReadabilityIndex(prop.text);
@@ -56,6 +60,7 @@ export default function TextAnalytics(prop) {
     return (
       <div>
         <h2>Results</h2>
+        {askToSave}
         <h3>General Text Stats</h3>
         <div>
           <p>Total Characters (all): <span id="bold-word">{counts.charsWithSpace}</span></p>

@@ -3,6 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import $ from 'jquery';
 
 import TextView from './TextView.jsx';
 import SpeechView from './SpeechView.jsx';
@@ -28,6 +29,7 @@ class App extends React.Component {
   }
 
   setUserLoggedOut() {
+    $('h1').append('<div><p>You have been logged out.</p></div>');
     this.setState({
       userLoggedIn: false,
     });
