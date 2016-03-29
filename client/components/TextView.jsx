@@ -4,6 +4,7 @@ import InputForm from './InputForm.jsx';
 import TextAnalytics from './TextAnalytics.jsx';
 import WordCloud from './WordCloud.jsx';
 import Timer from './Timer.jsx';
+import WordsToAvoid from './WordsToAvoid.jsx';
 
 export default class TextView extends React.Component {
 
@@ -104,6 +105,7 @@ export default class TextView extends React.Component {
           <h1 id="text-input-title">Text Analyzer</h1>
           <InputForm {...inputFormMethods} />
           <div>{timerButton}</div>
+          <WordsToAvoid />
           <Timer {...timerMethods} />
           {analytics}
         </div>
