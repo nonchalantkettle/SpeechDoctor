@@ -29,8 +29,8 @@ export default function cloudMaker(prop) {
   function draw(words) {
     d3.select('#text-input').append('svg')
       .attr('id', 'word-cloud')
-      .attr('width', 1000)
-      .attr('height', 500)
+      .attr('width', 1200)
+      .attr('height', 600)
     .append('g')
       .attr('transform', `translate(${layout.size()[0] / 2}, ${layout.size()[1] / 2})`)
     .selectAll('text')
@@ -45,7 +45,7 @@ export default function cloudMaker(prop) {
   }
 
   layout = cloud()
-    .size([1000, 500])
+    .size([1200, 600])
     .words(wordArrayWithFrequency.slice(0, 100).map((d) => (
         { text: d[0], size: d[1] * (200 / numberOfWordsInCloud) }
       )))
@@ -59,7 +59,6 @@ export default function cloudMaker(prop) {
   return (
     <div>
       <div>
-        <div>Word Cloud:</div>
         <div id="cloud">{cloudMaker}</div>
       </div>
     </div>

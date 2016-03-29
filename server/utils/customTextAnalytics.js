@@ -4,7 +4,6 @@ import { wordsAPIKey } from '../../API_KEYS';
  * Helper functions for custom text analytics
  */
 
-// get each word's word count
 export function countEachWord(textInput) {
   // split up input string into arrays by spaces and newline chars
   const whiteSpaceChars = /\s/;
@@ -27,9 +26,20 @@ export function countEachWord(textInput) {
   return wordCountObject;
 }
 
-// find the top three most-used words, excluding 'the', 'a', 'an', and 'and'
+export function checkWordsToAvoid(wordsToAvoidArr, textInput) {
+  const allWords = countEachWord(textInput);
+  const wordsUsed = {};
+
+  wordsToAvoidArr.forEach((word) => {
+    if (allWords[word]) {
+      wordsUsed[word] = allWords[word];
+    }
+  });
+
+  return wordsUsed;
+}
+
 function topThreeWords(wordCountObject) {
-  // const wordsToIgnore = /the\b|a\b|an\b|and\b|is\b|that\b|to\b|i\b/;
   const wordsToIgnore = /\b[a-z]{1,2}\b|the\b|and\b|that\b|are\b/gi;
 
   // avoid modifying original wordCountObject
@@ -68,23 +78,6 @@ function topThreeWords(wordCountObject) {
 
   return mostCommonWords;
 }
-
-// checks to see if any 'avoid' words (words the user wants to avoid) were used
-function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
-  const wordsUsed = {};
-  wordsToAvoidArr.forEach((word) => {
-    if (allWordsUsedObj[word]) {
-      wordsUsed[word] = allWordsUsedObj[word];
-    }
-  });
-
-  if (Object.keys(wordsUsed).length) {
-    return wordsUsed;
-  }
-
-  return 'Congrats! You didn\'t use any of the words you were avoiding!';
-}
-
 
 // make call to Words API
 export function getDefs(word, callback) {
@@ -143,18 +136,15 @@ export function getSyns(word, callback) {
 export function analyzeText(userTextInput, wordsToAvoid) {
   const analytics = {};
 
-  // word totals
   const totalOfEachWord = countEachWord(userTextInput);
   analytics.allTotals = totalOfEachWord;
 
-  // words to avoid
   if (wordsToAvoid) {
     analytics.wordsNotAvoided = checkWordsToAvoid(wordsToAvoid, totalOfEachWord);
   } else {
     analytics.wordsNotAvoided = 'No words to avoid';
   }
 
-  // top used words
   const threeMostUsed = topThreeWords(totalOfEachWord);
   analytics.topThree = threeMostUsed;
 

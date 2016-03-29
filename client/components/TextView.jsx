@@ -4,6 +4,7 @@ import InputForm from './InputForm.jsx';
 import TextAnalytics from './TextAnalytics.jsx';
 import WordCloud from './WordCloud.jsx';
 import Timer from './Timer.jsx';
+import WordsToAvoid from './WordsToAvoid.jsx';
 
 export default class TextView extends React.Component {
 
@@ -12,6 +13,7 @@ export default class TextView extends React.Component {
     this.state = {
       visibleAnalytics: false,
       value: '',
+      wordsToAvoid: [],
       secondsElapsed: 0,
       timer: false,
     };
@@ -36,6 +38,19 @@ export default class TextView extends React.Component {
     this.setState({
       visibleAnalytics: !this.state.visibleAnalytics,
       value: input,
+    });
+  }
+
+  addWordsToAvoidList(word) {
+    this.state.wordsToAvoid.push(word);
+    this.setState({
+      wordsToAvoid: this.state.wordsToAvoid,
+    });
+  }
+
+  removeWordsFromAvoidList() {
+    this.setState({
+      wordsToAvoid: [],
     });
   }
 
@@ -74,7 +89,11 @@ export default class TextView extends React.Component {
 
     const analytics = this.state.visibleAnalytics ?
       <div>
-        <TextAnalytics text={this.state.value} userLoggedIn={this.props.userLoggedIn} />
+        <TextAnalytics
+          text={this.state.value}
+          wordsToAvoid={this.state.wordsToAvoid}
+          userLoggedIn={this.props.userLoggedIn}
+        />
         <WordCloud text={this.state.value} />
       </div>
       : removeWordCloud();
@@ -88,6 +107,11 @@ export default class TextView extends React.Component {
       getSeconds: this.getSeconds.bind(this),
       getMinutes: this.getMinutes.bind(this),
       secondsElapsed: this.state.secondsElapsed,
+    };
+
+    const wordsToAvoidMethods = {
+      addWordsToAvoid: this.addWordsToAvoidList.bind(this),
+      removeWordsFromAvoid: this.removeWordsFromAvoidList.bind(this),
     };
 
     const start = this.startTimer.bind(this);
@@ -105,6 +129,7 @@ export default class TextView extends React.Component {
           <InputForm {...inputFormMethods} />
           <div>{timerButton}</div>
           <Timer {...timerMethods} />
+          <div className="words-to-avoid"><WordsToAvoid {...wordsToAvoidMethods} /></div>
           {analytics}
         </div>
       </div>
