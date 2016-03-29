@@ -1,9 +1,12 @@
+/* eslint strict: 0*/
+
 const api = require('../../API_KEYS');
 const httpRequest = require('http-request');
 const parseString = require('xml2js').parseString;
 
 module.exports = {
   dictionary: (req, res) => {
+    'use strict';
     const reqWord = req.params.word;
     const webster = `http://www.dictionaryapi.com/api/v1/references/collegiate/xml/${reqWord}?key=${api.websterDictionaryAPI}`;
     httpRequest.get(webster, (err, data) => {
@@ -46,10 +49,14 @@ module.exports = {
           return;
         }
         const thesaurusEntries = result.entry_list.entry;
-        const thesaurusObj = {
-          pos: thesaurusEntries[0].fl[0],
-          syns: thesaurusEntries[0].sens[0].syn[0],
-        };
+        const thesaurusObj = {};
+        if (thesaurusEntries.length === 1) {
+          thesaurusObj.syns = thesaurusEntries[0].sens[0].syn[0];
+          thesaurusObj.pos = thesaurusEntries[0].fl[0];
+        } else {
+          thesaurusObj.syns = thesaurusEntries[1].sens[0].syn[0];
+          thesaurusObj.pos = thesaurusEntries[1].fl[0];
+        }
         res.send(thesaurusObj);
       });
     });
