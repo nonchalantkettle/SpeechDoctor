@@ -27,6 +27,20 @@ export function countEachWord(textInput) {
   return wordCountObject;
 }
 
+// checks to see if any 'avoid' words (words the user wants to avoid) were used
+export function checkWordsToAvoid(wordsToAvoidArr, textInput) {
+  const allWords = countEachWord(textInput);
+  const wordsUsed = {};
+
+  wordsToAvoidArr.forEach((word) => {
+    if (allWords[word]) {
+      wordsUsed[word] = allWords[word];
+    }
+  });
+
+  return wordsUsed;
+}
+
 // find the top three most-used words, excluding 'the', 'a', 'an', and 'and'
 function topThreeWords(wordCountObject) {
   // const wordsToIgnore = /the\b|a\b|an\b|and\b|is\b|that\b|to\b|i\b/;
@@ -68,23 +82,6 @@ function topThreeWords(wordCountObject) {
 
   return mostCommonWords;
 }
-
-// checks to see if any 'avoid' words (words the user wants to avoid) were used
-function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
-  const wordsUsed = {};
-  wordsToAvoidArr.forEach((word) => {
-    if (allWordsUsedObj[word]) {
-      wordsUsed[word] = allWordsUsedObj[word];
-    }
-  });
-
-  if (Object.keys(wordsUsed).length) {
-    return wordsUsed;
-  }
-
-  return 'Congrats! You didn\'t use any of the words you were avoiding!';
-}
-
 
 // make call to Words API
 export function getDefs(word, callback) {
