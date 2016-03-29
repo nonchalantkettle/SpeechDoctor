@@ -9,4 +9,8 @@ module.exports = (app) => {
   // Change user information
   app.post('/changePassword', userController.changePassword);
   app.post('/changeUsername', userController.changeUsername);
+
+  // Receive text from user to insert in database
+  app.put('/text', userController.storeText);
+  // app.post('/speech', userController./*METHOD GOES HERE*/);
 };

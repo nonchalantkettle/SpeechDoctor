@@ -38,11 +38,12 @@ class App extends React.Component {
   }
 
   render() {
-    const Children = React.cloneElement(this.props.children,
-      { userLoggedIn: this.state.userLoggedIn,
-        setUserLoggedIn: this.setUserLoggedIn.bind(this),
-        setUserLoggedOut: this.setUserLoggedOut.bind(this),
-      });
+    const Children = React.cloneElement(this.props.children, {
+      user: this.state.user,
+      userLoggedIn: this.state.userLoggedIn,
+      setUserLoggedIn: this.setUserLoggedIn.bind(this),
+      setUserLoggedOut: this.setUserLoggedOut.bind(this),
+    });
     const logout = this.setUserLoggedOut.bind(this);
     return (
       <div>

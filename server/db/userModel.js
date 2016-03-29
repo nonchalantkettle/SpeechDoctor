@@ -16,8 +16,14 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
   salt: String,
-  textViewText: String,
-  speechViewText: String,
+  textViewText: {
+    type: String,
+    default: '',
+  },
+  // speechViewText: {
+  //   type: String,
+  //   default: '',
+  // },
   speechViewSecondsElapsed: Number,
 });
 
