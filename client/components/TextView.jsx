@@ -31,7 +31,10 @@ export default class TextView extends React.Component {
 
   getWritingPrompt() {
     const writingPrompt = promptGenerator.writingPromptGenerator();
-    $('h1').append(`<p>Prompt: ${writingPrompt}</p>`);
+    if ($('#writingPrompt').length) {
+      $('#writingPrompt').remove();
+    }
+    $('h1').append(`<p id="writingPrompt">Prompt: ${writingPrompt}</p>`);
   }
 
   resetText() {

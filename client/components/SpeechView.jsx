@@ -49,7 +49,10 @@ export default class SpeechView extends React.Component {
 
   getSpeakingPrompt() {
     const speakingPrompt = promptGenerator.speakingPromptGenerator();
-    $('#recording-view').append(`<p>Prompt: ${speakingPrompt}</p>`);
+    if ($('#speakingPrompt').length) {
+      $('#speakingPrompt').remove();
+    }
+    $('#recording-view').append(`<p id="speakingPrompt">Prompt: ${speakingPrompt}</p>`);
   }
 
   showTimer() {
