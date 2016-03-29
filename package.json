@@ -77,12 +77,8 @@
     "start": "nodemon --watch server server/server.js",
     "build": "webpack --progress --colors"
   },
-<<<<<<< fd142b2d459c109acf9a37480d099e9cec1932fe
   "pre-commit": [
     "lint-server",
     "lint-client"
   ]
-=======
-  "pre-commit": []
->>>>>>> Add xml2js module
 }
