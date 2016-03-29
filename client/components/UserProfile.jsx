@@ -1,5 +1,6 @@
 import React from 'react';
 import UserAnalytics from './UserAnalytics.jsx';
+import $ from 'jquery';
 
 export default class UserProfile extends React.Component {
   constructor(props) {
@@ -10,6 +11,8 @@ export default class UserProfile extends React.Component {
   }
 
   handleTextClick() {
+    $.get('/text', { username: this.props.user })
+      .done((data) => data);
     this.setState({
       showTextAnalytics: true,
     });
@@ -34,3 +37,7 @@ export default class UserProfile extends React.Component {
   }
 
 }
+
+UserProfile.propTypes = {
+  user: React.PropTypes.string,
+};

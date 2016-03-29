@@ -20,10 +20,10 @@ const UserSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
-  // speechViewText: {
-  //   type: String,
-  //   default: '',
-  // },
+  speechViewText: {
+    type: Array,
+    default: [],
+  },
   speechViewSecondsElapsed: Number,
 });
 

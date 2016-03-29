@@ -134,7 +134,37 @@ module.exports = {
     });
   },
 
-  // storeSpeech: (req, res, next) => {
-  // }
+  getText: (req, res) => {
+    const username = req.query.username;
+    findUser({ username })
+    .then((foundUser) => {
+      if (foundUser) {
+        res.status(200).json(foundUser.textViewText);
+      }
+    });
+  },
+
+  storeSpeech: (req, res) => {
+    const update = { $push: { speechViewText: req.body.speechViewText } };
+    const user = req.body.user;
+    updateUser({ username: user }, update, { new: true, upsert: true })
+    .then((found) => {
+      if (found) {
+        res.status(200).json(found);
+      } else {
+        res.status(404).send('Could not update text');
+      }
+    });
+  },
+
+  getSpeech: (req, res) => {
+    const username = req.query.username;
+    findUser({ username })
+    .then((foundUser) => {
+      if (foundUser) {
+        res.status(200).json(foundUser.speechViewText);
+      }
+    });
+  },
 
 };

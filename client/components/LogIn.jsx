@@ -33,13 +33,13 @@ export default class LogIn extends React.Component {
             error: 'Username or password is incorrect',
           });
         } else {
+          this.props.setUserLoggedIn(this.state.username);
           this.setState({
             isLoading: false,
             error: false,
             username: '',
             password: '',
           });
-          this.props.setUserLoggedIn();
           this.props.history.push('/');
         }
       })

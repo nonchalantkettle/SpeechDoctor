@@ -12,5 +12,9 @@ module.exports = (app) => {
 
   // Receive text from user to insert in database
   app.put('/text', userController.storeText);
-  // app.post('/speech', userController./*METHOD GOES HERE*/);
+  app.put('/speech', userController.storeSpeech);
+
+  // Get text for profile analytics
+  app.get('/text', userController.getText);
+  app.get('/speech', userController.getSpeech);
 };
