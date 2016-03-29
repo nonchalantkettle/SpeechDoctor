@@ -152,3 +152,14 @@ p#bold-word, span#bold-word{
 #speechInteraction {
   margin: 35px;
 }
+
+.left-results {
+  float:left;
+  width: 50%;
+}
+
+.avoid-words {
+  float:left;
+  width: 40%;
+}
+
