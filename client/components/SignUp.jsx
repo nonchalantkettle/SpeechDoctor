@@ -78,6 +78,7 @@ export default class SignUp extends React.Component {
       handlePasswordChange: this.handlePasswordChange.bind(this),
       handleConfirmedPasswordChange: this.handleConfirmedPasswordChange.bind(this),
     };
+
     return (
       <div>
         <h1>Create an Account</h1>
