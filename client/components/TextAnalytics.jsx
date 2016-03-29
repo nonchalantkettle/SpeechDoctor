@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import $ from 'jquery';
 import _ from 'underscore';
+import api from '../utils/api';
 import { getDefs,
          getSyns,
          analyzeText,
@@ -33,31 +34,26 @@ export default function TextAnalytics(prop) {
     const counts = getTextStats(prop.text);
     const ARI = getAutomatedReadabilityIndex(prop.text);
     renderTopThree(prop.text).map((word) =>
-      getDefs(word[0], (defErr, defData) => {
+      api.getDefs(word[0], (defErr, defData) => {
         if (defErr) {
           return defErr;
         }
-        const defintionAndPos = defData;
-        return getSyns(word[0], (synErr, synData) => {
+
+        return api.getSyns(word[0], (synErr, synData) => {
           if (synErr) {
             return synErr;
           }
-          const synonyms = synData.syns;
+
+          const syns = synData.syns;
+          const pos = synData.pos;
+          const def = defData;
 
           $('#topThreeMostUsed').append(`<p id="bold-word">${word[0]}${word[1]}</p>
-            <p>Part of Speech: ${defintionAndPos.pos}</p>
-            <p>Definition: ${defintionAndPos.def}</p>`);
+            <p>Part of Speech: ${pos}</p>
+            <p>Definition: ${def}</p>
+            <p>Synonyms: ${syns}</p>`);
 
-          if (synonyms.length) {
-            let synString = synonyms.reduce((acc, syn) => {
-              acc += `${syn.word}, `;
-              return acc;
-            }, '');
-            synString = synString.slice(0, -2);
-            $('#topThreeMostUsed').append(`<p>Synonyms: ${synString}</p>`);
-          }
-
-          return synonyms;
+          return syns;
         });
       })
     );
