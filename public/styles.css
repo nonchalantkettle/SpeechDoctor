@@ -71,6 +71,11 @@ button:focus {
   outline: none;
 }
 
+textarea {
+  width: 100%;
+  height: 300px;
+}
+
 #navbar {
   display: inline-block;
   width: 100%;
@@ -202,3 +207,7 @@ p#bold-word, span#bold-word{
 #ARIStat {
  color: #ff7f0e;
 }
+
+/*.words-to-avoid {
+  text-align: right
+}*/

@@ -7,6 +7,7 @@ import WordCloud from '../WordCloud.jsx';
 import Timer from '../Timer.jsx';
 import WordsToAvoid from '../WordsToAvoid.jsx';
 import promptGenerator from '../../utils/randomPromptGenerator';
+import { Row, Col } from 'react-bootstrap';
 
 export default class TextView extends React.Component {
   constructor(props) {
@@ -136,12 +137,23 @@ export default class TextView extends React.Component {
     return (
       <div>
         <div id="analytics-container">
-          <h1 id="text-input-title">Text Analyzer</h1>
-          <InputForm {...inputFormProps} />
-          <button onClick={this.getWritingPrompt}>Generate a Writing Prompt</button>
-          <div>{timerButton}</div>
-          <Timer {...timerMethods} />
-          <div className="words-to-avoid"><WordsToAvoid {...wordsToAvoidMethods} /></div>
+          <Row>
+            <Col md={12}>
+              <h1 id="text-input-title">Text Analyzer</h1>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={8}>
+              <InputForm {...inputFormProps} />
+            </Col>
+            <Col md={4}>
+              <div className="words-to-avoid"><WordsToAvoid {...wordsToAvoidMethods} /></div>
+              <br />
+              <button onClick={this.getWritingPrompt}>Generate a Writing Prompt</button>
+              <div>{timerButton}</div>
+              <Timer {...timerMethods} />
+            </Col>
+          </Row>
           {analytics}
         </div>
       </div>

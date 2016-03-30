@@ -1,5 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
+import WordsToAvoid from '../WordsToAvoid.jsx';
+import { Row, Col } from 'react-bootstrap';
 
 export default class InputForm extends React.Component {
   constructor(props) {
@@ -12,6 +14,19 @@ export default class InputForm extends React.Component {
   handleInputChange(e) {
     this.setState({
       inputValue: e.target.value,
+    });
+  }
+
+  addWordsToAvoidList(word) {
+    this.state.wordsToAvoid.push(word);
+    this.setState({
+      wordsToAvoid: this.state.wordsToAvoid,
+    });
+  }
+
+  removeWordsFromAvoidList() {
+    this.setState({
+      wordsToAvoid: [],
     });
   }
 
@@ -47,24 +62,35 @@ export default class InputForm extends React.Component {
     const handleInputChange = this.handleInputChange.bind(this);
     const handleClick = this.handleClick.bind(this);
     const clearTextForm = this.clearTextForm.bind(this);
+
     const saveText = this.saveText.bind(this);
+      const wordsToAvoidMethods = {
+      addWordsToAvoid: this.addWordsToAvoidList.bind(this),
+      removeWordsFromAvoid: this.removeWordsFromAvoidList.bind(this),
+    };
 
     return (
       <div>
-        <textarea
-          className="inputForm"
-          placeholder="The doctor will see you now! Type or paste in your text sample here."
-          type="text"
-          rows="30"
-          cols="150"
-          onChange={handleInputChange}
-          value={this.state.inputValue}
-        />
-        <div>
-          <button onClick={handleClick}>Analyze</button>
-          <button onClick={clearTextForm}>Reset</button>
-          <button onClick={saveText}>Save Text</button>
-        </div>
+        <Row>
+          <Col md={12}>
+            <textarea
+              className="inputForm"
+              placeholder="The doctor will see you now! Type or paste in your text sample here."
+              type="text"
+              onChange={handleInputChange}
+              value={this.state.inputValue}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6}>
+            <div>
+              <button onClick={handleClick}>Analyze</button>
+              <button onClick={clearTextForm}>Reset</button>
+              <button onClick={saveText}>Save Text</button>
+            </div>
+          </Col>
+        </Row>
       </div>
     );
   }
