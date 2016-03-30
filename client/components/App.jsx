@@ -1,4 +1,4 @@
-/* eslint-disable no-use-before-define, react/prefer-stateless-function, react/jsx-boolean-value */
+/* eslint-disable react/jsx-boolean-value */
 
 import React from 'react';
 import ReactDOM from 'react-dom';
