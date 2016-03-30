@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import api from '../utils/api';
+import api from '../../utils/api';
 import { Row, Col } from 'react-bootstrap';
 
 export default class LogIn extends React.Component {

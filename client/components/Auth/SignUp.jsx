@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Row, Col } from 'react-bootstrap';
-import api from '../utils/api';
+import api from '../../utils/api';
 
 export default class SignUp extends React.Component {
   constructor(props) {
