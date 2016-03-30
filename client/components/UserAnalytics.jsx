@@ -42,7 +42,6 @@ export default function UserAnalytics(prop) {
     });
     return individualTextAverages;
   });
-  console.log('ITA__________', individualTextAverages);
 
   // Pie Chart
   const PieChart = ReactD3.PieChart;

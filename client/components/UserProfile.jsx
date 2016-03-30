@@ -6,8 +6,8 @@ export default class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showTextAnalytics: null,
-      textData: [],
+      showAnalytics: false,
+      data: [],
     };
   }
 
@@ -15,8 +15,8 @@ export default class UserProfile extends React.Component {
     $.get('/text', { username: this.props.user })
       .done((data) => {
         this.setState({
-          showTextAnalytics: true,
-          textData: data,
+          showAnalytics: true,
+          data,
         });
       })
       .fail((err) => {
@@ -24,22 +24,29 @@ export default class UserProfile extends React.Component {
       });
   }
 
-  handleSpeechClick() {
-    this.setState({
-      showTextAnalytics: false,
-    });
-  }
+  // handleSpeechClick() {
+  //   $.get('/speech', { username: this.props.user })
+  //     .done((data) => {
+  //       this.setState({
+  //         showAnalytics: true,
+  //         data: data,
+  //       });
+  //     })
+  //     .fail((err) => {
+  //       throw new Error('Could not retrieve text information', err);
+  //     });
+  // }
 
   render() {
     const onTextClick = this.handleTextClick.bind(this);
-    const onSpeechClick = this.handleSpeechClick.bind(this);
+    // const onSpeechClick = this.handleSpeechClick.bind(this);
+
     return (
       <div>
-        <button onClick={onTextClick}>Text Analytics</button>
-        <button onClick={onSpeechClick}>Speech Analytics</button>
+        <button onClick={onTextClick}>Analytics</button>
         {
-          this.state.showTextAnalytics ?
-          <UserAnalytics textData={this.state.textData} /> :
+          this.state.showAnalytics ?
+          <UserAnalytics data={this.state.data} /> :
           <div></div>
         }
       </div>

@@ -3,7 +3,7 @@ import d3 from 'd3';
 import cloud from 'd3.layout.cloud';
 import { countEachWord, getTextStats } from '../../server/utils/customTextAnalytics.js';
 
-export default function cloudMaker(prop) {
+export default function WordCloud(prop) {
   const numWords = getTextStats(prop.text).words;
   const wordsToIgnore = /\b[a-z0-9]{1,2}\b|the\b|and\b|that\b|are\b/gi;
   const wordFrequencyObject = countEachWord(prop.text);
@@ -57,10 +57,6 @@ export default function cloudMaker(prop) {
   layout.start();
 
   return (
-    <div>
-      <div>
-        <div id="cloud">{cloudMaker}</div>
-      </div>
-    </div>
+    <div id="cloud">{WordCloud}</div>
   );
 }

@@ -10,7 +10,6 @@ import SpeechView from './SpeechView.jsx';
 import UserProfile from './UserProfile.jsx';
 import SignUp from './SignUp.jsx';
 import LogIn from './LogIn.jsx';
-import UserVisualAnalytics from './UserVisualAnalytics.jsx';
 import Nav from './Nav.jsx';
 import LandingPage from './LandingPage.jsx';
 
@@ -45,6 +44,7 @@ class App extends React.Component {
       setUserLoggedOut: this.setUserLoggedOut.bind(this),
     });
     const logout = this.setUserLoggedOut.bind(this);
+
     return (
       <div>
         <Nav userLoggedIn={this.state.userLoggedIn} logout={logout} />
@@ -67,7 +67,6 @@ ReactDOM.render(
       <Route path="/profile" component={UserProfile} />
       <Route path="/signup" component={SignUp} />
       <Route path="/login" component={LogIn} />
-      <Route path="/profile" component={UserVisualAnalytics} />
     </Route>
   </Router>,
   document.getElementById('app')
