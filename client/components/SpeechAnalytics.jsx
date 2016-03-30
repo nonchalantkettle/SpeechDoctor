@@ -1,6 +1,7 @@
 /* eslint no-param-reassign: 0*/
 import React from 'react';
 import $ from 'jquery';
+import { Link } from 'react-router';
 import { getDefs,
          getSyns,
          analyzeText,
@@ -24,8 +25,8 @@ function renderTopThree(speech) {
 
 export default function SpeechAnalytics(prop) {
   const askToSave = !prop.userLoggedIn ?
-  <p><Link to="signup">Sign up </Link>or <Link to="login">log in </Link>to save your results</p> 
-  : <div></div>;
+    <p><Link to="signup">Sign up </Link>or <Link to="login">log in </Link>to save your results</p>
+    : <div></div>;
   if (prop.speech) {
     const counts = getTextStats(prop.speech);
     const ARI = getAutomatedReadabilityIndex(prop.speech);
