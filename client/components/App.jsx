@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-boolean-value */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import $ from 'jquery';
+import { Grid, Row } from 'react-bootstrap';
 
 import TextView from './Text/TextView.jsx';
 import SpeechView from './Speech/SpeechView.jsx';
@@ -42,11 +45,14 @@ class App extends React.Component {
       setUserLoggedOut: this.setUserLoggedOut.bind(this),
     });
     const logout = this.setUserLoggedOut.bind(this);
-
     return (
       <div>
-        <Nav userLoggedIn={this.state.userLoggedIn} logout={logout} />
-        {Children}
+        <Grid fluid={true}>
+          <Row>
+            <Nav userLoggedIn={this.state.userLoggedIn} logout={logout} />
+          </Row>
+          {Children}
+        </Grid>
       </div>
     );
   }

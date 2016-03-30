@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-
+import { Row, Col } from 'react-bootstrap';
 import api from '../../utils/api';
 
 export default class SignUp extends React.Component {
@@ -82,52 +82,60 @@ export default class SignUp extends React.Component {
 
     return (
       <div>
-        <h1>Create an Account</h1>
-        <div id="createAccount">
-          <form id="signup" onSubmit={methods.handleSubmit}>
-            <div id="inputField">Username
-              <input
-                id="loginInput"
-                className="inputForm"
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={methods.handleUsernameChange}
-              >
-              </input>
+        <Row>
+          <Col md={12}>
+            <h1>Create an Account</h1>
+            <div id="createAccount">
+              <form id="signup" onSubmit={methods.handleSubmit}>
+                <div id="inputField">Username
+                  <input
+                    id="loginInput"
+                    className="inputForm"
+                    type="text"
+                    name="username"
+                    value={this.state.username}
+                    onChange={methods.handleUsernameChange}
+                  >
+                  </input>
+                </div>
+                <div id="inputField">Password
+                  <input
+                    id="loginInput"
+                    className="inputForm"
+                    type="password"
+                    name="password"
+                    value={this.state.password}
+                    onChange={methods.handlePasswordChange}
+                  >
+                  </input>
+                </div>
+                <div id="inputField">Confirm Password
+                  <input
+                    id="loginInput"
+                    className="inputForm"
+                    type="password"
+                    name="confirmedPassword"
+                    value={this.state.confirmedPassword}
+                    onChange={methods.handleConfirmedPasswordChange}
+                  >
+                  </input>
+                </div>
+                <div>
+                  <button type="submit">Create Account</button>
+                </div>
+              </form>
             </div>
-            <div id="inputField">Password
-              <input
-                id="loginInput"
-                className="inputForm"
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={methods.handlePasswordChange}
-              >
-              </input>
-            </div>
-            <div id="inputField">Confirm Password
-              <input
-                id="loginInput"
-                className="inputForm"
-                type="password"
-                name="confirmedPassword"
-                value={this.state.confirmedPassword}
-                onChange={methods.handleConfirmedPasswordChange}
-              >
-              </input>
-            </div>
-            <div>
-              <button type="submit">Create Account</button>
-            </div>
-          </form>
-        </div>
-        {showErr}
-        {showPasswordErr}
-        <div id="goToLogin">
-          <p>Already have an account? Sign in <Link to={'login'}>here</Link></p>
-        </div>
+          </Col>
+        </Row>
+          <Row>
+            <Col md={12}>
+              {showErr}
+              {showPasswordErr}
+              <div id="goToLogin">
+                <p>Already have an account? Sign in <Link to={'login'}>here</Link></p>
+              </div>
+            </Col>
+          </Row>
       </div>
     );
   }

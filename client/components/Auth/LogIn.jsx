@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
-
 import api from '../../utils/api';
+import { Row, Col } from 'react-bootstrap';
 
 export default class LogIn extends React.Component {
   constructor(props) {
@@ -62,39 +62,45 @@ export default class LogIn extends React.Component {
     };
     return (
       <div>
-        <h1>Log In</h1>
-        <div id="accountLogin">
-         <form id="login" onSubmit={methods.handleSubmit}>
-            <div id="inputField">Username
-              <input
-                id="loginInput"
-                className="inputForm"
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={methods.handleUsernameChange}
-              >
-              </input>
+        <Row>
+          <Col md={12}>
+            <h1>Log In</h1>
+            <div id="accountLogin">
+             <form id="login" onSubmit={methods.handleSubmit}>
+                <div id="inputField">Username
+                  <input
+                    id="loginInput"
+                    className="inputForm"
+                    type="text"
+                    name="username"
+                    value={this.state.username}
+                    onChange={methods.handleUsernameChange}
+                  >
+                  </input>
+                </div>
+                <div id="inputField">Password
+                  <input
+                    id="loginInput"
+                    className="inputForm"
+                    type="text"
+                    name="password"
+                    type="password"
+                    value={this.state.password}
+                    onChange={methods.handlePasswordChange}
+                  >
+                  </input>
+                </div>
+                <div><button type="submit">Log In</button></div>
+              </form>
             </div>
-            <div id="inputField">Password
-              <input
-                id="loginInput"
-                className="inputForm"
-                type="text"
-                name="password"
-                type="password"
-                value={this.state.password}
-                onChange={methods.handlePasswordChange}
-              >
-              </input>
-            </div>
-            <div><button type="submit">Log In</button></div>
-          </form>
-        </div>
-        {showErr}
-        <div id="goToSignup">
-          <p>Need have an account? Create one <Link to={'signup'}>here</Link></p>
-        </div>
+          </Col>
+        </Row>
+        <Row>
+          {showErr}
+          <div id="goToSignup">
+            <p>Need have an account? Create one <Link to={'signup'}>here.</Link></p>
+          </div>
+        </Row>
       </div>
     );
   }

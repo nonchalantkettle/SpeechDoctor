@@ -41,11 +41,9 @@ export default function SpeechAnalytics(prop) {
             return synErr;
           }
           const synonyms = synData.syns;
-
           $('#topThreeMostUsed').append(`<p id="bold-word">${word[0]}${word[1]}</p>
             <p>Part of Speech: ${defintionAndPos.pos}</p>
             <p>Definition: ${defintionAndPos.def}</p>`);
-
           if (synonyms.length) {
             let synString = synonyms.reduce((acc, syn) => {
               acc += `${syn.word}, `;
@@ -54,7 +52,6 @@ export default function SpeechAnalytics(prop) {
             synString = synString.slice(0, -2);
             $('#topThreeMostUsed').append(`<p>Synonyms: ${synString}</p>`);
           }
-
           return synonyms;
         });
       })
