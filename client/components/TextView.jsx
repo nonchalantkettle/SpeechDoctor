@@ -93,7 +93,7 @@ export default class TextView extends React.Component {
   render() {
     const removeWordCloud = () => {
       if (document.getElementById('word-cloud')) {
-        $('#text-input').find('#word-cloud').remove();
+        $('#analytics-container').find('#word-cloud').remove();
       }
     };
 
