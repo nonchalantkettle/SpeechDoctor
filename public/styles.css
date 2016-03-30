@@ -12,18 +12,19 @@ p {
   font-size: 18px;
 }
 
-a {
-  color: #517398;
+a, a:focus {
+  color: #f4f4f2;
   text-decoration: none;
 }
 
 a:hover {
+  color: #f4f4f2;
   text-decoration: underline;
 }
 
 h1 {
   font-weight: 100;
-  font-size: 4em;
+  font-size: 4.25em;
   margin: 35px;
 }
 
@@ -71,10 +72,14 @@ button:focus {
 }
 
 #navbar {
-  border: 1px solid black;
   display: inline-block;
   width: 100%;
   padding: 20px;
+  border: 0;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  background: #aec0c8;
 }
 
 #navlink {
