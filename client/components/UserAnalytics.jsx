@@ -18,6 +18,7 @@ export default function UserAnalytics(prop) {
       return acc;
     }, '');
 
+  console.log(combinedTextInputs);
   const overallAnalysis = analyzeText(combinedTextInputs);
   const overallTextStats = getTextStats(combinedTextInputs);
   const overallARI = getAutomatedReadabilityIndex(combinedTextInputs).score;
