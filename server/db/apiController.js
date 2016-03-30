@@ -55,10 +55,18 @@ module.exports = {
         const thesaurusEntries = result.entry_list.entry;
         const thesaurusObj = {};
         if (thesaurusEntries.length === 1) {
-          thesaurusObj.syns = thesaurusEntries[0].sens[0].syn[0];
+          if (typeof thesaurusEntries[0].sens[0].syn[0] === 'object') {
+            thesaurusObj.syns = thesaurusEntries[0].sens[0].syn[0][0];
+          } else {
+            thesaurusObj.syns = thesaurusEntries[0].sens[0].syn[0];
+          }
           thesaurusObj.pos = thesaurusEntries[0].fl[0];
         } else {
-          thesaurusObj.syns = thesaurusEntries[1].sens[0].syn[0];
+          if (typeof thesaurusEntries[1].sens[0].syn[0] === 'object') {
+            thesaurusObj.syns = thesaurusEntries[1].sens[0].syn[0]._;
+          } else {
+            thesaurusObj.syns = thesaurusEntries[1].sens[0].syn[0];
+          }
           thesaurusObj.pos = thesaurusEntries[1].fl[0];
         }
         res.send(thesaurusObj);
