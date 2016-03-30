@@ -29,6 +29,29 @@ const api = {
     const user = { username, newUsername };
     return $.post('http://localhost:8080/changeUsername', user);
   },
+
+  getDefs(word, callback) {
+    const url = `http://localhost:8080/dictionary/${word}`;
+
+    return $.get(url, 'json')
+      .done((data) =>
+        callback(null, data)
+      )
+      .fail((err) =>
+        callback(err)
+      );
+  },
+  getSyns(word, callback) {
+    const url = `http://localhost:8080/thesaurus/${word}`;
+
+    return $.get(url, 'json')
+      .done((data) =>
+        callback(null, data)
+      )
+      .fail((err) =>
+        callback(err)
+      );
+  },
 };
 
 module.exports = api;
