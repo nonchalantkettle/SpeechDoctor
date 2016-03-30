@@ -1,4 +1,5 @@
 /* eslint new-cap: 0 */
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 const Q = require('q');
@@ -27,7 +28,7 @@ const UserSchema = new mongoose.Schema({
   speechViewSecondsElapsed: Number,
 });
 
-UserSchema.methods.comparePasswords = function (candidatePassword) {
+UserSchema.methods.comparePasswords = function comparePasswords(candidatePassword) {
   const savedPassword = this.password;
   return Q.Promise((resolve, reject) => {
     bcrypt.compare(candidatePassword, savedPassword, (err, matched) => {
