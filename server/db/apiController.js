@@ -21,19 +21,13 @@ module.exports = {
         const dictionaryObj = {};
         const dictionaryEntries = result.entry_list.entry[0];
         const definitions = dictionaryEntries.def[0].dt;
+        let defWithColon;
         dictionaryObj.pos = dictionaryEntries.fl[0];
         for (let i = 0; i < definitions.length; i ++) {
           if (typeof definitions[i] === 'string') {
-            const defWithColon = definitions[i];
-            const defWithoutColon = defWithColon.slice(1, defWithColon.length);
-            dictionaryObj.def = defWithoutColon;
-            res.send(dictionaryObj);
-            return;
-          }
-        }
-        for (let j = 0; j < definitions.length; j ++) {
-          if (definitions[j]._.length > 2) {
-            const defWithColon = definitions[j]._;
+            defWithColon = definitions[i];
+          } else if (definitions[i]._ && definitions[i]._.length > 2) {
+            defWithColon = definitions[i]._;
             const defWithoutColon = defWithColon.slice(1, defWithColon.length);
             dictionaryObj.def = defWithoutColon;
             res.send(dictionaryObj);
