@@ -6,7 +6,7 @@ export default class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showTextAnalytics: true,
+      showTextAnalytics: null,
       textData: [],
     };
   }
@@ -37,7 +37,11 @@ export default class UserProfile extends React.Component {
       <div>
         <button onClick={onTextClick}>Text Analytics</button>
         <button onClick={onSpeechClick}>Speech Analytics</button>
-        <UserAnalytics textData={this.state.textData} />
+        {
+          this.state.showTextAnalytics ?
+          <UserAnalytics textData={this.state.textData} /> :
+          <div></div>
+        }
       </div>
     );
   }
