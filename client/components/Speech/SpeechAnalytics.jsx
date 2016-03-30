@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import $ from 'jquery';
-import api from '../utils/api';
+import api from '../../utils/api';
 import { analyzeText,
          getTextStats,
          getAutomatedReadabilityIndex,

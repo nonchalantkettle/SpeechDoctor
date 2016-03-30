@@ -34,6 +34,7 @@ module.exports = {
             return;
           }
         }
+        res.send('Definition not found');
       });
     });
   },
