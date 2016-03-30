@@ -18,20 +18,19 @@ module.exports = {
           res.send(error);
           return;
         }
-        const dictionaryEntries = result.entry_list.entry[0].def[0].dt;
-        for (let i = 0; i < dictionaryEntries.length; i ++) {
-          if (typeof dictionaryEntries[i] === 'string') {
-            const defWithColon = dictionaryEntries[i];
+        const dictionaryObj = {};
+        const dictionaryEntries = result.entry_list.entry[0];
+        const definitions = dictionaryEntries.def[0].dt;
+        let defWithColon;
+        dictionaryObj.pos = dictionaryEntries.fl[0];
+        for (let i = 0; i < definitions.length; i ++) {
+          if (typeof definitions[i] === 'string') {
+            defWithColon = definitions[i];
+          } else if (definitions[i]._ && definitions[i]._.length > 2) {
+            defWithColon = definitions[i]._;
             const defWithoutColon = defWithColon.slice(1, defWithColon.length);
-            res.send(defWithoutColon);
-            return;
-          }
-        }
-        for (let j = 0; j < dictionaryEntries.length; j ++) {
-          if (dictionaryEntries[j]._.length > 2) {
-            const defWithColon = dictionaryEntries[j]._;
-            const defWithoutColon = defWithColon.slice(1, defWithColon.length);
-            res.send(defWithoutColon);
+            dictionaryObj.def = defWithoutColon;
+            res.send(dictionaryObj);
             return;
           }
         }
@@ -61,19 +60,17 @@ module.exports = {
             } else {
               thesaurusObj.syns = thesaurusEntries[0].sens[0].syn[0];
             }
-            thesaurusObj.pos = thesaurusEntries[0].fl[0];
           } else {
             if (typeof thesaurusEntries[1].sens[0].syn[0] === 'object') {
               thesaurusObj.syns = thesaurusEntries[1].sens[0].syn[0]._;
             } else {
               thesaurusObj.syns = thesaurusEntries[1].sens[0].syn[0];
             }
-            thesaurusObj.pos = thesaurusEntries[1].fl[0];
           }
-          res.send(thesaurusObj);
         } else {
-          res.send('-');
+          thesaurusObj.syns = '-';
         }
+        res.send(thesaurusObj);
       });
     });
   },

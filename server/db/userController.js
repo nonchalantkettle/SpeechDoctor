@@ -1,4 +1,5 @@
 /* eslint no-param-reassign: 0 */
+
 const Q = require('q');
 const User = require('./userModel');
 const jwt = require('jsonwebtoken');
@@ -166,5 +167,4 @@ module.exports = {
       }
     });
   },
-
 };

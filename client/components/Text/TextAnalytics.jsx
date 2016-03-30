@@ -42,9 +42,9 @@ export default function TextAnalytics(prop) {
           if (synErr) {
             return synErr;
           }
+          const def = defData.def;
+          const pos = defData.pos;
           const syns = synData.syns;
-          const pos = synData.pos;
-          const def = defData;
 
           $('#topThreeMostUsed').append(`<p id="bold-word">${word[0]}${word[1]}</p>
             <p>Part of Speech: ${pos}</p>
