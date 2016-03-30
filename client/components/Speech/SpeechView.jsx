@@ -212,7 +212,7 @@ export default class SpeechView extends React.Component {
       <button onClick={this.getSpeakingPrompt}>Generate a Speaking Prompt</button> :
       <div></div>;
 
-    const testPrompt = !this.state.passedTest ? <p>{this.state.prompt}</p> :
+    const testPrompt = !this.state.passedTest ? <p id="bold-word">{this.state.prompt}</p> :
       <div></div>;
 
     const timerButton = this.showTimer.bind(this);
