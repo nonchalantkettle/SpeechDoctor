@@ -18,20 +18,25 @@ module.exports = {
           res.send(error);
           return;
         }
-        const dictionaryEntries = result.entry_list.entry[0].def[0].dt;
-        for (let i = 0; i < dictionaryEntries.length; i ++) {
-          if (typeof dictionaryEntries[i] === 'string') {
-            const defWithColon = dictionaryEntries[i];
+        const dictionaryObj = {};
+        const dictionaryEntries = result.entry_list.entry[0];
+        const definitions = dictionaryEntries.def[0].dt;
+        dictionaryObj.pos = dictionaryEntries.fl[0];
+        for (let i = 0; i < definitions.length; i ++) {
+          if (typeof definitions[i] === 'string') {
+            const defWithColon = definitions[i];
             const defWithoutColon = defWithColon.slice(1, defWithColon.length);
-            res.send(defWithoutColon);
+            dictionaryObj.def = defWithoutColon;
+            res.send(dictionaryObj);
             return;
           }
         }
-        for (let j = 0; j < dictionaryEntries.length; j ++) {
-          if (dictionaryEntries[j]._.length > 2) {
-            const defWithColon = dictionaryEntries[j]._;
+        for (let j = 0; j < definitions.length; j ++) {
+          if (definitions[j]._.length > 2) {
+            const defWithColon = definitions[j]._;
             const defWithoutColon = defWithColon.slice(1, defWithColon.length);
-            res.send(defWithoutColon);
+            dictionaryObj.def = defWithoutColon;
+            res.send(dictionaryObj);
             return;
           }
         }
@@ -70,10 +75,11 @@ module.exports = {
             }
             thesaurusObj.pos = thesaurusEntries[1].fl[0];
           }
-          res.send(thesaurusObj);
         } else {
-          res.send('-');
+          thesaurusObj.pos = '-';
+          thesaurusObj.syns = '-';
         }
+        res.send(thesaurusObj);
       });
     });
   },
