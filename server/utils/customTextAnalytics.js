@@ -38,7 +38,7 @@ export function checkWordsToAvoid(wordsToAvoidArr, textInput) {
 }
 
 function topThreeWords(wordCountObject) {
-  const wordsToIgnore = /\b[a-z]{1,2}\b|the\b|and\b|that\b|are\b/gi;
+  const wordsToIgnore = /\b[a-z]{1,2}\b|the\b|and\b|that\b|are\b|for\b|have/gi;
 
   // avoid modifying original wordCountObject
   const copiedObj = JSON.parse(JSON.stringify(wordCountObject));

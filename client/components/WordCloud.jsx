@@ -5,7 +5,7 @@ import { countEachWord, getTextStats } from '../../server/utils/customTextAnalyt
 
 export default function WordCloud(prop) {
   const numWords = getTextStats(prop.text).words;
-  const wordsToIgnore = /\b[a-z0-9]{1,2}\b|the\b|and\b|that\b|are\b/gi;
+  const wordsToIgnore = /\b[a-z0-9]{1,2}\b|the\b|and\b|that\b|are\b|for\b|have/gi;
   const wordFrequencyObject = countEachWord(prop.text);
   const wordArrayWithFrequency = [];
   const wordArrayNoFrequency = [];
