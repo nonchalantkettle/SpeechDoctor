@@ -1,4 +1,5 @@
 const userController = require('../db/userController.js');
+const api = require('../db/apiController.js');
 
 module.exports = (app) => {
   // Sign in and sign up routes
@@ -17,4 +18,8 @@ module.exports = (app) => {
   // Get text for profile analytics
   app.get('/text', userController.getText);
   app.get('/speech', userController.getSpeech);
+
+  // Route dictionary and thesaurus api calls
+  app.get('/dictionary/:word', api.dictionary);
+  app.get('/thesaurus/:word', api.thesaurus);
 };

@@ -29,6 +29,7 @@ const api = {
     const user = { username, newUsername };
     return $.post('http://localhost:8080/changeUsername', user);
   },
+
   getDefs(word, callback) {
     const url = `http://localhost:8080/dictionary/${word}`;
 

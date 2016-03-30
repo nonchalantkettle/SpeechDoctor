@@ -4,9 +4,7 @@ import { Link } from 'react-router';
 import $ from 'jquery';
 import _ from 'underscore';
 import api from '../utils/api';
-import { getDefs,
-         getSyns,
-         analyzeText,
+import { analyzeText,
          checkWordsToAvoid,
          getTextStats,
          getAutomatedReadabilityIndex }

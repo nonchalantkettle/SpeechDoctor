@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 /**
  * Helper functions for custom text analytics
  */
@@ -77,43 +75,6 @@ function topThreeWords(wordCountObject) {
   }
 
   return mostCommonWords;
-}
-
-// checks to see if any 'avoid' words (words the user wants to avoid) were used
-function checkWordsToAvoid(wordsToAvoidArr, allWordsUsedObj) {
-  const wordsUsed = {};
-  wordsToAvoidArr.forEach((word) => {
-    if (allWordsUsedObj[word]) {
-      wordsUsed[word] = allWordsUsedObj[word];
-    }
-  });
-
-  if (Object.keys(wordsUsed).length) {
-    return wordsUsed;
-  }
-
-  return 'Congrats! You didn\'t use any of the words you were avoiding!';
-}
-
->>>>>>> Deal with api bug on the front-end
-export function getSyns(word, callback) {
-  const datamuseAPI = `https://api.datamuse.com/words?max=5&rel_syn=${word}`;
-  const response = {};
-  // get synonyms
-  $.ajax({
-    type: 'GET',
-    url: datamuseAPI,
-    async: true,
-    dataType: 'JSON',
-    success: (data) => {
-      response.syns = data;
-      callback(null, response);
-    },
-    error: (err) => {
-      callback(err, null);
-      throw new Error('Error - ', err);
-    },
-  });
 }
 
 // call helper functions to get analytics

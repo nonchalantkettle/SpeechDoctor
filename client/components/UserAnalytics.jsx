@@ -9,6 +9,12 @@ export default class UserAnalytics extends React.Component {
     };
   }
 
+  handleClick() {
+    this.setState({
+      dummyState: true,
+    });
+  }
+
   /*
     combinedText = 'bigass string'
     topThree = [ { word1: 1 }, { word2: 2 }, { word3: 3} ]
