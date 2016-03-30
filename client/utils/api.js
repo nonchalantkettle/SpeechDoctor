@@ -3,7 +3,7 @@ import $ from 'jquery';
 const api = {
   login(username, password) {
     const user = { username, password };
-    return $.post('http://localhost:8080/login', user)
+    return $.post('/login', user)
       .fail(() => {
         if (!$('#errorMsg').length) {
           return $('#accountLogin').append('<p id="errorMsg">Incorrect username or password</p>');
@@ -14,7 +14,7 @@ const api = {
 
   signup(username, password) {
     const user = { username, password };
-    return $.post('http://localhost:8080/signup', user)
+    return $.post('/signup', user)
       .fail(() => {
         if (!$('#errorMsg').length) {
           return $('#createAccount').append('<p id="errorMsg">User already exists</p>');
@@ -25,16 +25,16 @@ const api = {
 
   changePassword(username, password, newPassword) {
     const user = { username, password, newPassword };
-    return $.post('http://localhost:8080/changePassword', user);
+    return $.post('/changePassword', user);
   },
 
   changeUsername(username, newUsername) {
     const user = { username, newUsername };
-    return $.post('http://localhost:8080/changeUsername', user);
+    return $.post('/changeUsername', user);
   },
 
   getDefs(word, callback) {
-    const url = `http://localhost:8080/dictionary/${word}`;
+    const url = `/dictionary/${word}`;
 
     return $.get(url, 'json')
       .done((data) =>
@@ -46,7 +46,7 @@ const api = {
   },
 
   getSyns(word, callback) {
-    const url = `http://localhost:8080/thesaurus/${word}`;
+    const url = `/thesaurus/${word}`;
 
     return $.get(url, 'json')
       .done((data) =>
