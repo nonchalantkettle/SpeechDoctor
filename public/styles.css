@@ -82,10 +82,14 @@ button:focus {
   padding: 15px;
 }
 
-#landingButton > a {
+#landingButton > p {
   color: #f4f4f2;
   padding: 5px;
   font-size: 1.5em;
+}
+
+#noLinkHover > a:hover, #noLinkHover > a:focus {
+  text-decoration: none;
 }
 
 #landingButton {
