@@ -66,17 +66,14 @@ module.exports = {
             } else {
               thesaurusObj.syns = thesaurusEntries[0].sens[0].syn[0];
             }
-            thesaurusObj.pos = thesaurusEntries[0].fl[0];
           } else {
             if (typeof thesaurusEntries[1].sens[0].syn[0] === 'object') {
               thesaurusObj.syns = thesaurusEntries[1].sens[0].syn[0]._;
             } else {
               thesaurusObj.syns = thesaurusEntries[1].sens[0].syn[0];
             }
-            thesaurusObj.pos = thesaurusEntries[1].fl[0];
           }
         } else {
-          thesaurusObj.pos = '-';
           thesaurusObj.syns = '-';
         }
         res.send(thesaurusObj);
