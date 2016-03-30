@@ -1,14 +1,14 @@
 import React from 'react';
 import $ from 'jquery';
+
 import InputForm from './InputForm.jsx';
 import TextAnalytics from './TextAnalytics.jsx';
-import WordCloud from './WordCloud.jsx';
-import Timer from './Timer.jsx';
-import WordsToAvoid from './WordsToAvoid.jsx';
-import promptGenerator from '../utils/randomPromptGenerator';
+import WordCloud from '../WordCloud.jsx';
+import Timer from '../Timer.jsx';
+import WordsToAvoid from '../WordsToAvoid.jsx';
+import promptGenerator from '../../utils/randomPromptGenerator';
 
 export default class TextView extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -93,7 +93,7 @@ export default class TextView extends React.Component {
   render() {
     const removeWordCloud = () => {
       if (document.getElementById('word-cloud')) {
-        $('#text-input').find('#word-cloud').remove();
+        $('#analytics-container').find('#word-cloud').remove();
       }
     };
 
@@ -135,7 +135,7 @@ export default class TextView extends React.Component {
 
     return (
       <div>
-        <div id="text-input">
+        <div id="analytics-container">
           <h1 id="text-input-title">Text Analyzer</h1>
           <InputForm {...inputFormProps} />
           <button onClick={this.getWritingPrompt}>Generate a Writing Prompt</button>

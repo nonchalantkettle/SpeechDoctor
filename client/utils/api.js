@@ -11,6 +11,7 @@ const api = {
         return null;
       });
   },
+
   signup(username, password) {
     const user = { username, password };
     return $.post('http://localhost:8080/signup', user)
@@ -21,10 +22,12 @@ const api = {
         return null;
       });
   },
+
   changePassword(username, password, newPassword) {
     const user = { username, password, newPassword };
     return $.post('http://localhost:8080/changePassword', user);
   },
+
   changeUsername(username, newUsername) {
     const user = { username, newUsername };
     return $.post('http://localhost:8080/changeUsername', user);
@@ -41,6 +44,7 @@ const api = {
         callback(err)
       );
   },
+
   getSyns(word, callback) {
     const url = `http://localhost:8080/thesaurus/${word}`;
 

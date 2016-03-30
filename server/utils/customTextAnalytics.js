@@ -38,7 +38,7 @@ export function checkWordsToAvoid(wordsToAvoidArr, textInput) {
 }
 
 function topThreeWords(wordCountObject) {
-  const wordsToIgnore = /\b[a-z]{1,2}\b|the\b|and\b|that\b|are\b/gi;
+  const wordsToIgnore = /\b[a-z]{1,2}\b|the\b|and\b|that\b|are\b|for\b|have/gi;
 
   // avoid modifying original wordCountObject
   const copiedObj = JSON.parse(JSON.stringify(wordCountObject));
@@ -141,58 +141,72 @@ export function getAutomatedReadabilityIndex(textInput) {
     1: {
       age: '5-6',
       grade: 'Kindergarten',
+      score: 1,
     },
     2: {
       age: '6-7',
       grade: 'First Grade',
+      score: 2,
     },
     3: {
       age: '7-8',
       grade: 'Second Grade',
+      score: 3,
     },
     4: {
       age: '8-9',
       grade: 'Third Grade',
+      score: 4,
     },
     5: {
       age: '9-10',
       grade: 'Fourth Grade',
+      score: 5,
     },
     6: {
       age: '10-11',
       grade: 'Fifth Grade',
+      score: 6,
     },
     7: {
       age: '11-12',
       grade: 'Sixth Grade',
+      score: 7,
     },
     8: {
       age: '12-13',
       grade: 'Seventh Grade',
+      score: 8,
     },
     9: {
       age: '13-14',
       grade: 'Eighth Grade',
+      score: 9,
     },
     10: {
       age: '14-15',
       grade: 'Ninth Grade',
+      score: 10,
     },
     11: {
       age: '15-16',
       grade: 'Tenth Grade',
+      score: 11,
     },
     12: {
       age: '16-17',
       grade: 'Eleventh Grade',
+      score: 12,
     },
     13: {
       age: '17-18',
       grade: 'Twelfth Grade',
+      score: 13,
     },
     14: {
       age: '18+',
       grade: 'College',
+      score: 14,
     },
   };
 

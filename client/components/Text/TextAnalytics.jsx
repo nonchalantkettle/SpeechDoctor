@@ -1,14 +1,16 @@
 /* eslint no-param-reassign: 0*/
+
 import React from 'react';
 import { Link } from 'react-router';
 import $ from 'jquery';
 import _ from 'underscore';
-import api from '../utils/api';
+
+import api from '../../utils/api';
 import { analyzeText,
          checkWordsToAvoid,
          getTextStats,
-         getAutomatedReadabilityIndex }
-         from '../../server/utils/customTextAnalytics.js';
+         getAutomatedReadabilityIndex,
+       } from '../../../server/utils/customTextAnalytics.js';
 
 function renderTopThree(string) {
   const analyticsObj = analyzeText(string);
@@ -36,12 +38,10 @@ export default function TextAnalytics(prop) {
         if (defErr) {
           return defErr;
         }
-
         return api.getSyns(word[0], (synErr, synData) => {
           if (synErr) {
             return synErr;
           }
-
           const syns = synData.syns;
           const pos = synData.pos;
           const def = defData;

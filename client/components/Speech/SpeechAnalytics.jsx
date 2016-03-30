@@ -1,18 +1,18 @@
 /* eslint no-param-reassign: 0*/
+
 import React from 'react';
-import $ from 'jquery';
 import { Link } from 'react-router';
+import $ from 'jquery';
+
 import { getDefs,
          getSyns,
          analyzeText,
          getTextStats,
-         getAutomatedReadabilityIndex }
-         from '../../server/utils/customTextAnalytics.js';
-
+         getAutomatedReadabilityIndex,
+       } from '../../../server/utils/customTextAnalytics.js';
 
 function renderTopThree(speech) {
   const analyticsObj = analyzeText(speech);
-  // const countEachWordResult = analyticsObj.allTotals;
   const topThreeWordsResult = analyticsObj.topThree;
   const results = [];
   for (const key in topThreeWordsResult) {
@@ -30,7 +30,6 @@ export default function SpeechAnalytics(prop) {
   if (prop.speech) {
     const counts = getTextStats(prop.speech);
     const ARI = getAutomatedReadabilityIndex(prop.speech);
-
     renderTopThree(prop.speech).map((word) =>
       getDefs(word[0], (defErr, defData) => {
         if (defErr) {

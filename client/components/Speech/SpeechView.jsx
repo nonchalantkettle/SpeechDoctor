@@ -2,11 +2,12 @@
 /* eslint new-cap: 0 */
 
 import React from 'react';
-import SpeechAnalytics from './SpeechAnalytics.jsx';
-import Timer from './Timer.jsx';
-import _ from 'underscore';
-import promptGenerator from './../utils/randomPromptGenerator.js';
 import $ from 'jquery';
+import _ from 'underscore';
+
+import SpeechAnalytics from './SpeechAnalytics.jsx';
+import Timer from '../Timer.jsx';
+import promptGenerator from '../../utils/randomPromptGenerator.js';
 
 const recognition = new webkitSpeechRecognition();
 let WPM = 0;
