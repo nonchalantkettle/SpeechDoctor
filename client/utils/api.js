@@ -44,6 +44,7 @@ const api = {
         callback(err)
       );
   },
+
   getSyns(word, callback) {
     const url = `http://localhost:8080/thesaurus/${word}`;
 
