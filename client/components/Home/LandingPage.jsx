@@ -16,7 +16,7 @@ export default function LandingPage() {
         <div id="landing-buttons">
           <Col md={1} />
           <Col md={4} id="noLinkHover">
-            <Link to="speech">
+            <Link to="text">
               <div id="left-landing">
                 <LandingButton
                   buttonName={'Click to analyze text'}
