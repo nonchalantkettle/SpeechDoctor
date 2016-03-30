@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
   speechViewSecondsElapsed: Number,
 });
 
-UserSchema.methods.comparePasswords = (candidatePassword) => {
+UserSchema.methods.comparePasswords = function (candidatePassword) {
   const savedPassword = this.password;
   return Q.Promise((resolve, reject) => {
     bcrypt.compare(candidatePassword, savedPassword, (err, matched) => {
