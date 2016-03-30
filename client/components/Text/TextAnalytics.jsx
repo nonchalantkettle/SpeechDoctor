@@ -3,12 +3,14 @@ import React from 'react';
 import { Link } from 'react-router';
 import $ from 'jquery';
 import _ from 'underscore';
-import api from '../utils/api';
-import { analyzeText,
+
+import { getDefs,
+         getSyns,
+         analyzeText,
          checkWordsToAvoid,
          getTextStats,
-         getAutomatedReadabilityIndex }
-         from '../../server/utils/customTextAnalytics.js';
+         getAutomatedReadabilityIndex,
+       } from '../../../server/utils/customTextAnalytics.js';
 
 function renderTopThree(string) {
   const analyticsObj = analyzeText(string);
@@ -32,26 +34,31 @@ export default function TextAnalytics(prop) {
     const counts = getTextStats(prop.text);
     const ARI = getAutomatedReadabilityIndex(prop.text);
     renderTopThree(prop.text).map((word) =>
-      api.getDefs(word[0], (defErr, defData) => {
+      getDefs(word[0], (defErr, defData) => {
         if (defErr) {
           return defErr;
         }
-
-        return api.getSyns(word[0], (synErr, synData) => {
+        const defintionAndPos = defData;
+        return getSyns(word[0], (synErr, synData) => {
           if (synErr) {
             return synErr;
           }
-
-          const syns = synData.syns;
-          const pos = synData.pos;
-          const def = defData;
+          const synonyms = synData.syns;
 
           $('#topThreeMostUsed').append(`<p id="bold-word">${word[0]}${word[1]}</p>
-            <p>Part of Speech: ${pos}</p>
-            <p>Definition: ${def}</p>
-            <p>Synonyms: ${syns}</p>`);
+            <p>Part of Speech: ${defintionAndPos.pos}</p>
+            <p>Definition: ${defintionAndPos.def}</p>`);
 
-          return syns;
+          if (synonyms.length) {
+            let synString = synonyms.reduce((acc, syn) => {
+              acc += `${syn.word}, `;
+              return acc;
+            }, '');
+            synString = synString.slice(0, -2);
+            $('#topThreeMostUsed').append(`<p>Synonyms: ${synString}</p>`);
+          }
+
+          return synonyms;
         });
       })
     );

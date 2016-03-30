@@ -1,14 +1,14 @@
 import React from 'react';
 import $ from 'jquery';
+
 import InputForm from './InputForm.jsx';
 import TextAnalytics from './TextAnalytics.jsx';
-import WordCloud from './WordCloud.jsx';
-import Timer from './Timer.jsx';
-import WordsToAvoid from './WordsToAvoid.jsx';
-import promptGenerator from '../utils/randomPromptGenerator';
+import WordCloud from '../WordCloud.jsx';
+import Timer from '../Timer.jsx';
+import WordsToAvoid from '../WordsToAvoid.jsx';
+import promptGenerator from '../../utils/randomPromptGenerator';
 
 export default class TextView extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {

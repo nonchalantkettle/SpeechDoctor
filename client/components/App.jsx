@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import $ from 'jquery';
 
-import TextView from './TextView.jsx';
-import SpeechView from './SpeechView.jsx';
-import UserProfile from './UserProfile.jsx';
-import SignUp from './SignUp.jsx';
-import LogIn from './LogIn.jsx';
+import TextView from './Text/TextView.jsx';
+import SpeechView from './Speech/SpeechView.jsx';
+import UserProfile from './Profile/UserProfile.jsx';
+import SignUp from './Auth/SignUp.jsx';
+import LogIn from './Auth/LogIn.jsx';
 import Nav from './Nav.jsx';
-import LandingPage from './LandingPage.jsx';
+import LandingPage from './Home/LandingPage.jsx';
 
 class App extends React.Component {
   constructor(props) {

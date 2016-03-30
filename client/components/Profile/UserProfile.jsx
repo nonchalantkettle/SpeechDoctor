@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+
 import UserAnalytics from './UserAnalytics.jsx';
 
 export default class UserProfile extends React.Component {
@@ -25,12 +26,10 @@ export default class UserProfile extends React.Component {
         });
       })
       .fail((err) => {
-        console.error('Unable to retrieve speeches stored!', err);
         throw new Error('Unable to retrieve speeches stored!', err);
       });
     })
     .fail((err) => {
-      console.error('Unable to retrieve texts stored!', err);
       throw new Error('Unable to retrieve texts stored!', err);
     });
   }

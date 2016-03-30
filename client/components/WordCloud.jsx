@@ -1,6 +1,7 @@
 import React from 'react';
 import d3 from 'd3';
 import cloud from 'd3.layout.cloud';
+
 import { countEachWord, getTextStats } from '../../server/utils/customTextAnalytics.js';
 
 export default function WordCloud(prop) {
@@ -20,6 +21,7 @@ export default function WordCloud(prop) {
   for (let i = 0; i < wordArrayWithFrequency.length; i++) {
     wordArrayNoFrequency.push(wordArrayWithFrequency[i][0]);
   }
+
   const numberOfWordsInCloud = numWords / 25;
 
   const fill = d3.scale.category10();
