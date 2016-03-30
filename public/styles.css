@@ -55,7 +55,7 @@ button {
   text-decoration: none;
 }
 
-button:hover {
+button:hover, #landingButton:hover {
   background: #c2d6df;
   background-image: -webkit-linear-gradient(top, #c2d6df, #aec0c8);
   background-image: -moz-linear-gradient(top, #c2d6df, #aec0c8);
@@ -83,17 +83,24 @@ button:focus {
 
 #landingButton > a {
   color: #f4f4f2;
+  padding: 5px;
+  font-size: 1.5em;
 }
 
 #landingButton {
   font-weight: 300;
   font-style: italic;
-  border: 1px solid black;
+  border: 0;
+  border-radius: 5px;
   text-align: center;
   padding-top: 100px;
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  max-width: 350px;
+  height: 400px;
   background-color: #aec0c8;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
 }
 
 #right-landing, #left-landing {
