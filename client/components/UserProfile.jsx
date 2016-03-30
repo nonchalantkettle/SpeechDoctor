@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 import $ from 'jquery';
 import UserAnalytics from './UserAnalytics.jsx';
 
@@ -13,15 +12,26 @@ export default class UserProfile extends React.Component {
   }
 
   componentWillMount() {
+    let data = [];
     $.get('/text', { username: this.props.user })
-    .done((data) => {
-      this.setState({
-        showAnalytics: true,
-        data,
+    .done((textData) => {
+      data = textData;
+      $.get('/speech', { username: this.props.user })
+      .done((speechData) => {
+        speechData.map((speech) => data.push(speech));
+        this.setState({
+          showAnalytics: true,
+          data,
+        });
+      })
+      .fail((err) => {
+        console.error('Unable to retrieve speeches stored!', err);
+        throw new Error('Unable to retrieve speeches stored!', err);
       });
     })
     .fail((err) => {
-      throw new Error('Could not retrieve text information', err);
+      console.error('Unable to retrieve texts stored!', err);
+      throw new Error('Unable to retrieve texts stored!', err);
     });
   }
 
@@ -30,10 +40,7 @@ export default class UserProfile extends React.Component {
       <div id="analytics-container">
         {
           this.state.showAnalytics ?
-          <UserAnalytics data={this.state.data} /> :
-          <p>
-            <Link to="signup">Sign up </Link>or <Link to="login">log in </Link>to view your profile
-          </p>
+          <UserAnalytics data={this.state.data} /> : <p>Loading Statistics...</p>
         }
       </div>
     );
