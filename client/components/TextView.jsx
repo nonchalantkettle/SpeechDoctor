@@ -135,7 +135,7 @@ export default class TextView extends React.Component {
 
     return (
       <div>
-        <div id="text-input">
+        <div id="analytics-container">
           <h1 id="text-input-title">Text Analyzer</h1>
           <InputForm {...inputFormProps} />
           <button onClick={this.getWritingPrompt}>Generate a Writing Prompt</button>
