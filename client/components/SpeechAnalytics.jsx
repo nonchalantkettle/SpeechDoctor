@@ -23,6 +23,7 @@ function renderTopThree(speech) {
 }
 
 export default function SpeechAnalytics(prop) {
+  const askToSave = !prop.userLoggedIn ?
   <p><Link to="signup">Sign up </Link>or <Link to="login">log in </Link>to save your results</p> 
   : <div></div>;
   if (prop.speech) {
@@ -61,6 +62,7 @@ export default function SpeechAnalytics(prop) {
     return (
       <div>
         <h2>Results</h2>
+        {askToSave}
         <h3>General Speech Stats</h3>
         <div>
           <p>Total Characters (all): <span id="bold-word">{counts.charsWithSpace}</span></p>
