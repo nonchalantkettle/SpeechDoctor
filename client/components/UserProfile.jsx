@@ -1,6 +1,7 @@
 import React from 'react';
-import UserAnalytics from './UserAnalytics.jsx';
+import { Link } from 'react-router';
 import $ from 'jquery';
+import UserAnalytics from './UserAnalytics.jsx';
 
 export default class UserProfile extends React.Component {
   constructor(props) {
@@ -27,7 +28,13 @@ export default class UserProfile extends React.Component {
   render() {
     return (
       <div id="analytics-container">
-        {this.state.showAnalytics ? <UserAnalytics data={this.state.data} /> : <div></div>}
+        {
+          this.state.showAnalytics ?
+          <UserAnalytics data={this.state.data} /> :
+          <p>
+            <Link to="signup">Sign up </Link>or <Link to="login">log in </Link>to view your profile
+          </p>
+        }
       </div>
     );
   }
