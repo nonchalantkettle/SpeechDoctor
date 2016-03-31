@@ -30,6 +30,7 @@ export default class SpeechView extends React.Component {
       secondsElapsed: 0,
       timerVisible: false,
       prompt: '',
+      generatedSpeakingPrompt: '',
     };
   }
 
@@ -50,10 +51,9 @@ export default class SpeechView extends React.Component {
 
   getSpeakingPrompt() {
     const speakingPrompt = promptGenerator.speakingPromptGenerator();
-    if ($('#speakingPrompt').length) {
-      $('#speakingPrompt').remove();
-    }
-    $('#recording-view').append(`<p id="speakingPrompt">Prompt: ${speakingPrompt}</p>`);
+    this.setState({
+      generatedSpeakingPrompt: speakingPrompt,
+    });
   }
 
   showTimer() {
@@ -82,7 +82,6 @@ export default class SpeechView extends React.Component {
         });
       }, 1000);
     }
-
     if (!this.state.recording) {
       this.setState({
         results: '',
@@ -208,8 +207,14 @@ export default class SpeechView extends React.Component {
       </div> :
       <div></div>;
 
+    const getSpeakingPrompt = this.getSpeakingPrompt.bind(this);
+
+    const generatedSpeakingPrompt = this.state.generatedSpeakingPrompt ?
+      <p id="speakingPrompt">Prompt: <span id="bold-word">{this.state.generatedSpeakingPrompt}</span></p> :
+      <div></div>
+
     const conversationalPrompt = this.state.passedTest ?
-      <button onClick={this.getSpeakingPrompt}>Generate a Speaking Prompt</button> :
+      <button onClick={getSpeakingPrompt}>Generate a Speaking Prompt</button> :
       <div></div>;
 
     const testPrompt = !this.state.passedTest ? <p id="bold-word">{this.state.prompt}</p> :
@@ -249,6 +254,7 @@ export default class SpeechView extends React.Component {
             <Col md={12}>
               <h4>{this.state.testMessage}</h4>
               {testPrompt}
+              {generatedSpeakingPrompt}
             </Col>
           </Row>
           <Row>
