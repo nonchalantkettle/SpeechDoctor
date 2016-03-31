@@ -182,11 +182,15 @@ p#bold-word, span#bold-word{
 
 #avoid-input {
   height: 30px;
-  width: 250px;
+  width: 100%;
   font-size: 15px;
   margin-right: 10px;
+  padding: 7px;
 }
 
+.avoid {
+  margin-top: 0;
+}
 .avoid-words {
   float:left;
   width: 40%;
@@ -208,6 +212,6 @@ p#bold-word, span#bold-word{
  color: #ff7f0e;
 }
 
-/*.words-to-avoid {
-  text-align: right
-}*/
+#timerAlign {
+  display: flex;
+}

@@ -134,6 +134,10 @@ export default class TextView extends React.Component {
       <button onClick={start}>Start Timer</button> :
       <button onClick={stop}>Stop Timer</button>;
 
+    const secondsLessThan10 = (timerMethods.getSeconds() < 10) ?
+      <h3 id="timer">{timerMethods.getMinutes()}:0{timerMethods.getSeconds()}</h3> :
+      <h3 id="timer">{timerMethods.getMinutes()}:{timerMethods.getSeconds()}</h3>;
+
     return (
       <div>
         <div id="analytics-container">
@@ -150,8 +154,9 @@ export default class TextView extends React.Component {
               <div className="words-to-avoid"><WordsToAvoid {...wordsToAvoidMethods} /></div>
               <br />
               <button onClick={this.getWritingPrompt}>Generate a Writing Prompt</button>
-              <div>{timerButton}</div>
-              <Timer {...timerMethods} />
+              <br />
+              <br />
+              <div id="timerAlign">{timerButton}{secondsLessThan10}</div>
             </Col>
           </Row>
           {analytics}
