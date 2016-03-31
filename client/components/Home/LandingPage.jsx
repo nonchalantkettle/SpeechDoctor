@@ -6,10 +6,15 @@ import LandingButton from './LandingButton.jsx';
 
 export default function LandingPage() {
   return (
-    <div>
+    <div id="landing">
       <Row>
         <Col md={12}>
-          <h1>SpeechDoctor</h1>
+          <h1 id="landing-title">SpeechDoctor</h1>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={12}>
+          <h3 id="subtitle">Personalized analytics on your speaking and writing</h3>
         </Col>
       </Row>
       <Row>
@@ -20,6 +25,7 @@ export default function LandingPage() {
               <div id="left-landing">
                 <LandingButton
                   buttonName={'Click to analyze text'}
+                  imgSrc={'assets/pen.png'}
                 />
               </div>
             </Link>
@@ -30,6 +36,7 @@ export default function LandingPage() {
               <div id="right-landing">
                 <LandingButton
                   buttonName={'Click to analyze speech'}
+                  imgSrc={'assets/microphone.png'}
                 />
               </div>
             </Link>

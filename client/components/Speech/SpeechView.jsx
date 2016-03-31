@@ -131,7 +131,7 @@ export default class SpeechView extends React.Component {
               clearInterval(this.incrementer);
               this.setState({
                 passedTest: true,
-                testMessage: 'Great! You speak clearly. The doctor will see you now.',
+                testMessage: 'Great, you speak clearly! The doctor will see you now.',
                 recording: false,
                 results: '',
                 secondsElapsed: 0,

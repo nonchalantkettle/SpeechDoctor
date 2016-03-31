@@ -94,8 +94,8 @@ textarea {
 
 #landingButton > p {
   color: #f4f4f2;
-  padding: 5px;
-  font-size: 1.5em;
+  padding: 15px;
+  font-size: 1.75em;
 }
 
 #noLinkHover > a:hover, #noLinkHover > a:focus {
@@ -103,8 +103,8 @@ textarea {
 }
 
 #landingButton {
-  font-weight: 300;
-  font-style: italic;
+  font-weight: 400;
+  /*font-style: italic;*/
   border: 0;
   border-radius: 5px;
   text-align: center;
@@ -163,7 +163,7 @@ p#bold-word, span#bold-word{
   font-weight: 600;
 }
 
-#createAccount, #accountLogin, #goToSignup, #goToLogin {
+#createAccount, #accountLogin, #goToSignup, #goToLogin, #landing {
   margin: 35px;
 }
 
@@ -218,4 +218,14 @@ p#bold-word, span#bold-word{
 
 #recording-view {
   display: flex;
+}
+
+#subtitle {
+  font-style: italic;
+  padding: 0 20px 25px 20px;
+}
+
+#landing-steth-img {
+  height: 200px;
+  width: 200px;
 }
