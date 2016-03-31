@@ -2,6 +2,7 @@
 
 import React from 'react';
 import ReactD3 from 'react-d3-components';
+import { Row, Col } from 'react-bootstrap';
 
 import WordCloud from '../WordCloud.jsx';
 import { getTextStats,
@@ -102,39 +103,72 @@ const renderData = (data) => {
 
   return (
     <div id="userAnalytics">
-      <h1 id="text-input-title">Your Personal Analytics</h1>
-      <div id="piechart">
-        <h2>All Time Most-Used Words</h2>
-        <PieChart
-          data={pieChartData}
-          width={600}
-          height={400}
-          margin={ { top: 10, bottom: 10, left: 100, right: 100 } }
-          sort={sort}
-        />
-      </div>
-      <div id="barchart">
-        <h2>All Time Averages</h2>
-        <BarChart
-          data={barChartData}
-          width={500}
-          height={500}
-          margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
-        />
-      </div>
-      <div id="linechart">
-        <h2>Stats Over Time</h2>
-        <h3 id="charsPerWordStat">Characters Per Word</h3>
-        <h3 id="wordsPerSentenceStat">Words Per Sentence</h3>
-        <h3 id="ARIStat">Average Readability Index</h3>
-        <LineChart
-          data={lineChartData}
-          width={500}
-          height={500}
-          margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
-        />
-      </div>
-      <WordCloud text={combinedTextInputs} />
+      <Row>
+        <Col md={12}>
+          <h1 id="text-input-title">Your Personal Analytics</h1>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6}>
+          <div id="piechart">
+            <h2>All Time Most-Used Words</h2>
+            <hr/>
+            <PieChart
+              data={pieChartData}
+              width={550}
+              height={370}
+              id="userChart"
+              margin={ { top: 10, bottom: 10, left: 100, right: 100 } }
+              sort={sort}
+            />
+          </div>
+        </Col>
+        <Col md={6}>
+          <div id="barchart">
+            <h2>All Time Averages</h2>
+            <hr/>
+            <br/>
+            <BarChart
+              data={barChartData}
+              width={475}
+              height={475}
+              id="userChart"
+              margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
+            />
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={3}>
+            <h2 id="statsOverTime">Stats Over Time</h2>
+            <hr/>
+            <h3 id="charsPerWordStat">Characters Per Word</h3>
+            <h3 id="wordsPerSentenceStat">Words Per Sentence</h3>
+            <h3 id="ARIStat">Average Readability Index</h3>
+        </Col>
+        <Col md={9}>
+          <div id="linechart">
+            <LineChart
+              data={lineChartData}
+              width={475}
+              height={475}
+              id="userChart"
+              margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
+            />
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={5}>
+          <div id="cloud">
+            <WordCloud text={combinedTextInputs} />
+          </div>
+        </Col>
+        <Col md={7}>
+          <h2>Your Personal Word Cloud</h2>
+          <hr/>
+        </Col>
+      </Row>
     </div>
   );
 };
