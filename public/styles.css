@@ -32,7 +32,6 @@ h2 {
   font-weight: 300;
   font-style: italic;
   font-size: 2em;
-  /*margin: 10px 35px;*/
 }
 
 h3 {
@@ -129,12 +128,12 @@ textarea {
   display: inline-flex;
 }
 
-#text-input-title, #speech-input-title {
+#text-input-title, #speech-input-title, #landing-title {
   margin: 0;
   padding-bottom: 15px;
 }
 
-#text-input, #speech-input {
+#text-input, #speech-input, #landing {
   margin: 35px;
 }
 
@@ -153,7 +152,7 @@ textarea {
 }
 
 #rendered-speech {
-  margin: 35px;
+  /*margin: 35px;*/
 }
 
 #topThreeMostUsed > p {
@@ -214,5 +213,9 @@ p#bold-word, span#bold-word{
 }
 
 #timerAlign {
+  display: flex;
+}
+
+#recording-view {
   display: flex;
 }
