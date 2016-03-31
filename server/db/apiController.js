@@ -73,6 +73,8 @@ module.exports = {
               thesaurusObj.syns = thesaurusEntries[1].sens[0].syn[0];
             }
           }
+        } else if (result.entry_list.suggestion !== undefined) {
+          thesaurusObj.syns = result.entry_list.suggestion;
         } else {
           thesaurusObj.syns = '-';
         }
