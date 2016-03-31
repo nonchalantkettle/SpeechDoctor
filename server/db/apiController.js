@@ -29,6 +29,9 @@ module.exports = {
           } else if (definitions[i]._ && definitions[i]._.length > 2) {
             dictionaryObj.def = definitions[i]._.replace(/:/g, '');
             break;
+          } else if (typeof definitions[i].un === 'object') {
+            dictionaryObj.def = definitions[i].un[0]._.replace(/:/g, '');
+            break;
           }
         }
         if (dictionaryObj.def !== undefined) {
