@@ -226,6 +226,7 @@ p#bold-word, span#bold-word{
 }
 
 #landing-steth-img {
-  height: 200px;
-  width: 200px;
+  max-height: 75%;
+  width: 75%;
+  max-width: 200px;
 }
