@@ -28,13 +28,15 @@ module.exports = {
             defWithColon = definitions[i];
           } else if (definitions[i]._ && definitions[i]._.length > 2) {
             defWithColon = definitions[i]._;
-            const defWithoutColon = defWithColon.slice(1, defWithColon.length);
-            dictionaryObj.def = defWithoutColon;
-            res.send(dictionaryObj);
-            return;
           }
         }
-        res.send('Definition not found');
+        if(defWithColon){
+          const defWithoutColon = defWithColon.slice(1, defWithColon.length);
+          dictionaryObj.def = defWithoutColon;
+          res.send(dictionaryObj);
+        } else {
+          res.send('-');
+        }
       });
     });
   },
