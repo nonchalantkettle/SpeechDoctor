@@ -192,7 +192,7 @@ p#bold-word, span#bold-word{
   margin-top: 0;
 }
 .avoid-words {
-  float:left;
+  /*float:left;*/
   width: 40%;
 }
 
