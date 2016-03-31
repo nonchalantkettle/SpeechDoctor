@@ -9,8 +9,15 @@ import { getTextStats,
          getAutomatedReadabilityIndex,
        } from '../../../server/utils/customTextAnalytics';
 
-export default function UserAnalytics(prop) {
-  const data = prop.data;
+
+const noDataFound = (
+  <p>
+    No data found! Please submit your text and speech
+    samples and come back for your diagnosis later.
+  </p>
+);
+
+const renderData = (data) => {
   // aggregate text
   const combinedTextInputs =
     data.reduce((acc, curr) => {
@@ -129,6 +136,13 @@ export default function UserAnalytics(prop) {
       </div>
       <WordCloud text={combinedTextInputs} />
     </div>
+  );
+};
+
+export default function UserAnalytics(prop) {
+  const data = prop.data;
+  return (
+    data.length ? renderData(data) : noDataFound
   );
 }
 
