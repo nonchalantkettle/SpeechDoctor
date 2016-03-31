@@ -24,7 +24,7 @@ module.exports = {
         dictionaryObj.pos = dictionaryEntries.fl[0];
         for (let i = 0; i < definitions.length; i ++) {
           if (typeof definitions[i] === 'string') {
-            dictionaryObj.def = definitions[i].replace('/:/g', '');
+            dictionaryObj.def = definitions[i].replace(/:/g, '');
             break;
           } else if (definitions[i]._ && definitions[i]._.length > 2) {
             dictionaryObj.def = definitions[i]._.replace(/:/g, '');
