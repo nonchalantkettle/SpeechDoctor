@@ -202,14 +202,17 @@ p#bold-word, span#bold-word{
 
 #charsPerWordStat {
  color: #1f77b4;
+ text-align: right;
 }
 
 #wordsPerSentenceStat {
  color: #aec7e8;
+ text-align: right;
 }
 
 #ARIStat {
  color: #ff7f0e;
+ text-align: right;
 }
 
 #timerAlign {
@@ -230,3 +233,17 @@ p#bold-word, span#bold-word{
   width: 75%;
   max-width: 200px;
 }
+
+#userChart {
+  width: 100%;
+  height: 100%;
+}
+
+#statsOverTime {
+  text-align: right;
+}
+
+svg {
+  display: block;
+}
+
