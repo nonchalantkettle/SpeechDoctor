@@ -3,7 +3,6 @@ import $ from 'jquery';
 
 import InputForm from './InputForm.jsx';
 import TextAnalytics from './TextAnalytics.jsx';
-import WordCloud from '../WordCloud.jsx';
 import Timer from '../Timer.jsx';
 import WordsToAvoid from '../WordsToAvoid.jsx';
 import promptGenerator from '../../utils/randomPromptGenerator';
@@ -105,7 +104,6 @@ export default class TextView extends React.Component {
           wordsToAvoid={this.state.wordsToAvoid}
           userLoggedIn={this.props.userLoggedIn}
         />
-        <WordCloud text={this.state.value} />
       </div>
       : removeWordCloud();
 
