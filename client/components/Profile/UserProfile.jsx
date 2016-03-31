@@ -7,8 +7,8 @@ export default class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showAnalytics: false,
       data: [],
+      showAnalytics: false,
     };
   }
 
@@ -21,8 +21,8 @@ export default class UserProfile extends React.Component {
       .done((speechData) => {
         speechData.map((speech) => data.push(speech));
         this.setState({
-          showAnalytics: true,
           data,
+          showAnalytics: true,
         });
       })
       .fail((err) => {
@@ -35,12 +35,12 @@ export default class UserProfile extends React.Component {
   }
 
   render() {
+    const displayAnalytics =
+      this.state.showAnalytics ? <UserAnalytics data={this.state.data} /> : <p>Loading Statistics...</p>;
+
     return (
       <div id="analytics-container">
-        {
-          this.state.showAnalytics ?
-          <UserAnalytics data={this.state.data} /> : <p>Loading Statistics...</p>
-        }
+        { displayAnalytics }
       </div>
     );
   }
