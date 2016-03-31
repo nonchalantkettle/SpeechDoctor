@@ -74,6 +74,7 @@ button:focus {
 textarea {
   width: 100%;
   height: 300px;
+  padding: 7px;
 }
 
 #navbar {
@@ -171,7 +172,7 @@ p#bold-word, span#bold-word{
   width: 150px;
 }
 
-#speechInteraction {
+#speechInteraction, #analytics-container {
   margin: 35px;
 }
 

@@ -147,6 +147,12 @@ export default class TextView extends React.Component {
             </Col>
           </Row>
           <Row>
+            <Col md={12}>
+              <h4>Get personalized analytics on your written work by pasting or typing below.</h4>
+              <br/>
+            </Col>
+          </Row>
+          <Row>
             <Col md={8}>
               <InputForm {...inputFormProps} />
             </Col>
