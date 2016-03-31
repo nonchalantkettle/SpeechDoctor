@@ -3,10 +3,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 import $ from 'jquery';
-
-import { getDefs,
-         getSyns,
-         analyzeText,
+import api from '../../utils/api';
+import { analyzeText,
          getTextStats,
          getAutomatedReadabilityIndex,
        } from '../../../server/utils/customTextAnalytics.js';
@@ -24,35 +22,31 @@ function renderTopThree(speech) {
 }
 
 export default function SpeechAnalytics(prop) {
-  const askToSave = !prop.userLoggedIn ?
-    <p><Link to="signup">Sign up </Link>or <Link to="login">log in </Link>to save your results</p>
-    : <div></div>;
   if (prop.speech) {
     const counts = getTextStats(prop.speech);
     const ARI = getAutomatedReadabilityIndex(prop.speech);
+    const askToSave = !prop.userLoggedIn ?
+      <p><Link to="signup">Sign up </Link>or <Link to="login">log in </Link>to save your results</p>
+      : <div></div>;
     renderTopThree(prop.speech).map((word) =>
-      getDefs(word[0], (defErr, defData) => {
+      api.getDefs(word[0], (defErr, defData) => {
         if (defErr) {
           return defErr;
         }
-        const defintionAndPos = defData;
-        return getSyns(word[0], (synErr, synData) => {
+        return api.getSyns(word[0], (synErr, synData) => {
           if (synErr) {
             return synErr;
           }
-          const synonyms = synData.syns;
+          const def = defData.def;
+          const pos = defData.pos;
+          const syns = synData.syns;
+
           $('#topThreeMostUsed').append(`<p id="bold-word">${word[0]}${word[1]}</p>
-            <p>Part of Speech: ${defintionAndPos.pos}</p>
-            <p>Definition: ${defintionAndPos.def}</p>`);
-          if (synonyms.length) {
-            let synString = synonyms.reduce((acc, syn) => {
-              acc += `${syn.word}, `;
-              return acc;
-            }, '');
-            synString = synString.slice(0, -2);
-            $('#topThreeMostUsed').append(`<p>Synonyms: ${synString}</p>`);
-          }
-          return synonyms;
+            <p>Part of Speech: ${pos}</p>
+            <p>Definition: ${def}</p>
+            <p>Synonyms: ${syns}</p>`);
+
+          return syns;
         });
       })
     );

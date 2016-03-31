@@ -21,18 +21,24 @@ module.exports = {
         const dictionaryObj = {};
         const dictionaryEntries = result.entry_list.entry[0];
         const definitions = dictionaryEntries.def[0].dt;
-        let defWithColon;
         dictionaryObj.pos = dictionaryEntries.fl[0];
         for (let i = 0; i < definitions.length; i ++) {
           if (typeof definitions[i] === 'string') {
-            defWithColon = definitions[i];
+            dictionaryObj.def = definitions[i].replace('/:/g', '');
+            break;
           } else if (definitions[i]._ && definitions[i]._.length > 2) {
-            defWithColon = definitions[i]._;
-            const defWithoutColon = defWithColon.slice(1, defWithColon.length);
-            dictionaryObj.def = defWithoutColon;
-            res.send(dictionaryObj);
-            return;
+            dictionaryObj.def = definitions[i]._.replace(/:/g, '');
+            break;
+          } else if (typeof definitions[i].un === 'object') {
+            dictionaryObj.def = definitions[i].un[0]._.replace(/:/g, '');
+            break;
           }
+        }
+        if (dictionaryObj.def !== undefined) {
+          res.send(dictionaryObj);
+        } else {
+          dictionaryObj.def = '-';
+          res.send(dictionaryObj);
         }
       });
     });
@@ -56,7 +62,7 @@ module.exports = {
         if (thesaurusEntries !== undefined) {
           if (thesaurusEntries.length === 1) {
             if (typeof thesaurusEntries[0].sens[0].syn[0] === 'object') {
-              thesaurusObj.syns = thesaurusEntries[0].sens[0].syn[0][0];
+              thesaurusObj.syns = thesaurusEntries[0].sens[0].syn[0]._;
             } else {
               thesaurusObj.syns = thesaurusEntries[0].sens[0].syn[0];
             }

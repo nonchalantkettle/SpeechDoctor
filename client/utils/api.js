@@ -36,7 +36,7 @@ const api = {
   getDefs(word, callback) {
     const url = `/dictionary/${word}`;
 
-    return $.get(url, 'json')
+    return $.get(url)
       .done((data) =>
         callback(null, data)
       )
@@ -48,7 +48,7 @@ const api = {
   getSyns(word, callback) {
     const url = `/thesaurus/${word}`;
 
-    return $.get(url, 'json')
+    return $.get(url)
       .done((data) =>
         callback(null, data)
       )
