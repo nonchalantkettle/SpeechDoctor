@@ -7,6 +7,7 @@ import $ from 'jquery';
 import WordCloud from '../WordCloud.jsx';
 import api from '../../utils/api';
 import { analyzeText,
+         checkWordsToAvoid,
          getTextStats,
          getAutomatedReadabilityIndex,
        } from '../../../server/utils/customTextAnalytics.js';

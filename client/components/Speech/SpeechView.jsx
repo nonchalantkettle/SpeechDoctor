@@ -7,6 +7,7 @@ import _ from 'underscore';
 import { Row, Col } from 'react-bootstrap';
 import SpeechAnalytics from './SpeechAnalytics.jsx';
 import Timer from '../Timer.jsx';
+import WordsToAvoid from '../WordsToAvoid.jsx';
 import promptGenerator from '../../utils/randomPromptGenerator.js';
 
 const recognition = new webkitSpeechRecognition();
@@ -27,6 +28,7 @@ export default class SpeechView extends React.Component {
       testMessage:
         `Before we get started, please read the following
         prompt to make sure we can hear you properly.`,
+      wordsToAvoid: [],
       secondsElapsed: 0,
       timerVisible: false,
       prompt: '',
@@ -104,6 +106,19 @@ export default class SpeechView extends React.Component {
     const time = this.state.secondsElapsed;
     const wordsPerSecond = (numberOfWords / time);
     WPM = Math.floor(wordsPerSecond * 60);
+  }
+
+  addWordsToAvoidList(word) {
+    this.state.wordsToAvoid.push(word);
+    this.setState({
+      wordsToAvoid: this.state.wordsToAvoid,
+    });
+  }
+
+  removeWordsFromAvoidList() {
+    this.setState({
+      wordsToAvoid: [],
+    });
   }
 
   displayAnalytics() {
@@ -238,6 +253,11 @@ export default class SpeechView extends React.Component {
       secondsElapsed: this.state.secondsElapsed,
     };
 
+    const wordsToAvoidMethods = {
+      addWordsToAvoid: this.addWordsToAvoidList.bind(this),
+      removeWordsFromAvoid: this.removeWordsFromAvoidList.bind(this),
+    };
+
     const visibleTimer = this.state.passedTest && this.state.timerVisible ?
       <Timer {...timerMethods} /> :
       <div></div>;
@@ -273,13 +293,16 @@ export default class SpeechView extends React.Component {
           </Row>
         </div>
         <Row>
-          <Col md={12}>
+          <Col md={6}>
             <div id="speechInteraction">
               {transciptButtonBeforeTest}
               {showTimerButton}
               {conversationalPrompt}
               {visibleTimer}
             </div>
+          </Col>
+          <Col md={6}>
+            <div className="words-to-avoid"><WordsToAvoid {...wordsToAvoidMethods} /></div>
           </Col>
         </Row>
         <Row>
