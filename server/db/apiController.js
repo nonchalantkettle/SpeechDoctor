@@ -1,8 +1,9 @@
 /* eslint strict: 0*/
 
-const api = require('../../API_KEYS');
 const httpRequest = require('http-request');
 const parseString = require('xml2js').parseString;
+
+const api = require('../../API_KEYS');
 
 module.exports = {
   dictionary: (req, res) => {
