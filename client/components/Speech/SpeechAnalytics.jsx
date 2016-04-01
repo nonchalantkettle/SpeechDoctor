@@ -5,6 +5,8 @@ import { Link } from 'react-router';
 import { Row, Col } from 'react-bootstrap';
 import $ from 'jquery';
 import WordCloud from '../WordCloud.jsx';
+import _ from 'underscore';
+
 import api from '../../utils/api';
 import { analyzeText,
          checkWordsToAvoid,
@@ -25,7 +27,9 @@ function renderTopThree(speech) {
 }
 
 export default function SpeechAnalytics(prop) {
+
   if (prop.speech) {
+    const avoidedWordsUsed = checkWordsToAvoid(prop.wordsToAvoid, prop.speech);
     const counts = getTextStats(prop.speech);
     const ARI = getAutomatedReadabilityIndex(prop.speech);
     const askToSave = !prop.userLoggedIn ?
@@ -65,6 +69,12 @@ export default function SpeechAnalytics(prop) {
         <Row>
           <Col md={6}>
             <h3 id="topThreeMostUsed">Most-Used Words</h3>
+            <div className="avoid-words">
+              <h3>Words You Wanted To Avoid:</h3>
+              {_.map(avoidedWordsUsed, (frequency, word) =>
+                <p>{word}: <span id="bold-word">{frequency}</span></p>
+              )}
+            </div>
           </Col>
           <Col md={6}>
             <h3>General Speech Stats</h3>
