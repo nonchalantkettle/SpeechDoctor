@@ -53,10 +53,8 @@ const renderData = (data) => {
     return individualTextAverages;
   });
 
-  const pieChartWidth = bodyWidth/2;
-  const pieChartHeight = bodyWidth/3;
-  const evenWidthAndHeight = bodyWidth/2;
-
+  const widthOrHeight = bodyWidth * 0.475;
+  const shorterHeight = bodyWidth * 0.275;
   // Pie Chart
   const PieChart = ReactD3.PieChart;
   const pieChartData = {
@@ -137,8 +135,8 @@ const renderData = (data) => {
             <hr/>
             <PieChart
               data={pieChartData}
-              width={pieChartWidth}
-              height={pieChartHeight}
+              width={widthOrHeight}
+              height={shorterHeight}
               id="userChart"
               className="piechart"
               margin={ { top: 10, bottom: 10, left: 100, right: 100 } }
@@ -155,8 +153,8 @@ const renderData = (data) => {
             <br/>
             <BarChart
               data={barChartData}
-              width={evenWidthAndHeight}
-              height={evenWidthAndHeight}
+              width={widthOrHeight}
+              height={shorterHeight}
               id="userChart"
               className="barchart"
               margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
@@ -176,8 +174,8 @@ const renderData = (data) => {
           <div id="linechart">
             <LineChart
               data={lineChartData}
-              width={evenWidthAndHeight}
-              height={evenWidthAndHeight}
+              width={widthOrHeight}
+              height={widthOrHeight}
               id="userChart"
               className="linechart"
               margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
