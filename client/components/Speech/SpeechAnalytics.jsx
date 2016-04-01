@@ -28,7 +28,8 @@ export default function SpeechAnalytics(prop) {
     const counts = getTextStats(prop.speech);
     const ARI = getAutomatedReadabilityIndex(prop.speech);
     const askToSave = !prop.userLoggedIn ?
-      <p><Link to="signup">Sign up </Link>or <Link to="login">log in </Link>to save your results</p>
+      <p><Link id="lightBackgroundLink" to="signup">Sign up </Link>
+        or <Link id="lightBackgroundLink" to="login">log in </Link>to save your results</p>
       : <div></div>;
     renderTopThree(prop.speech).map((word) =>
       api.getDefs(word[0], (defErr, defData) => {
