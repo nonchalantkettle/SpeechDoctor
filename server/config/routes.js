@@ -1,3 +1,5 @@
+const path = require('path');
+
 const userController = require('../db/userController.js');
 const api = require('../db/apiController.js');
 
@@ -5,7 +7,6 @@ module.exports = (app) => {
   // Sign in and sign up routes
   app.post('/login', userController.login);
   app.post('/signup', userController.signup);
-  app.get('/checkJWT/:JWT', userController.checkJWT);
 
   // Change user information
   app.post('/changePassword', userController.changePassword);
@@ -22,4 +23,8 @@ module.exports = (app) => {
   // Route dictionary and thesaurus api calls
   app.get('/dictionary/:word', api.dictionary);
   app.get('/thesaurus/:word', api.thesaurus);
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../../public', 'index.html'));
+  });
 };
