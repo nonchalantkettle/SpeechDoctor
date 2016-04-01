@@ -4,7 +4,7 @@
 import React from 'react';
 import $ from 'jquery';
 import _ from 'underscore';
-
+import { Row, Col } from 'react-bootstrap';
 import SpeechAnalytics from './SpeechAnalytics.jsx';
 import Timer from '../Timer.jsx';
 import promptGenerator from '../../utils/randomPromptGenerator.js';
@@ -26,10 +26,11 @@ export default class SpeechView extends React.Component {
       passedTest: false,
       testMessage:
         `Before we get started, please read the following
-        prompt to make sure we can hear you properly:`,
+        prompt to make sure we can hear you properly.`,
       secondsElapsed: 0,
       timerVisible: false,
       prompt: '',
+      generatedSpeakingPrompt: '',
     };
   }
 
@@ -50,10 +51,9 @@ export default class SpeechView extends React.Component {
 
   getSpeakingPrompt() {
     const speakingPrompt = promptGenerator.speakingPromptGenerator();
-    if ($('#speakingPrompt').length) {
-      $('#speakingPrompt').remove();
-    }
-    $('#recording-view').append(`<p id="speakingPrompt">Prompt: ${speakingPrompt}</p>`);
+    this.setState({
+      generatedSpeakingPrompt: speakingPrompt,
+    });
   }
 
   showTimer() {
@@ -82,7 +82,6 @@ export default class SpeechView extends React.Component {
         });
       }, 1000);
     }
-
     if (!this.state.recording) {
       this.setState({
         results: '',
@@ -132,7 +131,7 @@ export default class SpeechView extends React.Component {
               clearInterval(this.incrementer);
               this.setState({
                 passedTest: true,
-                testMessage: 'Great! You speak clearly. The doctor will see you now.',
+                testMessage: 'Great, you speak clearly! The doctor will see you now.',
                 recording: false,
                 results: '',
                 secondsElapsed: 0,
@@ -174,9 +173,9 @@ export default class SpeechView extends React.Component {
   }
 
   render() {
-    const currentState = this.state.recording ?
-      <div>Recording...</div> :
-      <div>Start recording now</div>;
+    const recordingState = this.state.recording ?
+      <div><br/><p>Recording...</p></div>:
+      <div><br/><p>Start recording now</p></div>;
 
     const handleClick = this.handleClick.bind(this);
 
@@ -191,7 +190,7 @@ export default class SpeechView extends React.Component {
 
     // Will probably have to modify this to get diplay transctipt to reset after test is passed.
     const transcript = this.state.showTranscript || (!this.state.passedTest) ?
-      <div id="rendered-speech">Here is the transcript: {this.state.results}</div> :
+      <div><p id="rendered-speech">Your transcript: {this.state.results}</p></div> :
       <div></div>;
 
     const analytics = this.displayAnalytics.bind(this);
@@ -208,8 +207,14 @@ export default class SpeechView extends React.Component {
       </div> :
       <div></div>;
 
+    const getSpeakingPrompt = this.getSpeakingPrompt.bind(this);
+
+    const generatedSpeakingPrompt = this.state.generatedSpeakingPrompt ?
+      <p id="speakingPrompt">Prompt: <span id="bold-word">{this.state.generatedSpeakingPrompt}</span></p> :
+      <div></div>
+
     const conversationalPrompt = this.state.passedTest ?
-      <button onClick={this.getSpeakingPrompt}>Generate a Speaking Prompt</button> :
+      <button onClick={getSpeakingPrompt}>Generate a Speaking Prompt</button> :
       <div></div>;
 
     const testPrompt = !this.state.passedTest ? <p id="bold-word">{this.state.prompt}</p> :
@@ -240,30 +245,52 @@ export default class SpeechView extends React.Component {
     return (
       <div>
         <div id="speech-input">
-          <h1 id="speech-input-title">Speech Analyzer</h1>
-          <h4>{this.state.testMessage}</h4>
-          {testPrompt}
-          <div id="recording-view">
-            <button className="record-button" onClick={handleClick}>
-              <img id="record-img" src="assets/record.png" alt="record" />
-            </button>
-          </div>
+          <Row>
+            <Col md={12}>
+              <h1 id="speech-input-title">Speech Analyzer</h1>
+            </Col>
+           </Row>
+           <Row>
+            <Col md={12}>
+              <h4>{this.state.testMessage}</h4>
+              {testPrompt}
+              {generatedSpeakingPrompt}
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12}>
+              <div id="recording-view">
+                <button className="record-button" onClick={handleClick}>
+                  <img id="record-img" src="assets/recordwhite.png" alt="record" />
+                </button>
+                <div>
+                  {recordingState}
+                  <br/>
+                  {transcript}
+                </div>
+              </div>
+            </Col>
+          </Row>
         </div>
-        <div id="speechInteraction">
-          <span>{currentState}</span>
-          {transciptButtonBeforeTest}
-          {showTimerButton}
-          {conversationalPrompt}
-          {visibleTimer}
-        </div>
-        <div>
-          <div>{transcript}</div>
-        </div>
-        <div id="speechInteraction">
-          {analyticsButton}
-          {finishedSpeech}
-          {showSaveSpeechButton}
-        </div>
+        <Row>
+          <Col md={12}>
+            <div id="speechInteraction">
+              {transciptButtonBeforeTest}
+              {showTimerButton}
+              {conversationalPrompt}
+              {visibleTimer}
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <div id="speechInteraction">
+              {analyticsButton}
+              {finishedSpeech}
+              {showSaveSpeechButton}
+            </div>
+          </Col>
+        </Row>
       </div>
     );
   }

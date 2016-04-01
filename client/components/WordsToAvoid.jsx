@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import { Row, Col } from 'react-bootstrap';
 
 export default class WordsToAvoid extends React.Component {
   constructor(props) {
@@ -35,18 +36,27 @@ export default class WordsToAvoid extends React.Component {
 
     return (
       <div>
-        <h3 className="avoid">Words to Avoid</h3>
-        <form onSubmit={addWord}>
-          <input
-            id="avoid-input"
-            className="inputForm"
-            placeholder="Add words you want to avoid here"
-            value={this.state.word}
-            onChange={handleInputChange}
-          />
-          <button onSubmit={addWord}>Add Word</button>
-          <button onClick={handleClear}>Clear Words</button>
-        </form>
+        <Row>
+          <Col md={12}>
+            <h3 className="avoid">Words to Avoid</h3>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <form onSubmit={addWord}>
+              <input
+                id="avoid-input"
+                className="inputForm"
+                placeholder="Add words you want to avoid here"
+                value={this.state.word}
+                onChange={handleInputChange}
+              />
+              <br />
+              <button onSubmit={addWord}>Add Word</button>
+              <button onClick={handleClear}>Clear Words</button>
+            </form>
+          </Col>
+        </Row>
       </div>
     );
   }

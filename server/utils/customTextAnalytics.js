@@ -38,8 +38,8 @@ export function checkWordsToAvoid(wordsToAvoidArr, textInput) {
 }
 
 function topThreeWords(wordCountObject) {
-  const wordsToIgnore = /\b[a-z0-9]{1,2}\b|the\b|and\b|that\b|are\b|for\b|have/gi;
-
+  const wordsToIgnore =
+    /\b[a-z0-9]{1,2}\b|the\b|and\b|are\b|for\b|have|this\b|was\b|that\b|with\b|from\b|did\b/gi;
   // avoid modifying original wordCountObject
   const copiedObj = JSON.parse(JSON.stringify(wordCountObject));
   const mostCommonWords = {};
