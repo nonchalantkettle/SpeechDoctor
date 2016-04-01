@@ -75,7 +75,7 @@
   "scripts": {
     "lint-client": "./node_modules/.bin/eslint ./client/**/*",
     "lint-server": "./node_modules/.bin/eslint ./server/**/*",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --reporter spec test",
     "validate": "npm ls",
     "lint": "eslint .",
     "start": "nodemon --watch server server/server.js",
@@ -83,6 +83,7 @@
   },
   "pre-commit": [
     "lint-server",
-    "lint-client"
+    "lint-client",
+    "test"
   ]
 }
