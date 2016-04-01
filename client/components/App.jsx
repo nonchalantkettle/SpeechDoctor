@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import $ from 'jquery';
 import { Grid, Row } from 'react-bootstrap';
 
@@ -63,7 +63,7 @@ App.propTypes = {
 };
 
 ReactDOM.render(
-  <Router history={hashHistory}>
+  <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={LandingPage} />
       <Route path="/speech" component={SpeechView} />

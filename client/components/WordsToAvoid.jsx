@@ -16,7 +16,8 @@ export default class WordsToAvoid extends React.Component {
     });
   }
 
-  addWord() {
+  addWord(e) {
+    e.preventDefault();
     this.props.addWordsToAvoid(this.state.word);
     $('.avoid').append(`<p id='${this.state.word}'>${this.state.word}</p>`);
     this.setState({

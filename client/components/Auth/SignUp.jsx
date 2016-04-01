@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { Row, Col } from 'react-bootstrap';
+
 import api from '../../utils/api';
 
 export default class SignUp extends React.Component {
@@ -14,21 +15,25 @@ export default class SignUp extends React.Component {
       passwordError: false,
     };
   }
+
   handleUsernameChange(e) {
     this.setState({
       username: e.target.value,
     });
   }
+
   handlePasswordChange(e) {
     this.setState({
       password: e.target.value,
     });
   }
+
   handleConfirmedPasswordChange(e) {
     this.setState({
       confirmedPassword: e.target.value,
     });
   }
+
   handleSubmit(e) {
     e.preventDefault();
     if (this.state.password === this.state.confirmedPassword) {
@@ -51,7 +56,7 @@ export default class SignUp extends React.Component {
               username: '',
               password: '',
             });
-            this.props.history.push('/');
+            browserHistory.push('/');
           }
         })
         .catch((err) => {
@@ -66,6 +71,7 @@ export default class SignUp extends React.Component {
       });
     }
   }
+
   render() {
     const showErr = (
       this.state.error ? <p>{this.state.error}</p> : <div></div>
@@ -143,6 +149,4 @@ export default class SignUp extends React.Component {
 
 SignUp.propTypes = {
   setUserLoggedIn: React.PropTypes.func,
-  history: React.PropTypes.object,
-  'history.push': React.PropTypes.func,
 };
