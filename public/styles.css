@@ -168,7 +168,7 @@ p#bold-word, span#bold-word{
 }
 
 #inputField, #loginInput {
-  width: 150px;
+  width: 50%;
 }
 
 #speechInteraction, #analytics-container {
