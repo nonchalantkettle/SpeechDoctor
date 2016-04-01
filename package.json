@@ -83,6 +83,7 @@
   },
   "pre-commit": [
     "lint-server",
-    "lint-client"
+    "lint-client",
+    "test"
   ]
 }
