@@ -38,12 +38,15 @@ export default function TextAnalytics(prop) {
     renderTopThree(prop.text).map((word) =>
       api.getDefs(word[0], (defErr, defData) => {
         if (defErr) {
-          return defErr;
+          console.log(" There was an error with your request ")
+          return;
         }
         return api.getSyns(word[0], (synErr, synData) => {
           if (synErr) {
-            return synErr;
+            console.log(" There was an error with your request ")
+            return;
           }
+          
           const def = defData.def;
           const pos = defData.pos;
           const syns = synData.syns;
