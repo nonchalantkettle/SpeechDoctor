@@ -266,6 +266,10 @@ export default class SpeechView extends React.Component {
       <Timer {...timerMethods} /> :
       <div></div>;
 
+    const wordsToAvoid = this.state.passedTest ?
+      <div className="words-to-avoid"><WordsToAvoid {...wordsToAvoidMethods} /></div> :
+      <div></div>;
+
     return (
       <div>
         <div id="speech-input">
@@ -276,7 +280,12 @@ export default class SpeechView extends React.Component {
            </Row>
            <Row>
             <Col md={12}>
+              <p>Get personalized analytics on your speaking by recording yourself below.</p>
+              <hr/>
               <h4>{this.state.testMessage}</h4>
+              <p id="recording-instructions">
+                Click the microphone once to record, then click it again to stop recording.
+              </p>
               {testPrompt}
               {generatedSpeakingPrompt}
             </Col>
@@ -306,7 +315,7 @@ export default class SpeechView extends React.Component {
             </div>
           </Col>
           <Col md={6}>
-            <div className="words-to-avoid"><WordsToAvoid {...wordsToAvoidMethods} /></div>
+            {wordsToAvoid}
           </Col>
         </Row>
         <Row>

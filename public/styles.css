@@ -245,3 +245,8 @@ svg {
   color: #576064;
   font-weight: bold;
 }
+
+#recording-instructions {
+  font-style: italic;
+}
+
