@@ -22,12 +22,12 @@ export default function WordCloud(prop) {
     wordArrayNoFrequency.push(wordArrayWithFrequency[i][0]);
   }
 
-  const numberOfWordsInCloud = numWords / 25;
+  const numberOfWordsInCloud = numWords / 30;
 
   const fill = d3.scale.category10();
   let layout;
 
-  const cloudWidth = bodyWidth * (3 / 4);
+  const cloudWidth = 1000 || bodyWidth;
   const cloudHeight = cloudWidth * (3 / 5);
 
   function draw(words) {
@@ -51,7 +51,7 @@ export default function WordCloud(prop) {
   layout = cloud()
     .size([cloudWidth, cloudHeight])
     .words(wordArrayWithFrequency.slice(0, 100).map((d) => (
-        { text: d[0], size: d[1] * (200 / numberOfWordsInCloud) }
+        { text: d[0], size: d[1] * (200 / numberOfWordsInCloud) * (cloudWidth / cloudHeight) }
       )))
     .rotate(() => ~~(Math.random() * 2) * 90)
     .font('Arial')
