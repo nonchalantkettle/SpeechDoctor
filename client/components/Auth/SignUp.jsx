@@ -149,5 +149,4 @@ export default class SignUp extends React.Component {
 
 SignUp.propTypes = {
   setUserLoggedIn: React.PropTypes.func,
-  history: React.PropTypes.object,
 };

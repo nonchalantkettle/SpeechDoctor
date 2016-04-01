@@ -109,5 +109,4 @@ export default class LogIn extends React.Component {
 
 LogIn.propTypes = {
   setUserLoggedIn: React.PropTypes.func,
-  history: React.PropTypes.object,
 };
