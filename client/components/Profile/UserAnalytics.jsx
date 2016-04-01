@@ -3,7 +3,7 @@
 import React from 'react';
 import ReactD3 from 'react-d3-components';
 import { Row, Col } from 'react-bootstrap';
-
+import $ from 'jquery';
 import WordCloud from '../WordCloud.jsx';
 import { getTextStats,
          analyzeText,
@@ -17,6 +17,8 @@ const noDataFound = (
     samples and come back for your diagnosis later.
   </p>
 );
+
+const bodyWidth = document.body.clientWidth;
 
 const renderData = (data) => {
   // aggregate text
@@ -101,6 +103,10 @@ const renderData = (data) => {
     },
   ];
 
+  const pieChartWidth = bodyWidth/2;
+  const pieChartHeight = bodyWidth/3;
+  const evenWidthAndHeight = bodyWidth/2;
+
   return (
     <div id="userAnalytics">
       <Row>
@@ -115,9 +121,10 @@ const renderData = (data) => {
             <hr/>
             <PieChart
               data={pieChartData}
-              width={550}
-              height={370}
+              width={pieChartWidth}
+              height={pieChartHeight}
               id="userChart"
+              className="piechart"
               margin={ { top: 10, bottom: 10, left: 100, right: 100 } }
               sort={sort}
             />
@@ -130,9 +137,10 @@ const renderData = (data) => {
             <br/>
             <BarChart
               data={barChartData}
-              width={475}
-              height={475}
+              width={evenWidthAndHeight}
+              height={evenWidthAndHeight}
               id="userChart"
+              className="barchart"
               margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
             />
           </div>
@@ -150,9 +158,10 @@ const renderData = (data) => {
           <div id="linechart">
             <LineChart
               data={lineChartData}
-              width={475}
-              height={475}
+              width={evenWidthAndHeight}
+              height={evenWidthAndHeight}
               id="userChart"
+              className="linechart"
               margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
             />
           </div>
