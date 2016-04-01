@@ -3,7 +3,7 @@
 import React from 'react';
 import ReactD3 from 'react-d3-components';
 import { Row, Col } from 'react-bootstrap';
-
+import $ from 'jquery';
 import WordCloud from '../WordCloud.jsx';
 import { getTextStats,
          analyzeText,
@@ -17,6 +17,11 @@ const noDataFound = (
     samples and come back for your diagnosis later.
   </p>
 );
+
+const bodyWidth = document.body.clientWidth;
+const width = bodyWidth * 0.6;
+const height = bodyWidth * 0.4;
+const shorterHeight = bodyWidth * 0.315;
 
 const renderData = (data) => {
   // aggregate text
@@ -51,6 +56,7 @@ const renderData = (data) => {
     return individualTextAverages;
   });
 
+
   // Pie Chart
   const PieChart = ReactD3.PieChart;
   const pieChartData = {
@@ -61,14 +67,29 @@ const renderData = (data) => {
 
   // Bar Chart
   const BarChart = ReactD3.BarChart;
-  const barChartData = [{
+  let barChartData = [{
     label: 'allTimeAverages',
     values: [
-      { x: 'Word Length', y: overallTextStats.charactersPerWord },
-      { x: 'Sentence Length', y: overallTextStats.wordsPerSentence },
-      { x: 'ARI', y: overallARI },
+      { x: 'A', y: overallTextStats.charactersPerWord },
+      { x: 'B', y: overallTextStats.wordsPerSentence },
+      { x: 'C', y: overallARI },
     ],
   }];
+  if (bodyWidth >= 950) {
+    console.log('body width is greather than 950');
+    barChartData = [{
+      label: 'allTimeAverages',
+      values: [
+        { x: 'Word Length', y: overallTextStats.charactersPerWord },
+        { x: 'Sentence Length', y: overallTextStats.wordsPerSentence },
+        { x: 'ARI', y: overallARI },
+      ],
+    }];
+  }
+
+  const barChartLabels = bodyWidth < 950 ?
+    <div id="bar-chart-labels"><p>A - Word Length</p><p>B - Sentence Length</p><p>C - ARI</p></div> :
+    <div></div>;
 
   // Line Graphs
   const lineWordLength = [];
@@ -101,6 +122,7 @@ const renderData = (data) => {
     },
   ];
 
+
   return (
     <div id="userAnalytics">
       <Row>
@@ -109,33 +131,44 @@ const renderData = (data) => {
         </Col>
       </Row>
       <Row>
-        <Col md={6}>
+        <Col md={1}/>
+        <Col md={8}>
           <div id="piechart">
             <h2>All Time Most-Used Words</h2>
             <hr/>
             <PieChart
               data={pieChartData}
-              width={550}
-              height={370}
+              width={width}
+              height={shorterHeight}
               id="userChart"
+              className="piechart"
               margin={ { top: 10, bottom: 10, left: 100, right: 100 } }
               sort={sort}
             />
           </div>
         </Col>
-        <Col md={6}>
+        <Col md={3}/>
+      </Row>
+      <Row>
+        <Col md={2}/>
+        <Col md={9}>
           <div id="barchart">
-            <h2>All Time Averages</h2>
+            <br/>
+            <h2 id="bar-chart-labels">All Time Averages</h2>
             <hr/>
             <br/>
+            {barChartLabels}
             <BarChart
               data={barChartData}
-              width={475}
-              height={475}
+              width={width}
+              height={height}
               id="userChart"
+              className="barchart"
               margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
             />
           </div>
+        </Col>
+        <Col md={4}>
         </Col>
       </Row>
       <Row>
@@ -150,9 +183,10 @@ const renderData = (data) => {
           <div id="linechart">
             <LineChart
               data={lineChartData}
-              width={475}
-              height={475}
+              width={width}
+              height={height}
               id="userChart"
+              className="linechart"
               margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
             />
           </div>

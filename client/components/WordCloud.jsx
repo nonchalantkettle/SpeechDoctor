@@ -1,8 +1,8 @@
 import React from 'react';
 import d3 from 'd3';
 import cloud from 'd3.layout.cloud';
-
 import { countEachWord, getTextStats } from '../../server/utils/customTextAnalytics.js';
+const bodyWidth = document.body.clientWidth;
 
 export default function WordCloud(prop) {
   const numWords = getTextStats(prop.text).words;
@@ -27,11 +27,14 @@ export default function WordCloud(prop) {
   const fill = d3.scale.category10();
   let layout;
 
+  const cloudWidth = bodyWidth * (3 / 4);
+  const cloudHeight = cloudWidth * (3 / 5);
+
   function draw(words) {
     d3.select('#analytics-container').append('svg')
       .attr('id', 'word-cloud')
-      .attr('width', 1000)
-      .attr('height', 600)
+      .attr('width', cloudWidth)
+      .attr('height', cloudHeight)
     .append('g')
       .attr('transform', `translate(${layout.size()[0] / 2}, ${layout.size()[1] / 2})`)
     .selectAll('text')
@@ -46,7 +49,7 @@ export default function WordCloud(prop) {
   }
 
   layout = cloud()
-    .size([1000, 600])
+    .size([cloudWidth, cloudHeight])
     .words(wordArrayWithFrequency.slice(0, 100).map((d) => (
         { text: d[0], size: d[1] * (200 / numberOfWordsInCloud) }
       )))

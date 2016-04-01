@@ -94,6 +94,7 @@ export default class SignUp extends React.Component {
             <div id="createAccount">
               <form id="signup" onSubmit={methods.handleSubmit}>
                 <div id="inputField">Username
+                  <br/>
                   <input
                     id="loginInput"
                     className="inputForm"
@@ -105,6 +106,7 @@ export default class SignUp extends React.Component {
                   </input>
                 </div>
                 <div id="inputField">Password
+                  <br/>
                   <input
                     id="loginInput"
                     className="inputForm"
@@ -116,6 +118,7 @@ export default class SignUp extends React.Component {
                   </input>
                 </div>
                 <div id="inputField">Confirm Password
+                  <br/>
                   <input
                     id="loginInput"
                     className="inputForm"
@@ -138,7 +141,7 @@ export default class SignUp extends React.Component {
               {showErr}
               {showPasswordErr}
               <div id="goToLogin">
-                <p>Already have an account? Sign in <Link to={'login'}>here</Link></p>
+                <p>Already have an account? Sign in <Link id="lightBackgroundLink" to={'login'}>here</Link></p>
               </div>
             </Col>
           </Row>
