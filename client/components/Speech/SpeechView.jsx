@@ -233,7 +233,11 @@ export default class SpeechView extends React.Component {
       <div></div>
 
     const conversationalPrompt = this.state.passedTest ?
-      <button onClick={getSpeakingPrompt}>Generate a Speaking Prompt</button> :
+      <div>
+        <br/>
+        <p>Want to practice conversational speaking?</p>
+        <button onClick={getSpeakingPrompt}>Generate a Speaking Prompt</button>
+      </div> :
       <div></div>;
 
     const testPrompt = !this.state.passedTest ? <p id="bold-word">{this.state.prompt}</p> :
@@ -266,6 +270,12 @@ export default class SpeechView extends React.Component {
       <Timer {...timerMethods} /> :
       <div></div>;
 
+    const wordsToAvoid = this.state.passedTest ?
+      <div className="words-to-avoid">
+        <WordsToAvoid {...wordsToAvoidMethods} />
+      </div> :
+      <div></div>;
+
     return (
       <div>
         <div id="speech-input">
@@ -276,7 +286,12 @@ export default class SpeechView extends React.Component {
            </Row>
            <Row>
             <Col md={12}>
+              <p>Get personalized analytics on your speaking by recording yourself below.</p>
+              <hr/>
               <h4>{this.state.testMessage}</h4>
+              <p id="recording-instructions">
+                Click the microphone once to record, then click it again to stop recording.
+              </p>
               {testPrompt}
               {generatedSpeakingPrompt}
             </Col>
@@ -306,7 +321,7 @@ export default class SpeechView extends React.Component {
             </div>
           </Col>
           <Col md={6}>
-            <div className="words-to-avoid"><WordsToAvoid {...wordsToAvoidMethods} /></div>
+            {wordsToAvoid}
           </Col>
         </Row>
         <Row>

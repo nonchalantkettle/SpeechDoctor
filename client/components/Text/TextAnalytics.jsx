@@ -75,7 +75,8 @@ export default function TextAnalytics(prop) {
               <h3 id="topThreeMostUsed">Most-Used Words</h3>
             </div>
             <div className="avoid-words">
-              <h3>Words You Wanted To Avoid:</h3>
+              <h3>Words You Wanted To Avoid</h3>
+              <p>-</p>
               {_.map(avoidedWordsUsed, (frequency, word) =>
                 <p>{word}: <span id="bold-word">{frequency}</span></p>
               )}

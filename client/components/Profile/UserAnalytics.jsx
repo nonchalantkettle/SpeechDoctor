@@ -76,7 +76,6 @@ const renderData = (data) => {
     ],
   }];
   if (bodyWidth >= 950) {
-    console.log('body width is greather than 950');
     barChartData = [{
       label: 'allTimeAverages',
       values: [
@@ -88,8 +87,16 @@ const renderData = (data) => {
   }
 
   const barChartLabels = bodyWidth < 950 ?
-    <div id="bar-chart-labels"><p>A - Word Length</p><p>B - Sentence Length</p><p>C - ARI</p></div> :
-    <div></div>;
+    <div id="bar-chart-labels">
+      <p>A - Word Length</p>
+      <p>B - Sentence Length</p>
+      <p>C - Average Readability Index (Raw Score)</p>
+    </div> :
+    <div id="bar-chart-labels">
+      <p>Word Length</p>
+      <p>Sentence Length</p>
+      <p>Average Readability Index (Raw Score)</p>
+    </div>;
 
   // Line Graphs
   const lineWordLength = [];
@@ -177,7 +184,7 @@ const renderData = (data) => {
             <hr/>
             <h3 id="charsPerWordStat">Characters Per Word</h3>
             <h3 id="wordsPerSentenceStat">Words Per Sentence</h3>
-            <h3 id="ARIStat">Average Readability Index</h3>
+            <h3 id="ARIStat">Average Readability Index (Raw Score)</h3>
         </Col>
         <Col md={9}>
           <div id="linechart">
