@@ -233,7 +233,11 @@ export default class SpeechView extends React.Component {
       <div></div>
 
     const conversationalPrompt = this.state.passedTest ?
-      <button onClick={getSpeakingPrompt}>Generate a Speaking Prompt</button> :
+      <div>
+        <br/>
+        <p>Want to practice conversational speaking?</p>
+        <button onClick={getSpeakingPrompt}>Generate a Speaking Prompt</button>
+      </div> :
       <div></div>;
 
     const testPrompt = !this.state.passedTest ? <p id="bold-word">{this.state.prompt}</p> :
@@ -267,7 +271,9 @@ export default class SpeechView extends React.Component {
       <div></div>;
 
     const wordsToAvoid = this.state.passedTest ?
-      <div className="words-to-avoid"><WordsToAvoid {...wordsToAvoidMethods} /></div> :
+      <div className="words-to-avoid">
+        <WordsToAvoid {...wordsToAvoidMethods} />
+      </div> :
       <div></div>;
 
     return (

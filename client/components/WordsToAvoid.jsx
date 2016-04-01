@@ -44,6 +44,7 @@ export default class WordsToAvoid extends React.Component {
         </Row>
         <Row>
           <Col md={12}>
+            <p>Are there words you'd like to avoid saying? Add them here.</p>
             <form onSubmit={addWord}>
               <input
                 id="avoid-input"

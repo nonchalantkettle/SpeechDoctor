@@ -154,6 +154,7 @@ export default class TextView extends React.Component {
             <Col md={4}>
               <div className="words-to-avoid"><WordsToAvoid {...wordsToAvoidMethods} /></div>
               <br />
+              <p>Want to practice writing on the fly?</p>
               <button onClick={this.getWritingPrompt}>Generate a Writing Prompt</button>
               <br />
               <br />
