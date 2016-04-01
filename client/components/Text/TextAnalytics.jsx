@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 import $ from 'jquery';
 import _ from 'underscore';
 import { Row, Col } from 'react-bootstrap';
-
 import WordCloud from '../WordCloud.jsx';
 import api from '../../utils/api';
 import { analyzeText,
@@ -57,12 +56,6 @@ export default function TextAnalytics(prop) {
         });
       })
     );
-
-    const removeWordCloud = () => {
-      if (document.getElementById('word-cloud')) {
-        $('#analytics-container').find('#word-cloud').remove();
-      }
-    };
 
     return (
       <div>

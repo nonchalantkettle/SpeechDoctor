@@ -2,7 +2,9 @@
 
 import React from 'react';
 import { Link } from 'react-router';
+import { Row, Col } from 'react-bootstrap';
 import $ from 'jquery';
+import WordCloud from '../WordCloud.jsx';
 import api from '../../utils/api';
 import { analyzeText,
          getTextStats,
@@ -52,30 +54,45 @@ export default function SpeechAnalytics(prop) {
     );
     return (
       <div>
-        <h2>Results</h2>
-        {askToSave}
-        <h3>General Speech Stats</h3>
-        <div>
-          <p>Total Characters (all): <span id="bold-word">{counts.charsWithSpace}</span></p>
-          <p>Total Characters (no spaces): <span id="bold-word">{counts.charsNoSpace}</span></p>
-          <p>Total Characters (no punctuation or spaces):
-            <span id="bold-word"> {counts.charsJustLetters}</span>
-          </p>
-          <p>Total Words: <span id="bold-word">{counts.words}</span></p>
-          <p>Total Sentences: <span id="bold-word">{counts.sentences}</span></p>
-          <p>Total Paragraphs: <span id="bold-word">{counts.paragraphs}</span></p>
-          <p>Average Characters Per Word:
-            <span id="bold-word"> {counts.charactersPerWord}</span>
-          </p>
-          <p>Average Words Per Sentence: <span id="bold-word">{counts.wordsPerSentence}</span></p>
-          <p>Automated Readability Index, Minimum Target Age for Audience:
-            <span id="bold-word"> {ARI.age}</span>
-          </p>
-          <p>Automated Readability Index, Minimum Audience Education Level:
-            <span id="bold-word"> {ARI.grade}</span>
-          </p>
-        </div>
-        <h3 id="topThreeMostUsed">Most-Used Words</h3>
+        <Row>
+          <Col md={12}>
+            <h2>Results</h2>
+            {askToSave}
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6}>
+            <h3 id="topThreeMostUsed">Most-Used Words</h3>
+          </Col>
+          <Col md={6}>
+            <h3>General Speech Stats</h3>
+            <div>
+              <p>Total Characters (all): <span id="bold-word">{counts.charsWithSpace}</span></p>
+              <p>Total Characters (no spaces): <span id="bold-word">{counts.charsNoSpace}</span></p>
+              <p>Total Characters (no punctuation or spaces):
+                <span id="bold-word"> {counts.charsJustLetters}</span>
+              </p>
+              <p>Total Words: <span id="bold-word">{counts.words}</span></p>
+              <p>Total Sentences: <span id="bold-word">{counts.sentences}</span></p>
+              <p>Total Paragraphs: <span id="bold-word">{counts.paragraphs}</span></p>
+              <p>Average Characters Per Word:
+                <span id="bold-word"> {counts.charactersPerWord}</span>
+              </p>
+              <p>Average Words Per Sentence: <span id="bold-word">{counts.wordsPerSentence}</span></p>
+              <p>Automated Readability Index, Minimum Target Age for Audience:
+                <span id="bold-word"> {ARI.age}</span>
+              </p>
+              <p>Automated Readability Index, Minimum Audience Education Level:
+                <span id="bold-word"> {ARI.grade}</span>
+              </p>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <WordCloud text={prop.speech} />
+          </Col>
+        </Row>
       </div>
     );
   }
