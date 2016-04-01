@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-boolean-value */
 
-// Testing deployment
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
