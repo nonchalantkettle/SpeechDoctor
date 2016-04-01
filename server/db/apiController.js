@@ -22,16 +22,15 @@ module.exports = {
         const dictionaryObj = {};
 
         // If the word is not a word, or not in the dictionary
-        if (result.entry_list === undefined) {
+        if (!result || result.entry_list === undefined) {
           dictionaryObj.def = '-';
           dictionaryObj.pos = '-';
         } else if (result.entry_list.entry === undefined) {
           // this might still have something useful in in
           dictionaryObj.def = '-';
           dictionaryObj.pos = '-';
-
           // Sets POS: sometimes it is in an unusual place
-        } else if (result.entry_list.entry[0].dt === undefined) {
+        } else if (result.entry_list.entry[0] && result.entry_list.entry[0].dt === undefined) {
           if (result.entry_list.entry[0].fl !== undefined) {
             dictionaryObj.pos = result.entry_list.entry[0].fl[0];
           } else if (result.entry_list.entry[1] !== undefined) {
@@ -42,49 +41,73 @@ module.exports = {
             // When the entires are very long, some of the entries for dt are stings
             // the strings are the best options
             if (result.entry_list.entry.length > 6) {
-              if (result.entry_list.entry[1].def[0].dt !== undefined) {
-                for (let k = 0; k < result.entry_list.entry[1].def[0].dt.length; k++) {
-                  if (typeof result.entry_list.entry[1].def[0].dt[k] === 'string') {
-                    dictionaryObj.def = result.entry_list.entry[1].def[0].dt[k];
-                    break;
+              if (result.entry_list.entry[1].def[0]) {
+                if (result.entry_list.entry[1].def[0].dt !== undefined) {
+                  if (result.entry_list.entry[1].def[0].dt.length) {
+                    for (let k = 0; k < result.entry_list.entry[1].def[0].dt.length; k++) {
+                      if (typeof result.entry_list.entry[1].def[0].dt[k] === 'string') {
+                        dictionaryObj.def = result.entry_list.entry[1].def[0].dt[k];
+                        break;
+                      }
+                    }
                   }
                 }
-
                 // when all items are objects, the first entry is the best
                 // so after the loop, if the def is not defined,
                 // go with the def entry in the first object
                 if (dictionaryObj.def === undefined) {
-                  dictionaryObj.def = result.entry_list.entry[1].def[0].dt[0]._;
+                  if (result.entry_list.entry[1].def[0].dt.length) {
+                    if (result.entry_list.entry[1].def[0].dt[0]._) {
+                      dictionaryObj.def = result.entry_list.entry[1].def[0].dt[0]._;
+                    }
+                  }
                 }
               }
             } else {
               // Otherwise if there are fewer than 6 entires
               // the first entry is best
               const dictionaryEntries = result.entry_list.entry[0];
-              const definitions = dictionaryEntries.def[0].dt;
-
-              for (let i = 0; i < definitions.length; i ++) {
-                // This may still need to be tested
-                // res.send(result.entry_list.entry);
-                if (typeof definitions[i] === 'string') {
-                  dictionaryObj.def = definitions[i];
-                  break;
-                } else if (definitions[i]._ && definitions[i]._.length > 2) {
-                  if (definitions[1].un) {
-                    // With more than 2 entire, the first 2 are usually antonym
-                    dictionaryObj.def = definitions[2].un[0]._;
-                  } else {
-                    dictionaryObj.def = definitions[i]._;
+              if (dictionaryEntries.def[0].dt) {
+                const definitions = dictionaryEntries.def[0].dt;
+                if (definitions.length) {
+                  for (let i = 0; i < definitions.length; i ++) {
+                    // This may still need to be tested
+                    // res.send(result.entry_list.entry);
+                    if (typeof definitions[i] === 'string') {
+                      dictionaryObj.def = definitions[i];
+                      break;
+                    } else if (definitions[i]._) {
+                      if (definitions[i]._.length && definitions[i]._.length > 2) {
+                        if (definitions[1]) {
+                          if (definitions[1].un) {
+                            // With more than 2 entire, the first 2 are usually antonym
+                            if (definitions[1].un[0]) {
+                              if (definitions[2].un[0]._) {
+                                dictionaryObj.def = definitions[2].un[0]._;
+                              }
+                            }
+                          } else {
+                            dictionaryObj.def = definitions[i]._;
+                          }
+                          // Breaks out of the loop after assigment
+                          // or if no defs are found
+                          break;
+                        }
+                      } else if (typeof definitions[i].un === 'object') {
+                        if (definitions[i].un[0]) {
+                          if (definitions[i].un[0]._) {
+                            dictionaryObj.def = definitions[i].un[0]._;
+                          }
+                        }
+                        break;
+                      } else if (definitions[i]._.length > 2) {
+                        if (definitions[i]._) {
+                          dictionaryObj.def = definitions[i]._;
+                        }
+                        break;
+                      }
+                    }
                   }
-                  // Breaks out of the loop after assigment
-                  // or if no defs are found
-                  break;
-                } else if (typeof definitions[i].un === 'object') {
-                  dictionaryObj.def = definitions[i].un[0]._;
-                  break;
-                } else if (definitions[i]._.length > 2) {
-                  dictionaryObj.def = definitions[i]._;
-                  break;
                 }
               }
             }
