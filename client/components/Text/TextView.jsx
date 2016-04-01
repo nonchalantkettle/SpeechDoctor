@@ -1,12 +1,12 @@
 import React from 'react';
 import $ from 'jquery';
+import { Row, Col } from 'react-bootstrap';
 
 import InputForm from './InputForm.jsx';
 import TextAnalytics from './TextAnalytics.jsx';
 import Timer from '../Timer.jsx';
 import WordsToAvoid from '../WordsToAvoid.jsx';
 import promptGenerator from '../../utils/randomPromptGenerator';
-import { Row, Col } from 'react-bootstrap';
 
 export default class TextView extends React.Component {
   constructor(props) {
@@ -53,9 +53,6 @@ export default class TextView extends React.Component {
 
   addWordsToAvoidList(word) {
     this.state.wordsToAvoid.push(word);
-    this.setState({
-      wordsToAvoid: this.state.wordsToAvoid,
-    });
   }
 
   removeWordsFromAvoidList() {
