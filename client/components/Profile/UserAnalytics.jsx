@@ -19,6 +19,9 @@ const noDataFound = (
 );
 
 const bodyWidth = document.body.clientWidth;
+const width = bodyWidth * 0.6;
+const height = bodyWidth * 0.4;
+const shorterHeight = bodyWidth * 0.315;
 
 const renderData = (data) => {
   // aggregate text
@@ -53,8 +56,7 @@ const renderData = (data) => {
     return individualTextAverages;
   });
 
-  const widthOrHeight = bodyWidth * 0.475;
-  const shorterHeight = bodyWidth * 0.275;
+
   // Pie Chart
   const PieChart = ReactD3.PieChart;
   const pieChartData = {
@@ -129,13 +131,14 @@ const renderData = (data) => {
         </Col>
       </Row>
       <Row>
-        <Col md={6}>
+        <Col md={1}/>
+        <Col md={8}>
           <div id="piechart">
             <h2>All Time Most-Used Words</h2>
             <hr/>
             <PieChart
               data={pieChartData}
-              width={widthOrHeight}
+              width={width}
               height={shorterHeight}
               id="userChart"
               className="piechart"
@@ -144,22 +147,28 @@ const renderData = (data) => {
             />
           </div>
         </Col>
-        <Col md={6}>
+        <Col md={3}/>
+      </Row>
+      <Row>
+        <Col md={2}/>
+        <Col md={9}>
           <div id="barchart">
-            <h2>All Time Averages</h2>
+            <br/>
+            <h2 id="bar-chart-labels">All Time Averages</h2>
             <hr/>
             <br/>
             {barChartLabels}
-            <br/>
             <BarChart
               data={barChartData}
-              width={widthOrHeight}
-              height={shorterHeight}
+              width={width}
+              height={height}
               id="userChart"
               className="barchart"
               margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
             />
           </div>
+        </Col>
+        <Col md={4}>
         </Col>
       </Row>
       <Row>
@@ -174,8 +183,8 @@ const renderData = (data) => {
           <div id="linechart">
             <LineChart
               data={lineChartData}
-              width={widthOrHeight}
-              height={widthOrHeight}
+              width={width}
+              height={height}
               id="userChart"
               className="linechart"
               margin={ { top: 10, bottom: 50, left: 50, right: 10 } }
