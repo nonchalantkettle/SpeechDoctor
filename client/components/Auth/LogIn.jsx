@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router';
-import api from '../../utils/api';
+import { Link, browserHistory } from 'react-router';
 import { Row, Col } from 'react-bootstrap';
+
+import api from '../../utils/api';
 
 export default class LogIn extends React.Component {
   constructor(props) {
@@ -41,7 +42,7 @@ export default class LogIn extends React.Component {
             username: '',
             password: '',
           });
-          this.props.history.push('/');
+          browserHistory.push('/');
         }
       })
       .catch((err) => {
@@ -109,5 +110,4 @@ export default class LogIn extends React.Component {
 LogIn.propTypes = {
   setUserLoggedIn: React.PropTypes.func,
   history: React.PropTypes.object,
-  'history.push': React.PropTypes.func,
 };
