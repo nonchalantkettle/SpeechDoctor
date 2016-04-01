@@ -53,6 +53,10 @@ const renderData = (data) => {
     return individualTextAverages;
   });
 
+  const pieChartWidth = bodyWidth/2;
+  const pieChartHeight = bodyWidth/3;
+  const evenWidthAndHeight = bodyWidth/2;
+
   // Pie Chart
   const PieChart = ReactD3.PieChart;
   const pieChartData = {
@@ -63,14 +67,29 @@ const renderData = (data) => {
 
   // Bar Chart
   const BarChart = ReactD3.BarChart;
-  const barChartData = [{
+  let barChartData = [{
     label: 'allTimeAverages',
     values: [
-      { x: 'Word Length', y: overallTextStats.charactersPerWord },
-      { x: 'Sentence Length', y: overallTextStats.wordsPerSentence },
-      { x: 'ARI', y: overallARI },
+      { x: 'A', y: overallTextStats.charactersPerWord },
+      { x: 'B', y: overallTextStats.wordsPerSentence },
+      { x: 'C', y: overallARI },
     ],
   }];
+  if (bodyWidth >= 950) {
+    console.log('body width is greather than 950');
+    barChartData = [{
+      label: 'allTimeAverages',
+      values: [
+        { x: 'Word Length', y: overallTextStats.charactersPerWord },
+        { x: 'Sentence Length', y: overallTextStats.wordsPerSentence },
+        { x: 'ARI', y: overallARI },
+      ],
+    }];
+  }
+
+  const barChartLabels = bodyWidth < 950 ?
+    <div id="bar-chart-labels"><p>A - Word Length</p><p>B - Sentence Length</p><p>C - ARI</p></div> :
+    <div></div>;
 
   // Line Graphs
   const lineWordLength = [];
@@ -103,9 +122,6 @@ const renderData = (data) => {
     },
   ];
 
-  const pieChartWidth = bodyWidth/2;
-  const pieChartHeight = bodyWidth/3;
-  const evenWidthAndHeight = bodyWidth/2;
 
   return (
     <div id="userAnalytics">
@@ -134,6 +150,8 @@ const renderData = (data) => {
           <div id="barchart">
             <h2>All Time Averages</h2>
             <hr/>
+            <br/>
+            {barChartLabels}
             <br/>
             <BarChart
               data={barChartData}

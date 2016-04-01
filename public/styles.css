@@ -104,7 +104,6 @@ textarea {
 
 #landingButton {
   font-weight: 400;
-  /*font-style: italic;*/
   border: 0;
   border-radius: 5px;
   text-align: center;
@@ -151,10 +150,6 @@ textarea {
   margin: 35px;
 }
 
-#rendered-speech {
-  /*margin: 35px;*/
-}
-
 #topThreeMostUsed > p {
   font-weight: 400;
 }
@@ -192,7 +187,6 @@ p#bold-word, span#bold-word{
   margin-top: 0;
 }
 .avoid-words {
-  /*float:left;*/
   width: 40%;
 }
 
@@ -239,7 +233,7 @@ p#bold-word, span#bold-word{
   height: 100%;
 }
 
-#statsOverTime {
+#statsOverTime, #bar-chart-labels {
   text-align: right;
 }
 
