@@ -1,11 +1,9 @@
 import React from 'react';
 import d3 from 'd3';
 import cloud from 'd3.layout.cloud';
-
 import { countEachWord, getTextStats } from '../../server/utils/customTextAnalytics.js';
-
 const bodyWidth = document.body.clientWidth;
-console.log(bodyWidth);
+
 export default function WordCloud(prop) {
   const numWords = getTextStats(prop.text).words;
   const wordsToIgnore = /\b[a-z0-9]{1,2}\b|the\b|and\b|that\b|are\b|for\b|have/gi;
