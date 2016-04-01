@@ -46,7 +46,7 @@ export default function TextAnalytics(prop) {
             console.log(" There was an error with your request ")
             return;
           }
-          
+
           const def = defData.def;
           const pos = defData.pos;
           const syns = synData.syns;
