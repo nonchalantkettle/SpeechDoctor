@@ -26,7 +26,7 @@ module.exports = {
           dictionaryObj.def = '-';
           dictionaryObj.pos = '-';
         } else if (result.entry_list.entry === undefined) {
-          // this might still have something useful in in
+          // this might still have something useful in it
           dictionaryObj.def = '-';
           dictionaryObj.pos = '-';
           // Sets POS: sometimes it is in an unusual place
@@ -36,7 +36,7 @@ module.exports = {
           } else if (result.entry_list.entry[1] !== undefined) {
             dictionaryObj.pos = result.entry_list.entry[1].fl[0];
           }
-          // Set DEF: when this object has more than 1 entry, the first entry are usually antonyms
+          // Set DEF: when this object has more than 1 entry, the first entry is usually antonyms
           if (result.entry_list.entry[0].def !== undefined) {
             // When the entires are very long, some of the entries for dt are stings
             // the strings are the best options
@@ -80,7 +80,7 @@ module.exports = {
                       if (definitions[i]._.length && definitions[i]._.length > 2) {
                         if (definitions[1]) {
                           if (definitions[1].un) {
-                            // With more than 2 entire, the first 2 are usually antonym
+                            // With more than 2 entire defs?, the first 2 are usually antonyms
                             if (definitions[1].un[0]) {
                               if (definitions[2].un[0]._) {
                                 dictionaryObj.def = definitions[2].un[0]._;
@@ -111,7 +111,6 @@ module.exports = {
                 }
               }
             }
-
             // When the entry has this configuration
             // the def is broken up into two entries
           } else if (result.entry_list.entry[0].cx !== undefined) {
@@ -134,7 +133,7 @@ module.exports = {
           }
         }
 
-        // If both def and pos are stings, replace can be used.
+        // If both def and pos are strings, replace can be used.
         // Otherwise the method replace fails
         if (typeof dictionaryObj.def === 'string') {
           dictionaryObj.def = dictionaryObj.def.replace(/\:|\[|\]|\(|\)/g, '');
@@ -179,7 +178,13 @@ module.exports = {
             if (thesaurusEntries.length > 5) {
               if (thesaurusEntries[0].sens[0] !== undefined) {
                 // ** this may still need to be tested **
-                thesaurusObj.syns = thesaurusEntries[0].sens[0].syn[0]._;
+                if (thesaurusEntries[0].sens[0].syn) {
+                  if (thesaurusEntries[0].sens[0].syn[0]) {
+                    if (thesaurusEntries[0].sens[0].syn[0]._) {
+                      thesaurusObj.syns = thesaurusEntries[0].sens[0].syn[0]._;
+                    }
+                  }
+                }
               }
 
               // If the first item is undefined, and the second item is an object
@@ -202,7 +207,9 @@ module.exports = {
           thesaurusObj.syns = '-';
         }
 
-        thesaurusObj.syns = thesaurusObj.syns.replace(/[\:\[\]\(\)]/g, '');
+        if (typeof thesaurusObj.syns === 'string') {
+          thesaurusObj.syns = thesaurusObj.syns.replace(/[\:\[\]\(\)]/g, '');
+        }
         res.send(thesaurusObj);
       });
     });
