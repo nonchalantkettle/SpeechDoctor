@@ -247,3 +247,7 @@ svg {
   display: block;
 }
 
+#lightBackgroundLink {
+  color: #576064;
+  font-weight: bold;
+}

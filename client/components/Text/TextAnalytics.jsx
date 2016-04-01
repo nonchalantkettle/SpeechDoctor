@@ -29,7 +29,8 @@ export default function TextAnalytics(prop) {
   const avoidedWordsUsed = checkWordsToAvoid(prop.wordsToAvoid, prop.text);
 
   const askToSave = !prop.userLoggedIn ?
-    <p><Link to="signup">Sign up </Link>or <Link to="login">log in </Link>to save your results</p>
+    <p><Link id="lightBackgroundLink" to="signup">Sign up </Link>
+      or <Link to="login" id="lightBackgroundLink">log in </Link>to save your results</p>
     : <div></div>;
   if (prop.text) {
     const counts = getTextStats(prop.text);
